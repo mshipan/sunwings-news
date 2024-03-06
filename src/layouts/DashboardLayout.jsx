@@ -1,3 +1,4 @@
+import { Outlet } from "react-router-dom";
 import Sidebar from "../components/dashboard/Sidebar";
 import Topbar from "../components/dashboard/Topbar";
 import { useState } from "react";
@@ -14,9 +15,15 @@ const DashboardLayout = () => {
       <Sidebar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
       {/* End: Sidebar */}
 
-      {/* Star: Topbar */}
-      <Topbar toggleSidebar={toggleSidebar} />
       {/* End: Topbar */}
+
+      <main className="w-full md:w-[calc(100%-256px)] md:ml-64 bg-gray-50 min-h-screen transition-all main">
+        {/* Topbar */}
+        <Topbar toggleSidebar={toggleSidebar} />
+        <div className="p-3 md:p-6">
+          <Outlet />
+        </div>
+      </main>
     </>
   );
 };
