@@ -1,6 +1,7 @@
 import HeaderTop from "../components/shared/HeaderTop";
 import HeaderLogo from "../components/shared/HeaderLogo";
 import HeaderMenu from "../components/shared/HeaderMenu";
+import FooterArea from "../components/shared/FooterArea";
 
 const MainLayout = () => {
   return (
@@ -11,6 +12,8 @@ const MainLayout = () => {
       <HeaderLogo/>
       {/* header manu */}
       <HeaderMenu/>
+      {/* footer area */}
+      <FooterArea/>
     </div>
   );
 };
