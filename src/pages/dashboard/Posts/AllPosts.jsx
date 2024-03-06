@@ -240,11 +240,11 @@ const AllPosts = () => {
     <div className="flex flex-col gap-3">
       <div className="flex flex-col md:flex-row gap-3">
         <h1 className="text-black text-2xl">All Posts</h1>
-        <div>
+        <Link to="/dashboard/add-new-post">
           <button className="bg-blue-100 px-4 py-1 border border-blue-500 rounded-sm text-blue-500 hover:bg-gray-100 transition-all duration-300 ease-in-out">
             Add New Post
           </button>
-        </div>
+        </Link>
       </div>
       <div className="mt-5 flex items-center gap-1 text-xs">
         <p className="text-xs">All (344) </p>|
@@ -256,7 +256,7 @@ const AllPosts = () => {
           <select
             name="month"
             onChange={handleFilterChange}
-            className="block rounded-sm px-2 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6"
+            className="block rounded-sm px-2 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6 bg-white "
           >
             {months?.map((month, i) => (
               <option key={i} value={month?.value}>
@@ -267,7 +267,7 @@ const AllPosts = () => {
           <select
             name="year"
             onChange={handleFilterChange}
-            className="block rounded-sm px-2 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6"
+            className="block rounded-sm px-2 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6 bg-white"
           >
             {years?.map((year, i) => (
               <option key={i} value={year?.value}>
@@ -278,7 +278,7 @@ const AllPosts = () => {
           <select
             name="categories"
             onChange={handleFilterChange}
-            className="block rounded-sm px-2 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6"
+            className="block rounded-sm px-2 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6 bg-white"
           >
             {categories?.map((category, i) => (
               <option key={i} value={category?.value}>
@@ -289,7 +289,7 @@ const AllPosts = () => {
           <select
             name="status"
             onChange={handleFilterChange}
-            className="block rounded-sm px-2 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6"
+            className="block rounded-sm px-2 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6 bg-white"
           >
             <option value="">Status</option>
             <option value="published">Published</option>
@@ -298,7 +298,7 @@ const AllPosts = () => {
           <select
             name="author"
             onChange={handleFilterChange}
-            className="block rounded-sm px-2 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6"
+            className="block rounded-sm px-2 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6 bg-white"
           >
             {authors?.map((author, i) => (
               <option key={i} value={author?.value}>
@@ -322,7 +322,7 @@ const AllPosts = () => {
             placeholder="Search Post..."
             value={searchQuery}
             onChange={handleSearchInputChange}
-            className="block rounded-sm px-2 border border-gray-300 py-1.5 text-gray-900 shadow-sm focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:max-w-xs sm:text-sm sm:leading-6"
+            className="block rounded-sm px-2 border border-gray-300 py-1.5 text-gray-900 shadow-sm focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:max-w-xs sm:text-sm sm:leading-6 bg-white"
           />
           <div>
             <button
