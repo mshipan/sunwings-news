@@ -1,7 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../layouts/DashboardLayout";
 import MainLayout from "../layouts/MainLayout";
-import AllPosts from "../pages/dashboard/AllPosts";
+import AllPosts from "../pages/dashboard/Posts/AllPosts";
+import AddNewPost from "../pages/dashboard/Posts/AddNewPost";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: "all-posts",
         element: <AllPosts />,
+      },
+      {
+        path: "add-new-post",
+        element: <AddNewPost />,
       },
     ],
   },
