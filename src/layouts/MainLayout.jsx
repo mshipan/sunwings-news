@@ -5,7 +5,7 @@ import FooterArea from "../components/shared/FooterArea";
 
 const MainLayout = () => {
   return (
-    <div className="">
+    <div className="bg-white">
       {/* header top */}
       <HeaderTop/>
       {/* header logo */}
