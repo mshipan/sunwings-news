@@ -1,6 +1,7 @@
 import { IoIosNotifications, IoIosSearch } from "react-icons/io";
 import { RiMenu4Line } from "react-icons/ri";
 import { Link } from "react-router-dom";
+import BreadCrumbs from "../shared/BreadCrumbs";
 
 const Topbar = ({ toggleSidebar }) => {
   return (
@@ -12,18 +13,7 @@ const Topbar = ({ toggleSidebar }) => {
       >
         <RiMenu4Line className="text-2xl" />
       </button>
-      <ul className="flex items-center text-sm ml-4">
-        <li className="mr-2">
-          <Link
-            to="#"
-            className="text-gray-400 hover:text-gray-600 font-medium"
-          >
-            Dashboard
-          </Link>
-        </li>
-        <li className="text-gray-600 mr-2 font-medium">/</li>
-        <li className="text-gray-600 mr-2 font-medium">Analytics</li>
-      </ul>
+      <BreadCrumbs />
       <ul className="ml-auto flex items-center">
         <li className="mr-1 dropdown">
           <button
