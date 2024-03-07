@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import "react-tabs/style/react-tabs.css";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { Link } from "react-router-dom";
 
 const AddNewPost = () => {
   const [quillValue, setQuillValue] = useState("");
@@ -32,6 +31,7 @@ const AddNewPost = () => {
         <h1 className="text-black text-2xl mb-4">Add New Post</h1>
         <div>
           <form className="flex flex-col md:flex-row gap-9">
+            {/* Add Title & React Quill */}
             <div className="flex flex-col gap-6 md:w-2/3">
               <div className="form-control">
                 <input
@@ -83,135 +83,8 @@ const AddNewPost = () => {
                 </div>
               </div>
             </div>
+
             <div className="md:w-1/3 flex flex-col gap-3">
-              <div
-                className={`collapse-arrow w-full rounded-none select-none ${
-                  categoryAccordionOpen ? "collapse-open" : "collapse-close"
-                }`}
-              >
-                <div
-                  onClick={toggleCategoryAccordion}
-                  className="collapse-title text-xl font-medium bg-white border border-gray-400"
-                >
-                  <h1 className="text-black">Categories</h1>
-                </div>
-                <div
-                  className={`collapse-content border border-gray-400 ${
-                    categoryAccordionOpen ? "open" : ""
-                  }`}
-                >
-                  <div className="mt-4">
-                    <Tabs>
-                      <TabList>
-                        <Tab>
-                          <p className="text-blue-500">All Categories</p>
-                        </Tab>
-                        <Tab>Most Used</Tab>
-                      </TabList>
-
-                      <TabPanel>
-                        <div className="flex flex-col gap-1">
-                          <div className="flex items-center gap-2">
-                            <input
-                              type="checkbox"
-                              name=""
-                              id=""
-                              className="checkbox checkbox-success"
-                            />
-                            <p className="text-black text-lg font-medium">
-                              Category 1
-                            </p>
-                          </div>
-
-                          <div className="flex items-center gap-2">
-                            <input
-                              type="checkbox"
-                              name=""
-                              id=""
-                              className="checkbox checkbox-success"
-                            />
-                            <p className="text-black text-lg font-medium">
-                              Category 2
-                            </p>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <input
-                              type="checkbox"
-                              name=""
-                              id=""
-                              className="checkbox checkbox-success"
-                            />
-                            <p className="text-black text-lg font-medium">
-                              Category 2
-                            </p>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <input
-                              type="checkbox"
-                              name=""
-                              id=""
-                              className="checkbox checkbox-success"
-                            />
-                            <p className="text-black text-lg font-medium">
-                              Category 2
-                            </p>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <input
-                              type="checkbox"
-                              name=""
-                              id=""
-                              className="checkbox checkbox-success"
-                            />
-                            <p className="text-black text-lg font-medium">
-                              Category 2
-                            </p>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <input
-                              type="checkbox"
-                              name=""
-                              id=""
-                              className="checkbox checkbox-success"
-                            />
-                            <p className="text-black text-lg font-medium">
-                              Category 2
-                            </p>
-                          </div>
-                        </div>
-                      </TabPanel>
-                      <TabPanel>
-                        <div className="flex flex-col gap-1">
-                          <div className="flex items-center gap-2">
-                            <input
-                              type="checkbox"
-                              name=""
-                              id=""
-                              className="checkbox checkbox-success"
-                            />
-                            <p className="text-black text-lg font-medium">
-                              Category 3
-                            </p>
-                          </div>
-
-                          <div className="flex items-center gap-2">
-                            <input
-                              type="checkbox"
-                              name=""
-                              id=""
-                              className="checkbox checkbox-success"
-                            />
-                            <p className="text-black text-lg font-medium">
-                              Category 4
-                            </p>
-                          </div>
-                        </div>
-                      </TabPanel>
-                    </Tabs>
-                  </div>
-                </div>
-              </div>
-
               <div
                 className={`collapse-arrow w-full rounded-none select-none ${
                   publishAccordionOpen ? "collapse-open" : "collapse-close"
@@ -240,6 +113,116 @@ const AddNewPost = () => {
                     <button className="px-4 py-1 border border-red-600 bg-transparent hover:bg-red-600 text-red-600 hover:text-white font-medium">
                       Move to Trash
                     </button>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                className={`collapse-arrow w-full rounded-none select-none ${
+                  categoryAccordionOpen ? "collapse-open" : "collapse-close"
+                }`}
+              >
+                <div
+                  onClick={toggleCategoryAccordion}
+                  className="collapse-title text-xl font-medium bg-white border border-gray-400"
+                >
+                  <h1 className="text-black">Categories</h1>
+                </div>
+                <div
+                  className={`collapse-content border border-gray-400 ${
+                    categoryAccordionOpen ? "open" : ""
+                  }`}
+                >
+                  <div className="mt-4">
+                    <div className="mb-2">
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          name=""
+                          id=""
+                          className="checkbox checkbox-success"
+                        />
+                        <p className="text-black text-lg font-medium">
+                          Category 1
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          name=""
+                          id=""
+                          className="checkbox checkbox-success"
+                        />
+                        <p className="text-black text-lg font-medium">
+                          Category 2
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          name=""
+                          id=""
+                          className="checkbox checkbox-success"
+                        />
+                        <p className="text-black text-lg font-medium">
+                          Category 3
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          name=""
+                          id=""
+                          className="checkbox checkbox-success"
+                        />
+                        <p className="text-black text-lg font-medium">
+                          Category 4
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          name=""
+                          id=""
+                          className="checkbox checkbox-success"
+                        />
+                        <p className="text-black text-lg font-medium">
+                          Category 5
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          name=""
+                          id=""
+                          className="checkbox checkbox-success"
+                        />
+                        <p className="text-black text-lg font-medium">
+                          Category 6
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          name=""
+                          id=""
+                          className="checkbox checkbox-success"
+                        />
+                        <p className="text-black text-lg font-medium">
+                          Category 7
+                        </p>
+                      </div>
+                    </div>
+                    <div className="p-4 bg-gray-200">
+                      <Link
+                        to="/dashboard/categories"
+                        className="hover:underline underline-offset-4"
+                      >
+                        <h1 className="text-blue-500 text-lg">
+                          All Categories
+                        </h1>
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>
