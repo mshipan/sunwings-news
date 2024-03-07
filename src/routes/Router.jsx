@@ -3,6 +3,7 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import MainLayout from "../layouts/MainLayout";
 import AllPosts from "../pages/dashboard/Posts/AllPosts";
 import AddNewPost from "../pages/dashboard/Posts/AddNewPost";
+import Categories from "../pages/dashboard/Posts/Categories";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: "add-new-post",
         element: <AddNewPost />,
+      },
+      {
+        path: "categories",
+        element: <Categories />,
       },
     ],
   },
