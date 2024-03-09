@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { Link } from "react-router-dom";
@@ -8,6 +9,12 @@ const AddNewPost = () => {
   const [wordCount, setWordCount] = useState(0);
   const [publishAccordionOpen, setPublishAccordionOpen] = useState(true);
   const [categoryAccordionOpen, setCategoryAccordionOpen] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
 
   const handleQuillChange = (content, _, __, editor) => {
     setQuillValue(content);
@@ -25,12 +32,20 @@ const AddNewPost = () => {
     setCategoryAccordionOpen(!categoryAccordionOpen);
   };
 
+  const onSubmit = (data) => {
+    data.quill = quillValue;
+    console.log(data);
+  };
+
   return (
     <div className="flex flex-col gap-3">
       <div className="flex flex-col gap-3">
         <h1 className="text-black text-2xl mb-4">Add New Post</h1>
         <div>
-          <form className="flex flex-col md:flex-row gap-9">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col md:flex-row gap-9"
+          >
             {/* Add Title & React Quill */}
             <div className="flex flex-col gap-6 md:w-2/3">
               <div className="form-control">
@@ -52,7 +67,7 @@ const AddNewPost = () => {
                     toolbar: [
                       [{ header: [1, 2, 3, 4, false] }],
                       ["bold", "italic", "underline", "strike", "blockquote"],
-                      [{ color: [] }],
+                      [{ color: [] }], // Include text color option
                       [{ align: [] }],
                       [
                         { list: "ordered" },
@@ -64,23 +79,10 @@ const AddNewPost = () => {
                       ["clean"],
                     ],
                   }}
-                  formats={[
-                    "header",
-                    "bold",
-                    "italic",
-                    "underline",
-                    "strike",
-                    "blockquote",
-                    "list",
-                    "bullet",
-                    "indent",
-                    "link",
-                    "image",
-                  ]}
                 />
-                <div className="text-red-600 flex items-center gap-1 pl-2">
-                  <p className="text-black">Word Count:</p> {wordCount}
-                </div>
+              </div>
+              <div className="text-red-600 flex items-center gap-1 pl-2">
+                <p className="text-black">Word Count:</p> {wordCount}
               </div>
             </div>
 
@@ -106,7 +108,10 @@ const AddNewPost = () => {
                       Save Draft
                     </button>
 
-                    <button className="px-4 py-1 border border-blue-600 bg-transparent hover:bg-blue-600 text-blue-600 hover:text-white font-medium">
+                    <button
+                      type="submit"
+                      className="px-4 py-1 border border-blue-600 bg-transparent hover:bg-blue-600 text-blue-600 hover:text-white font-medium"
+                    >
                       Publish
                     </button>
 
@@ -229,6 +234,11 @@ const AddNewPost = () => {
             </div>
           </form>
         </div>
+      </div>
+
+      <div>
+        <h1>Your Post Content</h1>
+        <div dangerouslySetInnerHTML={{ __html: quillValue }} />
       </div>
     </div>
   );
