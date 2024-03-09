@@ -8,7 +8,7 @@ const postApi = baseApi.injectEndpoints({
     }),
 
     addNewPost: builder.mutation({
-      query: ({ data }) => ({
+      query: (data) => ({
         url: "/posts",
         method: "POST",
         body: data,
@@ -18,4 +18,4 @@ const postApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetPostsQuery } = postApi;
+export const { useGetPostsQuery, useAddNewPostMutation } = postApi;
