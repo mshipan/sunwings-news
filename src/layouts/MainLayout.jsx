@@ -7,13 +7,13 @@ const MainLayout = () => {
   return (
     <div className="bg-white">
       {/* header top */}
-      <HeaderTop/>
+      <HeaderTop />
       {/* header logo */}
-      <HeaderLogo/>
-      {/* header manu */}
-      <HeaderMenu/>
+      <HeaderLogo />
+      {/* header menu */}
+      <HeaderMenu />
       {/* footer area */}
-      <FooterArea/>
+      <FooterArea />
     </div>
   );
 };
