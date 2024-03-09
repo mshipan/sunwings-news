@@ -1,13 +1,36 @@
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { Link } from "react-router-dom";
+import Select from "react-select";
+import { useAddNewPostMutation } from "../../../redux/features/allApis/postApi/postApi";
+import Swal from "sweetalert2";
 
 const AddNewPost = () => {
+  const [loading, setLoading] = useState(false);
   const [quillValue, setQuillValue] = useState("");
   const [wordCount, setWordCount] = useState(0);
   const [publishAccordionOpen, setPublishAccordionOpen] = useState(true);
   const [categoryAccordionOpen, setCategoryAccordionOpen] = useState(false);
+  const [selectedCategories, setSelectedCategories] = useState(null);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+  const options = [
+    { value: "category1", label: "Category 1" },
+    { value: "category2", label: "Category 2" },
+    { value: "category3", label: "Category 3" },
+    { value: "category4", label: "Category 4" },
+    { value: "category5", label: "Category 5" },
+    { value: "category6", label: "Category 6" },
+    { value: "category7", label: "Category 7" },
+    { value: "category8", label: "Category 8" },
+  ];
 
   const handleQuillChange = (content, _, __, editor) => {
     setQuillValue(content);
@@ -25,24 +48,69 @@ const AddNewPost = () => {
     setCategoryAccordionOpen(!categoryAccordionOpen);
   };
 
+  const [createPost] = useAddNewPostMutation();
+
+  const onSubmit = async (data) => {
+    data.categories = selectedCategories?.map((ca) => ca.value);
+    data.quill = quillValue;
+    console.log(data);
+    try {
+      setLoading(true);
+      const result = await createPost(data);
+      if (result.data) {
+        Swal.fire({
+          title: "Post Published Successfully!",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+        reset();
+        setLoading(false);
+      } else {
+        Swal.fire({
+          title: "Failed to Publish Post.",
+          text: "Press OK to continue",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+        setLoading(false);
+      }
+    } catch (error) {
+      Swal.fire({
+        title: "An unexpected error occurred",
+        text: `${error}`,
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-3">
       <div className="flex flex-col gap-3">
         <h1 className="text-black text-2xl mb-4">Add New Post</h1>
         <div>
-          <form className="flex flex-col md:flex-row gap-9">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col md:flex-row gap-9"
+          >
             {/* Add Title & React Quill */}
+
             <div className="flex flex-col gap-6 md:w-2/3">
               <div className="form-control">
                 <input
                   type="text"
                   name="postTitle"
+                  {...register("postTitle")}
                   className="py-3 bg-white border border-gray-300 px-2 placeholder:text-2xl text-2xl placeholder:text-gray-500 text-black rounded-sm"
                   placeholder="Add title"
                 />
               </div>
 
               <div>
+                <div className="text-red-600 flex items-center gap-1 pl-2">
+                  <p className="text-black">Word Count:</p> {wordCount}
+                </div>
                 <ReactQuill
                   theme="snow"
                   value={quillValue}
@@ -50,7 +118,7 @@ const AddNewPost = () => {
                   className="h-96 bg-white"
                   modules={{
                     toolbar: [
-                      [{ header: [1, 2, 3, 4, false] }],
+                      [{ header: "1" }, { header: "2" }, { font: [] }],
                       ["bold", "italic", "underline", "strike", "blockquote"],
                       [{ color: [] }],
                       [{ align: [] }],
@@ -60,27 +128,11 @@ const AddNewPost = () => {
                         { indent: "-1" },
                         { indent: "+1" },
                       ],
-                      ["link", "image"],
+                      ["link", "image", "video"],
                       ["clean"],
                     ],
                   }}
-                  formats={[
-                    "header",
-                    "bold",
-                    "italic",
-                    "underline",
-                    "strike",
-                    "blockquote",
-                    "list",
-                    "bullet",
-                    "indent",
-                    "link",
-                    "image",
-                  ]}
                 />
-                <div className="text-red-600 flex items-center gap-1 pl-2">
-                  <p className="text-black">Word Count:</p> {wordCount}
-                </div>
               </div>
             </div>
 
@@ -106,8 +158,11 @@ const AddNewPost = () => {
                       Save Draft
                     </button>
 
-                    <button className="px-4 py-1 border border-blue-600 bg-transparent hover:bg-blue-600 text-blue-600 hover:text-white font-medium">
-                      Publish
+                    <button
+                      type="submit"
+                      className="px-4 py-1 border border-blue-600 bg-transparent hover:bg-blue-600 text-blue-600 hover:text-white font-medium"
+                    >
+                      {loading ? "Publishing..." : "Publish"}
                     </button>
 
                     <button className="px-4 py-1 border border-red-600 bg-transparent hover:bg-red-600 text-red-600 hover:text-white font-medium">
@@ -134,86 +189,17 @@ const AddNewPost = () => {
                   }`}
                 >
                   <div className="mt-4">
-                    <div className="mb-2">
-                      <div className="flex items-center gap-2">
-                        <input
-                          type="checkbox"
-                          name=""
-                          id=""
-                          className="checkbox checkbox-success"
-                        />
-                        <p className="text-black text-lg font-medium">
-                          Category 1
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <input
-                          type="checkbox"
-                          name=""
-                          id=""
-                          className="checkbox checkbox-success"
-                        />
-                        <p className="text-black text-lg font-medium">
-                          Category 2
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <input
-                          type="checkbox"
-                          name=""
-                          id=""
-                          className="checkbox checkbox-success"
-                        />
-                        <p className="text-black text-lg font-medium">
-                          Category 3
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <input
-                          type="checkbox"
-                          name=""
-                          id=""
-                          className="checkbox checkbox-success"
-                        />
-                        <p className="text-black text-lg font-medium">
-                          Category 4
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <input
-                          type="checkbox"
-                          name=""
-                          id=""
-                          className="checkbox checkbox-success"
-                        />
-                        <p className="text-black text-lg font-medium">
-                          Category 5
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <input
-                          type="checkbox"
-                          name=""
-                          id=""
-                          className="checkbox checkbox-success"
-                        />
-                        <p className="text-black text-lg font-medium">
-                          Category 6
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <input
-                          type="checkbox"
-                          name=""
-                          id=""
-                          className="checkbox checkbox-success"
-                        />
-                        <p className="text-black text-lg font-medium">
-                          Category 7
-                        </p>
-                      </div>
+                    <div className="mb-2 text-black">
+                      <Select
+                        className="z-30"
+                        name="caregories"
+                        onChange={setSelectedCategories}
+                        options={options}
+                        isMulti
+                        classNamePrefix="text-black"
+                      />
                     </div>
-                    <div className="p-4 bg-gray-200">
+                    <div className="p-2 bg-gray-200 mt-4">
                       <Link
                         to="/dashboard/categories"
                         className="hover:underline underline-offset-4"
@@ -229,6 +215,14 @@ const AddNewPost = () => {
             </div>
           </form>
         </div>
+      </div>
+
+      <div className="mt-10 max-w-4xl">
+        <h1 className="text-xl text-black my-5">Your Post Preview:</h1>
+        <div
+          dangerouslySetInnerHTML={{ __html: quillValue }}
+          className="max-w-4xl"
+        />
       </div>
     </div>
   );
