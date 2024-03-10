@@ -3,10 +3,12 @@ import homeSliderImg from "../../assets/1.png";
 import card from "../../assets/home-slider.jpg";
 import cardFacebook from "../../assets/facebook.jpg";
 import twitter from "../../assets/twitter.jpg";
-import customImg from "../../assets/HomeBanner1.png";
 import { Link } from "react-router-dom";
 import { FaFacebookSquare, FaShare, FaTwitterSquare } from "react-icons/fa";
 import NewsCard from "../../components/homePage/NewsCard";
+import NewsContent from "../../components/homePage/NewsContent";
+import fullImg from "../../assets/2.png";
+import SmallNewsCard from "../../components/shared/SmallNewsCard";
 
 const Home = () => {
   return (
@@ -134,33 +136,35 @@ const Home = () => {
           </div>
         </div>
       </div>
-      {/* <div className="flex items-center max-w-[49%] gap-6 py-6">
-        <img src={customImg} alt="" />
-        <img src={customImg} alt="" />
+
+      <NewsContent />
+
+      <div className="py-4">
+        <img src={fullImg} alt="" />
       </div>
-      <div className="flex gap-5">
+
+      <div className="">
         <div className="">
-          <div className="grow">
           <div className="bg-gray-300 text-black font-semibold border-l-4 border-orange-500 my-4">
-            <p className='text-base ml-1 p-2'>জাতীয়</p>
+            <p className="text-base ml-1 p-2">আন্তর্জাতিক</p>
           </div>
-          <div className="flex gap-4">
-            <div className="grow">
-              <img src={homeSliderImg} alt="" />
+          {/* <div className=""> */}
+          <div className="bg-slate-100 mb-4">
+            <img src={card} alt="" />
+            <div className="p-2">
+              <h3 className="text-base font-medium">
+                সৌদিতে মঙ্গলবার পর্যন্ত ঝরবে বৃষ্টি, ক্লাস অনলাইনে
+              </h3>
             </div>
-            <div className="flex-none w-72 p-4 bg-yellow-300">
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt hic eos repudiandae tenetur in perspiciatis ut fugiat, rem sequi inventore libero odit ipsum omnis facilis repellat dicta rerum a ea!</p>
-            </div>
           </div>
+          <div className="flex flex-col gap-4">
+            <SmallNewsCard />
+            <SmallNewsCard />
+            <SmallNewsCard />
           </div>
+          {/* </div> */}
         </div>
-        <div className="flex-none w-72 h-60 text-white">
-          <div className="bg-gray-300 text-black font-semibold border-l-4 border-orange-500 my-4">
-            <p className='text-base ml-1 p-2'>রাজনীতি</p>
-          </div>
-          <p className='bg-slate-500 p-4'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt hic eos repudiandae tenetur in perspiciatis ut fugiat, rem sequi inventore libero odit ipsum omnis facilis repellat dicta rerum a ea!</p>
-        </div>
-      </div> */}
+      </div>
     </div>
   );
 };
