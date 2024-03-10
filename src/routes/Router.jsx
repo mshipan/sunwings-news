@@ -8,6 +8,7 @@ import AllPage from "../pages/dashboard/Pages/AllPage/AllPage";
 import AddNewPage from "../pages/dashboard/Pages/AddNewPage/AddNewPage";
 import Login from "../pages/login/Login";
 import Register from "../pages/register/Register";
+import Home from "../pages/homePage/Home";
 
 const router = createBrowserRouter([
   {
@@ -16,7 +17,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home/>
+        element: <Home />,
       },
     ],
   },

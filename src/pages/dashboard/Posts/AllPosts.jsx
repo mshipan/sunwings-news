@@ -1,6 +1,7 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useGetPostsQuery } from "../../../redux/features/allApis/postApi/postApi";
 
 const AllPosts = () => {
   const [filters, setFilters] = useState({
@@ -11,6 +12,8 @@ const AllPosts = () => {
     author: "",
   });
   const [searchQuery, setSearchQuery] = useState("");
+
+  const { data: allPosts } = useGetPostsQuery();
 
   const handleFilterChange = (event) => {
     const { name, value } = event.target;
@@ -59,6 +62,27 @@ const AllPosts = () => {
       </span>
     );
   };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const options = { day: "numeric", month: "long", year: "numeric" };
+    const formattedDate = new Intl.DateTimeFormat("en-US", options).format(
+      date
+    );
+    const day = date.getDate();
+    let suffix;
+    if (day === 1 || day === 21 || day === 31) {
+      suffix = "st";
+    } else if (day === 2 || day === 22) {
+      suffix = "nd";
+    } else if (day === 3 || day === 23) {
+      suffix = "rd";
+    } else {
+      suffix = "th";
+    }
+    return `${day}${suffix} ${formattedDate}`;
+  };
+
   const columns = [
     { field: "id", headerName: "Sl No", width: 80 },
     {
@@ -77,16 +101,28 @@ const AllPosts = () => {
       headerName: "Categories",
       type: "text",
       width: 180,
+      renderCell: (params) => (
+        <div>
+          {params.value.map((category, index) => (
+            <span
+              key={index}
+              className="inline-block px-[6px] py-[2px] mr-1 bg-[#F7D7B6] rounded"
+            >
+              {category}
+            </span>
+          ))}
+        </div>
+      ),
     },
     {
       field: "publishDate",
       headerName: "Publish Date",
-      width: 120,
+      width: 180,
     },
     {
       field: "status",
       headerName: "Status",
-      width: 90,
+      width: 140,
       renderCell: (params) => <StatusBadge status={params.value} />,
     },
     {
@@ -97,73 +133,28 @@ const AllPosts = () => {
     },
   ];
 
-  const rows = [
-    {
-      id: 1,
-      author: "Snow",
-      title: "Jon",
-      categories: "New",
-      publishDate: "12-Jan-2024",
-      status: "published",
-    },
-    {
-      id: 2,
-      author: "Lannister",
-      title: "Cersei",
-      categories: "New",
-      publishDate: "12-Jan-2024",
-      status: "draft",
-    },
-    {
-      id: 3,
-      author: "Lannister",
-      title: "Jaime",
-      categories: "New",
-      publishDate: "12-Jan-2024",
-    },
-    {
-      id: 4,
-      author: "Stark",
-      title: "Arya",
-      categories: "New",
-      publishDate: "12-Jan-2024",
-    },
-    {
-      id: 5,
-      author: "Targaryen",
-      title: "Daenerys",
-      categories: "New",
-      publishDate: "12-Jan-2024",
-    },
-    {
-      id: 6,
-      author: "Melisandre",
-      title: null,
-      categories: "New",
-      publishDate: "12-Jan-2024",
-    },
-    {
-      id: 7,
-      author: "Clifford",
-      title: "Ferrara",
-      categories: "New",
-      publishDate: "12-Jan-2024",
-    },
-    {
-      id: 8,
-      author: "Frances",
-      title: "Rossini",
-      categories: "New",
-      publishDate: "12-Jan-2024",
-    },
-    {
-      id: 9,
-      author: "Roxie",
-      title: "Harvey",
-      categories: "New",
-      publishDate: "12-Jan-2024",
-    },
-  ];
+  // const rows = [
+  //   {
+  //     id: 1,
+  //     author: "Snow",
+  //     title: "Jon",
+  //     categories: "New",
+  //     publishDate: "12-Jan-2024",
+  //     status: "published",
+  //   },
+
+  // ];
+
+  const rows = allPosts
+    ? allPosts.map((post, i) => ({
+        id: i + 1,
+        author: post.author,
+        title: post?.postTitle,
+        categories: post?.categories?.map((category) => category),
+        publishDate: formatDate(post?.publishDate),
+        status: post.status,
+      }))
+    : [];
 
   const handleEdit = (id) => {
     // Handle edit action
