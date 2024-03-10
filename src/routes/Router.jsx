@@ -9,6 +9,7 @@ import AddNewPage from "../pages/dashboard/Pages/AddNewPage/AddNewPage";
 import Login from "../pages/login/Login";
 import Register from "../pages/register/Register";
 import Home from "../pages/homePage/Home";
+import AllUsers from "../pages/dashboard/Users/AllUsers/AllUsers";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: "add-new-page",
         element: <AddNewPage />,
+      },
+      {
+        path: "all-users",
+        element: <AllUsers />,
       },
     ],
   },
