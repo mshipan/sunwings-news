@@ -14,12 +14,7 @@ const AddNewPost = () => {
   const [publishAccordionOpen, setPublishAccordionOpen] = useState(true);
   const [categoryAccordionOpen, setCategoryAccordionOpen] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState(null);
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, reset, watch } = useForm();
 
   const options = [
     { value: "category1", label: "Category 1" },
@@ -50,16 +45,25 @@ const AddNewPost = () => {
 
   const [createPost] = useAddNewPostMutation();
 
-  const onSubmit = async (data) => {
+  const now = new Date();
+
+  const onSubmit = async (data, status) => {
+    data.postTitle = watch("postTitle");
     data.categories = selectedCategories?.map((ca) => ca.value);
     data.quill = quillValue;
-    console.log(data);
+    data.publishDate = now;
+    data.status = status;
+
     try {
       setLoading(true);
       const result = await createPost(data);
       if (result.data) {
         Swal.fire({
-          title: "Post Published Successfully!",
+          title: `${
+            status === "draft"
+              ? "Post Saved to Draft Successfully!"
+              : "Post Published Successfully!"
+          }`,
           icon: "success",
           confirmButtonText: "OK",
         });
@@ -91,7 +95,7 @@ const AddNewPost = () => {
         <h1 className="text-black text-2xl mb-4">Add New Post</h1>
         <div>
           <form
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={handleSubmit((data) => onSubmit(data, "draft"))}
             className="flex flex-col md:flex-row gap-9"
           >
             {/* Add Title & React Quill */}
@@ -154,12 +158,17 @@ const AddNewPost = () => {
                   }`}
                 >
                   <div className="flex flex-row justify-between mt-4">
-                    <button className="px-4 py-1 border border-green-600 bg-transparent hover:bg-green-600 text-green-600 hover:text-white font-medium">
+                    <button
+                      type="button"
+                      className="px-4 py-1 border border-green-600 bg-transparent hover:bg-green-600 text-green-600 hover:text-white font-medium"
+                      onClick={() => onSubmit({}, "draft")}
+                    >
                       Save Draft
                     </button>
 
                     <button
-                      type="submit"
+                      type="button"
+                      onClick={() => onSubmit({}, "published")}
                       className="px-4 py-1 border border-blue-600 bg-transparent hover:bg-blue-600 text-blue-600 hover:text-white font-medium"
                     >
                       {loading ? "Publishing..." : "Publish"}
