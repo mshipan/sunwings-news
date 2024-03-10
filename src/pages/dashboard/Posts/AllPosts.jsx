@@ -133,18 +133,6 @@ const AllPosts = () => {
     },
   ];
 
-  // const rows = [
-  //   {
-  //     id: 1,
-  //     author: "Snow",
-  //     title: "Jon",
-  //     categories: "New",
-  //     publishDate: "12-Jan-2024",
-  //     status: "published",
-  //   },
-
-  // ];
-
   const rows = allPosts
     ? allPosts.map((post, i) => ({
         id: i + 1,
@@ -155,6 +143,19 @@ const AllPosts = () => {
         status: post.status,
       }))
     : [];
+
+  const filterRows = () => {
+    if (!searchQuery) {
+      return rows;
+    }
+
+    const query = searchQuery.toLowerCase();
+    return rows?.filter((row) => {
+      return Object.values(row).some((value) =>
+        value?.toString()?.toLowerCase()?.includes(query)
+      );
+    });
+  };
 
   const handleEdit = (id) => {
     // Handle edit action
@@ -328,7 +329,7 @@ const AllPosts = () => {
 
       <div className="w-full h-[30rem]">
         <DataGrid
-          rows={rows}
+          rows={filterRows()}
           columns={columns}
           initialState={{
             pagination: {
