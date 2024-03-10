@@ -9,7 +9,7 @@ const MainLayout = () => {
   return (
     <div className="bg-white">
       {/* header top */}
-      <HeaderTop/>
+      <HeaderTop />
       {/* header logo */}
       <HeaderLogo/>
       {/* header manu */}
@@ -20,6 +20,11 @@ const MainLayout = () => {
       <FooterArea/>
       {/* footer copyright */}
       <FooterCopyright/>
+      <HeaderLogo />
+      {/* header menu */}
+      <HeaderMenu />
+      {/* footer area */}
+      <FooterArea />
     </div>
   );
 };
