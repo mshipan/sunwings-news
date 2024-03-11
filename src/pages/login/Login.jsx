@@ -8,7 +8,8 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { TbFidgetSpinner } from "react-icons/tb";
 
 const Login = () => {
-  const { setLoading, loading, signIn } = useContext(AuthContext);
+  const { signIn } = useContext(AuthContext);
+  const [loading, setLoadingState] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const {
     register,
@@ -19,7 +20,7 @@ const Login = () => {
 
   const onSubmit = (data) => {
     console.log(data);
-    setLoading(true);
+    setLoadingState(true);
     signIn(data.email, data.password)
       .then((result) => {
         const loggedUser = result.user;
@@ -27,12 +28,11 @@ const Login = () => {
         toast.success(
           `${loggedUser?.displayName || "Unknown user"} logged in successfully`
         );
-        setLoading(false);
+        setLoadingState(false);
       })
       .catch((error) => {
-        setLoading(false);
-        console.log(error.message);
-        toast.error(error.message);
+        setLoadingState(false);
+        toast.error(`Login Failed: ${error.message}`);
       });
   };
 
@@ -56,7 +56,7 @@ const Login = () => {
               type="email"
               name="email"
               {...register("email", { required: true })}
-              className="mt-1 p-3 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-500"
+              className="mt-1 p-3 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-500 text-black placeholder:text-gray-500 bg-white appearance-none"
               placeholder="Enter your email"
             />
           </div>
@@ -67,16 +67,16 @@ const Login = () => {
             >
               Password:
             </label>
-            <div className="flex items-center w-full bg-white p-1">
+            <div className="flex items-center w-full bg-white border rounded-md focus:outline-none focus:ring focus:border-blue-500">
               <input
                 type={showPassword ? "text" : "password"}
                 name="password"
                 {...register("password", { required: true })}
-                className="mt-1 p-3 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-500"
+                className="mt-1 p-3 w-full text-black placeholder:text-gray-500 bg-white focus:outline-none appearance-none"
                 placeholder="Enter your password"
               />
               <div
-                className="cursor-pointer"
+                className="cursor-pointer mr-2"
                 onClick={togglePasswordVisibility}
               >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
