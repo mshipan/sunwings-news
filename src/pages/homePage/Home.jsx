@@ -1,14 +1,15 @@
-import { MdAccessTime } from "react-icons/md";
 import homeSliderImg from "../../assets/1.png";
 import card from "../../assets/home-slider.jpg";
-import cardFacebook from "../../assets/facebook.jpg";
 import twitter from "../../assets/twitter.jpg";
 import { Link } from "react-router-dom";
 import { FaFacebookSquare, FaShare, FaTwitterSquare } from "react-icons/fa";
 import NewsCard from "../../components/homePage/NewsCard";
 import NewsContent from "../../components/homePage/NewsContent";
 import fullImg from "../../assets/2.png";
-import SmallNewsCard from "../../components/shared/SmallNewsCard";
+import CategorizedNews from "../../components/homePage/CategorizedNews";
+import Advertisment from "../../components/shared/Advertisment";
+import CategoryTitle from "../../components/shared/CategoryTitle";
+import { CiVideoOn } from "react-icons/ci";
 
 const Home = () => {
   return (
@@ -51,9 +52,7 @@ const Home = () => {
 
             {/* ফেসবুকে আমরা */}
             <div className="space-y-4">
-              <div className="bg-gray-300 text-black font-semibold border-l-4 border-orange-500">
-                <p className="text-base ml-1 p-2">ফেসবুকে আমরা</p>
-              </div>
+              <CategoryTitle />
               <div className="">
                 <div className="relative group">
                   <img src={twitter} alt="" />
@@ -85,9 +84,7 @@ const Home = () => {
 
             {/* টুইটারে আমরা */}
             <div className="space-y-4">
-              <div className="bg-gray-300 text-black font-semibold border-l-4 border-orange-500">
-                <p className="text-base ml-1 p-2">টুইটারে আমরা</p>
-              </div>
+              <CategoryTitle />
               <div className="">
                 <div className="relative group">
                   <img src={twitter} alt="" />
@@ -119,9 +116,7 @@ const Home = () => {
 
             {/* পুরাতন সংবাদ */}
             <div className="col-span-2 md:col-span-1">
-              <div className="bg-gray-300 text-black font-semibold border-l-4 border-orange-500">
-                <p className="text-base ml-1 p-2">পুরাতন সংবাদ</p>
-              </div>
+              <CategoryTitle />
               <div className="">
                 <input
                   type="date"
@@ -143,26 +138,94 @@ const Home = () => {
         <img src={fullImg} alt="" />
       </div>
 
+      <div className="grid gap-4 grid-cols-1 md:max-lg:grid-cols-2 lg:grid-cols-3">
+        <CategorizedNews />
+        <CategorizedNews />
+        <CategorizedNews />
+      </div>
+
+      <div className="flex-col lg:flex-row flex items-center gap-4 py-4">
+        <Advertisment />
+        <Advertisment />
+      </div>
+
       <div className="">
-        <div className="">
-          <div className="bg-gray-300 text-black font-semibold border-l-4 border-orange-500 my-4">
-            <p className="text-base ml-1 p-2">আন্তর্জাতিক</p>
+        <CategoryTitle />
+        <div className="flex gap-4 flex-col md:flex-row">
+          <div className="flex gap-4 flex-row md:flex-col">
+            <NewsCard />
+            <NewsCard />
           </div>
-          {/* <div className=""> */}
-          <div className="bg-slate-100 mb-4">
-            <img src={card} alt="" />
-            <div className="p-2">
-              <h3 className="text-base font-medium">
-                সৌদিতে মঙ্গলবার পর্যন্ত ঝরবে বৃষ্টি, ক্লাস অনলাইনে
-              </h3>
+          <div className="md:w-5/6 w-full">
+            <img src={homeSliderImg} alt="" />
+            <h2 className="text-black font-semibold text-xl py-4">
+              ‘সিন্দাবাদ-আলাদীনের মতো কাজল রেখাও দর্শকমনে স্থান করে নেবে’
+            </h2>
+            <p className="text-black">
+              এটা একটা ডেমো নিউজ। এটা একটা ডেমো নিউজ। এটা একটা ডেমো নিউজ। এটা
+              একটা ডেমো নিউজ। এটা একটা ডেমো নিউজ। এটা একটা ডেমো নিউজ। এটা একটা
+              ডেমো নিউজ। এটা একটা ডেমো নিউজ। এটা একটা ডেমো নিউজ। এটা একটা ডেমো
+              নিউজ। এটা একটা ডেমো নিউজ। এটা একটা ডেমো নিউজ। এটা একটা ডেমো নিউজ।
+              এটা একটা ডেমো নিউজ। এটা একটা ডেমো নিউজ।
+            </p>
+          </div>
+          <div className="flex gap-4 flex-row md:flex-col">
+            <NewsCard />
+            <NewsCard />
+          </div>
+        </div>
+      </div>
+
+      <div className="flex-col lg:flex-row flex items-center gap-4 py-4">
+        <Advertisment />
+        <Advertisment />
+      </div>
+
+      <div className="bg-gray-500 text-gray-200 flex gap-4 flex-col md:flex-row">
+        <div className="p-10 bg-gray-700 w-full">
+          <h2 className="text-white font-semibold mb-4 flex items-center gap-2 cursor-pointer">
+            <CiVideoOn className="text-lg" />
+            <span>ভিডিও লিড</span>
+          </h2>
+          <img className="w-96 cursor-pointer" src={card} alt="" />
+        </div>
+        <div className=" p-6">
+          <ul className="flex gap-4 font-medium text-xs md:text-base">
+            <li className="border p-2 bg-orange-500 hover:bg-red-500 cursor-pointer">
+              <Link>ভিডিও নিউজ</Link>
+            </li>
+            <li className="border p-2 bg-gray-500 hover:bg-red-500 cursor-pointer">
+              <Link>ভিডিও বিনোদন</Link>
+            </li>
+            <li className="border p-2 bg-gray-500 hover:bg-red-500 cursor-pointer">
+              <Link>ভিডিও টকশো</Link>
+            </li>
+          </ul>
+          <div className="flex gap-3 mt-4">
+            <div className="w-1/2">
+              <img src={card} alt="" />
+            </div>
+            <div className="w-1/2">
+              <img src={card} alt="" />
             </div>
           </div>
-          <div className="flex flex-col gap-4">
-            <SmallNewsCard />
-            <SmallNewsCard />
-            <SmallNewsCard />
-          </div>
-          {/* </div> */}
+        </div>
+      </div>
+
+      <NewsContent />
+
+      <div className="flex-col lg:flex-row flex items-center gap-4 py-4">
+        <Advertisment />
+        <Advertisment />
+      </div>
+
+      <div className="flex gap-4 flex-col md:flex-row mb-10">
+        <div className="md:w-5/6 w-full">
+          <CategoryTitle />
+          <img src={homeSliderImg} alt="" />
+        </div>
+        <div className="">
+          <CategorizedNews />
         </div>
       </div>
     </div>
