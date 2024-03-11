@@ -5,13 +5,28 @@ import { AuthContext } from "../../providers/AuthProvider";
 import { useForm } from "react-hook-form";
 import { imageUpload } from "../../api/utils";
 import { saveUser } from "../../api/auth";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
-const SignUp = () => {
+const Register = () => {
   const { createUser, setUser, updateUserProfile, setLoading, user } =
     useContext(AuthContext);
 
-  const [error] = useState("");
-  const { register, handleSubmit } = useForm();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+  };
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+    reset,
+  } = useForm();
   const onSubmit = (data) => {
     console.log(data);
     setLoading(true);
@@ -40,6 +55,7 @@ const SignUp = () => {
                 if (data.insertedId) {
                   setLoading(false);
                   console.log(data);
+                  reset();
                 }
               })
               .catch((error) => {
@@ -53,12 +69,20 @@ const SignUp = () => {
     });
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="max-w-md w-full p-6 bg-white rounded-md shadow-md">
         <h2 className="text-3xl font-extrabold text-gray-800 mb-6">Sign Up</h2>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div>
+          <div className="form-control">
             <label
               htmlFor="name"
               className="block text-sm font-medium text-gray-700"
@@ -73,8 +97,11 @@ const SignUp = () => {
               placeholder="Enter your name"
               className="mt-1 p-3 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-500"
             />
+            {errors.name && (
+              <span className="text-red-600">Name field is required</span>
+            )}
           </div>
-          <div>
+          <div className="form-control">
             <label
               htmlFor="photo"
               className="block text-sm font-medium text-gray-700"
@@ -89,7 +116,7 @@ const SignUp = () => {
               className="mt-1 p-3 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-500"
             />
           </div>
-          <div>
+          <div className="form-control">
             <label
               htmlFor="email"
               className="block text-sm font-medium text-gray-700"
@@ -103,23 +130,11 @@ const SignUp = () => {
               className="mt-1 p-3 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-500"
               placeholder="Enter your email"
             />
+            {errors.name && (
+              <span className="text-red-600">Email field is required</span>
+            )}
           </div>
-          <div>
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Password:
-            </label>
-            <input
-              type="password"
-              name="password"
-              {...register("password", { required: true })}
-              className="mt-1 p-3 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-500"
-              placeholder="Enter your password"
-            />
-          </div>
-          <div>
+          <div className="form-control">
             <label
               htmlFor="role"
               className="block text-sm font-medium text-gray-700"
@@ -141,12 +156,100 @@ const SignUp = () => {
               <option value="moderator">Moderator</option>
             </select>
           </div>
-          {error && <p className="text-red-500">{error}</p>}
+          <div className="form-control">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Password:
+            </label>
+            <div className="flex items-center w-full bg-white p-1">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                {...register("password", {
+                  required: true,
+                  minLength: 6,
+                  pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/,
+                })}
+                className="mt-1 p-3 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-500"
+                placeholder="Enter your password"
+              />
+              <div
+                className="cursor-pointer"
+                onClick={togglePasswordVisibility}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </div>
+            </div>
+            {errors.password && (
+              <span className="text-white">
+                {errors.password.type === "required" &&
+                  "Password field is required"}
+                {errors.password.type === "minLength" &&
+                  "Password must be at least 6 characters long"}
+                {errors.password.type === "pattern" &&
+                  "Password must contain at least one uppercase, one lowercase letter, one number and one special character"}
+              </span>
+            )}
+          </div>
+          <div className="form-control">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Confirm Password:
+            </label>
+            <div className="flex items-center w-full bg-white p-1">
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                name="password"
+                {...register("confirmPassword", {
+                  required: true,
+                  validate: (value) =>
+                    value === watch("password") || "Password do not match",
+                })}
+                className="mt-1 p-3 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-500"
+                placeholder="Confirm your password"
+              />
+              <div
+                className="cursor-pointer"
+                onClick={toggleConfirmPasswordVisibility}
+              >
+                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+              </div>
+            </div>
+            {errors.confirmPassword && (
+              <span className="text-red-600">
+                {errors.confirmPassword.type === "required" &&
+                  "Confirm Password field is required"}
+                {errors.confirmPassword.type === "validate" &&
+                  errors.confirmPassword.message}
+              </span>
+            )}
+          </div>
+          <div className="">
+            <input
+              type="checkbox"
+              name="checked"
+              checked={isChecked}
+              onChange={handleCheckboxChange}
+            />
+            <span className="ml-3 text-gray-700">
+              I Accept{" "}
+              <Link to="#" className="text-blue-300 underline">
+                Terms & Conditions.
+              </Link>
+            </span>
+          </div>
 
           <input
-            className="w-full bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-500"
+            className={`w-full bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-500 ${
+              !isChecked ? "blur-sm" : ""
+            }`}
             type="submit"
             value="Sign Up"
+            disabled={!isChecked}
           />
         </form>
       </div>
@@ -154,4 +257,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Register;
