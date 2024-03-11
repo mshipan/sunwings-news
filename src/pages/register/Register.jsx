@@ -5,6 +5,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 import { useForm } from "react-hook-form";
 import { imageUpload } from "../../api/utils";
 import { saveUser } from "../../api/auth";
+import { useAddNewUserMutation } from "../../redux/features/allApis/usersApi/usersApi";
 
 const SignUp = () => {
   const { createUser, setUser, updateUserProfile, setLoading, user } =
@@ -12,6 +13,8 @@ const SignUp = () => {
 
   const [error] = useState("");
   const { register, handleSubmit } = useForm();
+
+  const [addNewUser] = useAddNewUserMutation();
   const onSubmit = (data) => {
     console.log(data);
     setLoading(true);
@@ -35,7 +38,7 @@ const SignUp = () => {
               email: data.email,
               role: data.role,
             };
-            saveUser(userInfo)
+            addNewUser(userInfo)
               .then((data) => {
                 if (data.insertedId) {
                   setLoading(false);
