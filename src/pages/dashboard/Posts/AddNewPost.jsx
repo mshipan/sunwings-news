@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Select from "react-select";
 import { useAddNewPostMutation } from "../../../redux/features/allApis/postApi/postApi";
 import Swal from "sweetalert2";
+import { singleCategory } from "../../../api/fetch";
 
 const AddNewPost = () => {
   const [loading, setLoading] = useState(false);
@@ -16,16 +17,24 @@ const AddNewPost = () => {
   const [selectedCategories, setSelectedCategories] = useState(null);
   const { register, handleSubmit, reset, watch } = useForm();
 
-  const options = [
-    { value: "category1", label: "Category 1" },
-    { value: "category2", label: "Category 2" },
-    { value: "category3", label: "Category 3" },
-    { value: "category4", label: "Category 4" },
-    { value: "category5", label: "Category 5" },
-    { value: "category6", label: "Category 6" },
-    { value: "category7", label: "Category 7" },
-    { value: "category8", label: "Category 8" },
+  const categoriesList = [
+    { label: "জাতীয়", value: "জাতীয়" },
+    { label: "রাজনীতি", value: "রাজনীতি" },
+    { label: "আন্তর্জাতিক", value: "আন্তর্জাতিক" },
+    { label: "খেলাধূলা", value: "খেলাধূলা" },
+    { label: "বিনোদন", value: "বিনোদন" },
+    { label: "তথ্যপ্রযুক্তি", value: "তথ্যপ্রযুক্তি" },
+    { label: "সারাদেশ", value: "সারাদেশ" },
+    { label: "ক্যাম্পাস", value: "ক্যাম্পাস" },
+    { label: "আরো", value: "আরো" },
   ];
+
+  // console.log(selectedCategories);
+  if (selectedCategories) {
+    singleCategory(selectedCategories.value).then((data) => {
+      data?.map((item, i) => console.log(item.subCategoryName));
+    });
+  }
 
   const handleQuillChange = (content, _, __, editor) => {
     setQuillValue(content);
@@ -201,10 +210,9 @@ const AddNewPost = () => {
                     <div className="mb-2 text-black">
                       <Select
                         className="z-30"
-                        name="caregories"
+                        name="categories"
                         onChange={setSelectedCategories}
-                        options={options}
-                        isMulti
+                        options={categoriesList}
                         classNamePrefix="text-black"
                       />
                     </div>
@@ -222,6 +230,7 @@ const AddNewPost = () => {
                 </div>
               </div>
             </div>
+            <div>{}</div>
           </form>
         </div>
       </div>

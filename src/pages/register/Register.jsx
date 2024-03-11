@@ -183,7 +183,7 @@ const Register = () => {
               </div>
             </div>
             {errors.password && (
-              <span className="text-white">
+              <span className="text-red-600">
                 {errors.password.type === "required" &&
                   "Password field is required"}
                 {errors.password.type === "minLength" &&
