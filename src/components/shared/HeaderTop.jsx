@@ -10,7 +10,9 @@ const HeaderTop = () => {
   const { logOut, user } = useContext(AuthContext);
   const handleLogout = () => {
     logOut()
-      .then(() => {})
+      .then(() => {
+        toast.success("Successfully Logged Out!");
+      })
       .catch((error) => {
         console.log(error.message);
         toast.error(error.message);
@@ -21,15 +23,15 @@ const HeaderTop = () => {
       <div className="flex flex-wrap flex-col md:flex-row justify-between items-center">
         <div className="flex flex-wrap items-center justify-center gap-2">
           <div className="flex items-center gap-1">
-            <CiLocationOn />
-            <p>ঢাকা,</p>
+            <CiLocationOn className="text-black" />
+            <p className="text-black">ঢাকা,</p>
           </div>
           <div className="flex items-center gap-1">
-            <SlCalender />
-            <p>০৫:৩৬:৩৯ পিএম,</p>
+            <SlCalender className="text-black" />
+            <p className="text-black">০৫:৩৬:৩৯ পিএম,</p>
           </div>
           <div className="text-center">
-            <p>
+            <p className="text-black">
               ০৫:৪২:৩৫ পিএম, মঙ্গলবার, ০৫ মার্চ ২০২৪ , ২২ ফাল্গুন ১৪৩০ বঙ্গাব্দ
             </p>
           </div>
@@ -70,7 +72,13 @@ const HeaderTop = () => {
               </svg>
             </span>
           </Link>
-          {user ? <IoLogOutOutline onClick={handleLogout}/> : <Link to='/login'><IoLogInOutline /></Link>}
+          {user ? (
+            <IoLogOutOutline onClick={handleLogout} />
+          ) : (
+            <Link to="/login">
+              <IoLogInOutline />
+            </Link>
+          )}
         </div>
       </div>
     </div>
