@@ -10,6 +10,7 @@ import Login from "../pages/login/Login";
 import Register from "../pages/register/Register";
 import Home from "../pages/homePage/Home";
 import AllUsers from "../pages/dashboard/Users/AllUsers/AllUsers";
+import CustomizeLogo from "../pages/dashboard/media/CustomizeLogo";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "categories",
         element: <Categories />,
+      },
+      {
+        path: "logo",
+        element: <CustomizeLogo />,
       },
       {
         path: "all-page",

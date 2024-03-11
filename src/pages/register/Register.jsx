@@ -1,17 +1,16 @@
-// SignUp.js
-
 import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useForm } from "react-hook-form";
 import { imageUpload } from "../../api/utils";
-import { saveUser } from "../../api/auth";
+import { useAddNewUserMutation } from "../../redux/features/allApis/usersApi/usersApi";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Register = () => {
-  const { createUser, setUser, updateUserProfile, setLoading, user } =
+  const { createUser, setUser, updateUserProfile, loading, setLoading, user } =
     useContext(AuthContext);
-
+  const [addNewUser] = useAddNewUserMutation();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
@@ -50,21 +49,25 @@ const Register = () => {
               email: data.email,
               role: data.role,
             };
-            saveUser(userInfo)
+            addNewUser(userInfo)
               .then((data) => {
-                if (data.insertedId) {
+                console.log("data", data.data);
+                if (data.data.insertedId) {
                   setLoading(false);
                   console.log(data);
+                  toast.success("Registration Successfull!");
                   reset();
                 }
               })
               .catch((error) => {
                 console.log(error);
+                toast.error("Registration Failed!");
               });
           });
         })
         .catch((error) => {
           console.log(error.message);
+          toast.error(error.message);
         });
     });
   };
@@ -95,7 +98,7 @@ const Register = () => {
               name="name"
               {...register("name", { required: true })}
               placeholder="Enter your name"
-              className="mt-1 p-3 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-500"
+              className="mt-1 p-3 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-500 bg-white text-black placeholder:text-gray-500"
             />
             {errors.name && (
               <span className="text-red-600">Name field is required</span>
@@ -113,7 +116,7 @@ const Register = () => {
               id="photo"
               name="photo"
               {...register("photo")}
-              className="mt-1 p-3 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-500"
+              className="mt-1 p-3 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-500 bg-white text-black placeholder:text-gray-500"
             />
           </div>
           <div className="form-control">
@@ -127,7 +130,7 @@ const Register = () => {
               type="email"
               name="email"
               {...register("email", { required: true })}
-              className="mt-1 p-3 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-500"
+              className="mt-1 p-3 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-500 bg-white text-black placeholder:text-gray-500"
               placeholder="Enter your email"
             />
             {errors.name && (
@@ -144,7 +147,7 @@ const Register = () => {
             <select
               name="role"
               {...register("role", { required: true })}
-              className="mt-1 p-3 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-500"
+              className="mt-1 p-3 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-500 bg-white text-black placeholder:text-gray-500"
             >
               <option disabled value="">
                 Select a role
@@ -163,7 +166,7 @@ const Register = () => {
             >
               Password:
             </label>
-            <div className="flex items-center w-full bg-white p-1">
+            <div className="flex items-center w-full bg-white p-1 border rounded-md focus:ring focus:outline-none focus:border-blue-500">
               <input
                 type={showPassword ? "text" : "password"}
                 name="password"
@@ -172,11 +175,11 @@ const Register = () => {
                   minLength: 6,
                   pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/,
                 })}
-                className="mt-1 p-3 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-500"
+                className="mt-1 p-3 w-full bg-white text-black placeholder:text-gray-500"
                 placeholder="Enter your password"
               />
               <div
-                className="cursor-pointer"
+                className="cursor-pointer mr-2"
                 onClick={togglePasswordVisibility}
               >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -200,7 +203,7 @@ const Register = () => {
             >
               Confirm Password:
             </label>
-            <div className="flex items-center w-full bg-white p-1">
+            <div className="flex items-center w-full bg-white p-1 border rounded-md focus:outline-none focus:ring focus:border-blue-500">
               <input
                 type={showConfirmPassword ? "text" : "password"}
                 name="password"
@@ -209,11 +212,11 @@ const Register = () => {
                   validate: (value) =>
                     value === watch("password") || "Password do not match",
                 })}
-                className="mt-1 p-3 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-500"
+                className="mt-1 p-3 w-full bg-white text-black placeholder:text-gray-500"
                 placeholder="Confirm your password"
               />
               <div
-                className="cursor-pointer"
+                className="cursor-pointer mr-2"
                 onClick={toggleConfirmPasswordVisibility}
               >
                 {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
@@ -243,14 +246,22 @@ const Register = () => {
             </span>
           </div>
 
-          <input
+          <button
             className={`w-full bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-500 ${
               !isChecked ? "blur-sm" : ""
             }`}
             type="submit"
-            value="Sign Up"
             disabled={!isChecked}
-          />
+          >
+            {loading ? (
+              <div className="flex items-center justify-center gap-1">
+                <span className="loading loading-spinner loading-md"></span>{" "}
+                Loading...
+              </div>
+            ) : (
+              "Sign Up"
+            )}
+          </button>
         </form>
       </div>
     </div>
