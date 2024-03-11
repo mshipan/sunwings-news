@@ -4,6 +4,11 @@ import MainLayout from "../layouts/MainLayout";
 import AllPosts from "../pages/dashboard/Posts/AllPosts";
 import AddNewPost from "../pages/dashboard/Posts/AddNewPost";
 import Categories from "../pages/dashboard/Posts/Categories";
+import AllPage from "../pages/dashboard/Pages/AllPage/AllPage";
+import AddNewPage from "../pages/dashboard/Pages/AddNewPage/AddNewPage";
+import Login from "../pages/login/Login";
+import Register from "../pages/register/Register";
+import Home from "../pages/homePage/Home";
 
 const router = createBrowserRouter([
   {
@@ -11,8 +16,8 @@ const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       {
-        path: "test",
-        element: <h1>Hello</h1>,
+        path: "/",
+        element: <Home />,
       },
     ],
   },
@@ -32,7 +37,23 @@ const router = createBrowserRouter([
         path: "categories",
         element: <Categories />,
       },
+      {
+        path: "all-page",
+        element: <AllPage />,
+      },
+      {
+        path: "add-new-page",
+        element: <AddNewPage />,
+      },
     ],
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/sign-up",
+    element: <Register />,
   },
 ]);
 

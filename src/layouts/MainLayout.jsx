@@ -2,18 +2,24 @@ import HeaderTop from "../components/shared/HeaderTop";
 import HeaderLogo from "../components/shared/HeaderLogo";
 import HeaderMenu from "../components/shared/HeaderMenu";
 import FooterArea from "../components/shared/FooterArea";
+import FooterCopyright from "../components/shared/FooterCopyright";
+import { Outlet } from "react-router-dom";
 
 const MainLayout = () => {
   return (
     <div className="bg-white">
       {/* header top */}
-      <HeaderTop/>
+      <HeaderTop />
       {/* header logo */}
-      <HeaderLogo/>
+      <HeaderLogo />
       {/* header manu */}
-      <HeaderMenu/>
+      <HeaderMenu />
+      {/* outlet */}
+      <Outlet />
       {/* footer area */}
-      <FooterArea/>
+      <FooterArea />
+      {/* footer copyright */}
+      <FooterCopyright />
     </div>
   );
 };
