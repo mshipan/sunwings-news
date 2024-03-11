@@ -1,9 +1,19 @@
 import { DataGrid } from "@mui/x-data-grid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useGetPostsQuery } from "../../../redux/features/allApis/postApi/postApi";
+import { useGetPostsQuery } from "../../../../redux/features/allApis/postApi/postApi";
 
-const AllPosts = () => {
+const AllUsers = () => {
+  // get all users
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/users`)
+      .then((res) => res.json())
+      .then((data) => setUsers(data));
+  }, []);
+
+  // table data
   const [filters, setFilters] = useState({
     month: "",
     year: "",
@@ -86,8 +96,8 @@ const AllPosts = () => {
   const columns = [
     { field: "id", headerName: "Sl No", width: 80 },
     {
-      field: "title",
-      headerName: "Title",
+      field: "name",
+      headerName: "Name",
       width: 270,
       renderCell: (params) => (
         <Link to="#" className="hover:text-blue-500 hover:underline">
@@ -95,33 +105,33 @@ const AllPosts = () => {
         </Link>
       ),
     },
-    { field: "author", headerName: "Author", width: 180 },
+    { field: "email", headerName: "Email", width: 180 },
+    // {
+    //   field: "categories",
+    //   headerName: "Categories",
+    //   type: "text",
+    //   width: 180,
+    //   renderCell: (params) => (
+    //     <div>
+    //       {params.value.map((category, index) => (
+    //         <span
+    //           key={index}
+    //           className="inline-block px-[6px] py-[2px] mr-1 bg-[#F7D7B6] rounded"
+    //         >
+    //           {category}
+    //         </span>
+    //       ))}
+    //     </div>
+    //   ),
+    // },
+    // {
+    //   field: "publishDate",
+    //   headerName: "Publish Date",
+    //   width: 180,
+    // },
     {
-      field: "categories",
-      headerName: "Categories",
-      type: "text",
-      width: 180,
-      renderCell: (params) => (
-        <div>
-          {params.value.map((category, index) => (
-            <span
-              key={index}
-              className="inline-block px-[6px] py-[2px] mr-1 bg-[#F7D7B6] rounded"
-            >
-              {category}
-            </span>
-          ))}
-        </div>
-      ),
-    },
-    {
-      field: "publishDate",
-      headerName: "Publish Date",
-      width: 180,
-    },
-    {
-      field: "status",
-      headerName: "Status",
+      field: "role",
+      headerName: "Role",
       width: 140,
       renderCell: (params) => <StatusBadge status={params.value} />,
     },
@@ -133,14 +143,13 @@ const AllPosts = () => {
     },
   ];
 
-  const rows = allPosts
-    ? allPosts.map((post, i) => ({
+  const rows = users
+    ? users.map((user, i) => ({
         id: i + 1,
-        author: post.author,
-        title: post?.postTitle,
-        categories: post?.categories?.map((category) => category),
-        publishDate: formatDate(post?.publishDate),
-        status: post.status,
+        name: user.name,
+        email: user?.email,
+        // categories: user?.categories?.map((category) => category),
+        role: user.role,
       }))
     : [];
 
@@ -228,13 +237,15 @@ const AllPosts = () => {
     { value: "amy_carter", label: "Amy Carter" },
   ];
 
+  // console.log(allPosts);
+
   return (
     <div className="flex flex-col gap-3">
       <div className="flex flex-col md:flex-row gap-3">
-        <h1 className="text-black text-2xl">All Posts</h1>
+        <h1 className="text-black text-2xl">All Users</h1>
         <Link to="/dashboard/add-new-post">
           <button className="bg-blue-100 px-4 py-1 border border-blue-500 rounded-sm text-blue-500 hover:bg-gray-100 transition-all duration-300 ease-in-out">
-            Add New Post
+            Give role
           </button>
         </Link>
       </div>
@@ -344,4 +355,4 @@ const AllPosts = () => {
   );
 };
 
-export default AllPosts;
+export default AllUsers;

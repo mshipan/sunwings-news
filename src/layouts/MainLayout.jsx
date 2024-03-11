@@ -11,15 +11,15 @@ const MainLayout = () => {
       {/* header top */}
       <HeaderTop />
       {/* header logo */}
-      <HeaderLogo/>
+      <HeaderLogo />
       {/* header manu */}
-      <HeaderMenu/>
+      <HeaderMenu />
       {/* outlet */}
-      <Outlet/>
+      <Outlet />
       {/* footer area */}
-      <FooterArea/>
+      <FooterArea />
       {/* footer copyright */}
-      <FooterCopyright/>
+      <FooterCopyright />
     </div>
   );
 };
