@@ -1,31 +1,50 @@
 // Login.js
-
-import { useState } from "react";
-// import { AuthContext } from "../../providers/AuthProvider";
+import { AuthContext } from "../../providers/AuthProvider";
 import LoginWithGoogleCompo from "../../components/shared/LoginWithGoogleCompo";
+import { useForm } from "react-hook-form";
+import { useContext, useState } from "react";
+import toast from "react-hot-toast";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { TbFidgetSpinner } from "react-icons/tb";
 
 const Login = () => {
-  //   const { loading, setLoading, signIn } = useContext(AuthContext);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const { signIn } = useContext(AuthContext);
+  const [loading, setLoadingState] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
-  const handleLogin = async () => {
-    try {
-      // Implement your authentication logic here
-      // For simplicity, this example assumes a successful login
-      console.log("Logged in successfully!");
-    } catch (error) {
-      console.error("Login error:", error.message);
-      setError("Invalid email or password"); // Update the error message based on your authentication logic
-    }
+  const onSubmit = (data) => {
+    console.log(data);
+    setLoadingState(true);
+    signIn(data.email, data.password)
+      .then((result) => {
+        const loggedUser = result.user;
+        reset();
+        toast.success(
+          `${loggedUser?.displayName || "Unknown user"} logged in successfully`
+        );
+        setLoadingState(false);
+      })
+      .catch((error) => {
+        setLoadingState(false);
+        toast.error(`Login Failed: ${error.message}`);
+      });
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="max-w-md w-full p-6 bg-white rounded-md shadow-md">
         <h2 className="text-3xl font-extrabold text-gray-800 mb-6">Login</h2>
-        <form className="space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
             <label
               htmlFor="email"
@@ -35,40 +54,57 @@ const Login = () => {
             </label>
             <input
               type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 p-3 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-500"
+              name="email"
+              {...register("email", { required: true })}
+              className="mt-1 p-3 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-500 text-black placeholder:text-gray-500 bg-white appearance-none"
               placeholder="Enter your email"
             />
           </div>
-          <div>
+          <div className="form-control">
             <label
               htmlFor="password"
               className="block text-sm font-medium text-gray-700"
             >
               Password:
             </label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 p-3 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-500"
-              placeholder="Enter your password"
-            />
+            <div className="flex items-center w-full bg-white border rounded-md focus:outline-none focus:ring focus:border-blue-500">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                {...register("password", { required: true })}
+                className="mt-1 p-3 w-full text-black placeholder:text-gray-500 bg-white focus:outline-none appearance-none"
+                placeholder="Enter your password"
+              />
+              <div
+                className="cursor-pointer mr-2"
+                onClick={togglePasswordVisibility}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </div>
+            </div>
+            {errors.password && (
+              <span className="text-red-600">
+                {errors.password.type === "required" &&
+                  "Password field is required"}
+              </span>
+            )}
           </div>
-          {error && <p className="text-red-500">{error}</p>}
-          <button
-            type="button"
-            onClick={handleLogin}
-            className="w-full bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-500"
-          >
-            Login
-          </button>
+          <div className="flex items-center justify-start">
+            <div className="flex items-center bg-blue-500 text-white w-full p-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-500">
+              {loading ? (
+                <TbFidgetSpinner className="m-auto animate-spin" size={24} />
+              ) : (
+                <input
+                  type="submit"
+                  value="Login"
+                  className="text-xl mx-auto w-full"
+                />
+              )}
+            </div>
+          </div>
         </form>
+        <LoginWithGoogleCompo />
       </div>
-      <LoginWithGoogleCompo />
     </div>
   );
 };

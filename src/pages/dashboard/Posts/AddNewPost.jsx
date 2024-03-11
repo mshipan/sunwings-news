@@ -12,7 +12,7 @@ const AddNewPost = () => {
   const [quillValue, setQuillValue] = useState("");
   const [wordCount, setWordCount] = useState(0);
   const [publishAccordionOpen, setPublishAccordionOpen] = useState(true);
-  const [categoryAccordionOpen, setCategoryAccordionOpen] = useState(false);
+  const [categoryAccordionOpen, setCategoryAccordionOpen] = useState(true);
   const [selectedCategories, setSelectedCategories] = useState(null);
   const { register, handleSubmit, reset, watch } = useForm();
 
@@ -206,6 +206,7 @@ const AddNewPost = () => {
                         options={options}
                         isMulti
                         classNamePrefix="text-black"
+                        placeholder="Select Your Categories..."
                       />
                     </div>
                     <div className="p-2 bg-gray-200 mt-4">
