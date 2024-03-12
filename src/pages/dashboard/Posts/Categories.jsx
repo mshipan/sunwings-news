@@ -10,6 +10,7 @@ import {
 
 const Categories = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -21,18 +22,20 @@ const Categories = () => {
 
   // add new category
   const onSubmit = (data) => {
+    setLoading(true);
     console.log(data);
     addNewCategory(data)
       .then((data) => {
         console.log(data);
         if (data.data.insertedId) {
           toast.success("Category added");
-          reset();
+          setLoading(false), reset();
         }
       })
       .catch((error) => {
         console.log(error.message);
         toast.error(error.message);
+        setLoading(false);
       });
   };
 
@@ -132,12 +135,13 @@ const Categories = () => {
                 className="flex flex-col gap-4"
               >
                 <div className="form-control">
-                  <label htmlFor="categoryName" className="mb-2 text-gray-500">
+                  <label htmlFor="categoryName" className="mb-2  text-black">
                     Category Name:{" "}
                   </label>
                   <select
                     name=""
                     id=""
+                    className="bg-white border border-gray-400 py-1 px-2 text-black"
                     {...register("categoryName", { required: true })}
                   >
                     {categoriesList?.map((item, i) => (
@@ -148,7 +152,7 @@ const Categories = () => {
                   </select>
                 </div>
                 <div className="form-control">
-                  <label htmlFor="categoryName" className="mb-2 text-gray-500">
+                  <label htmlFor="categoryName" className="mb-2  text-black">
                     Sub-category Name:{" "}
                   </label>
                   <input
@@ -157,11 +161,11 @@ const Categories = () => {
                     name="subCategoryName"
                     {...register("subCategoryName", { required: true })}
                     placeholder="Enter sub-category name"
-                    className="bg-white py-1 px-2 border border-gray-300"
+                    className="bg-white border border-gray-400 py-1 px-2 text-black"
                   />
                 </div>
                 <div className="form-control">
-                  <label htmlFor="slug" className="mb-2 text-gray-500">
+                  <label htmlFor="slug" className="mb-2 text-black">
                     Slug:{" "}
                   </label>
                   <input
@@ -173,7 +177,7 @@ const Categories = () => {
                       pattern: /^[^\sA-Z]*-?[^\sA-Z]*$/,
                     })}
                     placeholder="Enter slug(only lower case letters, numbers and hyphens.No space)"
-                    className="bg-white py-1 px-2 border border-gray-300"
+                    className="bg-white border border-gray-400 py-1 px-2 text-black"
                   />
                 </div>
                 {errors.slug && (
@@ -183,11 +187,19 @@ const Categories = () => {
                   </span>
                 )}
                 <div>
-                  <input
+                  <button
                     type="submit"
-                    value="Add to Category list"
                     className="px-4 py-1 border border-blue-500 bg-transparent text-blue-500 hover:bg-blue-500 hover:text-white transition-all ease-in-out duration-300"
-                  />
+                  >
+                    {loading ? (
+                      <div className="flex items-center justify-center gap-1">
+                        <span className="loading loading-spinner loading-md"></span>{" "}
+                        Uploading Category...
+                      </div>
+                    ) : (
+                      "Add to Category list"
+                    )}
+                  </button>
                 </div>
               </form>
             </div>
