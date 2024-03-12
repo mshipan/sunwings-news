@@ -8,7 +8,7 @@ const AllUsers = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/users`)
+    fetch(`${import.meta.env.VITE_BASE_API_URL}/users`)
       .then((res) => res.json())
       .then((data) => setUsers(data));
   }, []);
@@ -106,29 +106,7 @@ const AllUsers = () => {
       ),
     },
     { field: "email", headerName: "Email", width: 180 },
-    // {
-    //   field: "categories",
-    //   headerName: "Categories",
-    //   type: "text",
-    //   width: 180,
-    //   renderCell: (params) => (
-    //     <div>
-    //       {params.value.map((category, index) => (
-    //         <span
-    //           key={index}
-    //           className="inline-block px-[6px] py-[2px] mr-1 bg-[#F7D7B6] rounded"
-    //         >
-    //           {category}
-    //         </span>
-    //       ))}
-    //     </div>
-    //   ),
-    // },
-    // {
-    //   field: "publishDate",
-    //   headerName: "Publish Date",
-    //   width: 180,
-    // },
+
     {
       field: "role",
       headerName: "Role",
@@ -148,7 +126,6 @@ const AllUsers = () => {
         id: i + 1,
         name: user.name,
         email: user?.email,
-        // categories: user?.categories?.map((category) => category),
         role: user.role,
       }))
     : [];
@@ -237,17 +214,15 @@ const AllUsers = () => {
     { value: "amy_carter", label: "Amy Carter" },
   ];
 
-  // console.log(allPosts);
-
   return (
     <div className="flex flex-col gap-3">
       <div className="flex flex-col md:flex-row gap-3">
         <h1 className="text-black text-2xl">All Users</h1>
-        <Link to="/dashboard/add-new-post">
+        {/* <Link to="/dashboard/add-new-post">
           <button className="bg-blue-100 px-4 py-1 border border-blue-500 rounded-sm text-blue-500 hover:bg-gray-100 transition-all duration-300 ease-in-out">
             Give role
           </button>
-        </Link>
+        </Link> */}
       </div>
       <div className="mt-5 flex items-center gap-1 text-xs">
         <p className="text-xs">All (344) </p>|
@@ -322,7 +297,7 @@ const AllUsers = () => {
         <div className="flex flex-col md:flex-row md:items-center gap-3">
           <input
             type="text"
-            placeholder="Search Post..."
+            placeholder="Search User..."
             value={searchQuery}
             onChange={handleSearchInputChange}
             className="block rounded-sm px-2 border border-gray-300 py-1.5 text-gray-900 shadow-sm focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:max-w-xs sm:text-sm sm:leading-6 bg-white"
