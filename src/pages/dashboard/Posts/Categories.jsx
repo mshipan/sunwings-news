@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import {
   useAddNewCategoryMutation,
+  useDeleteSingleCategoryMutation,
   useGetCategoriesQuery,
 } from "../../../redux/features/allApis/categoryApi/categoryApi";
 
@@ -17,7 +18,9 @@ const Categories = () => {
     formState: { errors },
     reset,
   } = useForm();
+  const { data: categories } = useGetCategoriesQuery();
   const [addNewCategory] = useAddNewCategoryMutation();
+  const [deleteSingleCategory] = useDeleteSingleCategoryMutation();
 
   // add new category
   const onSubmit = (data) => {
@@ -54,16 +57,20 @@ const Categories = () => {
     );
   };
 
-  const handleEdit = (id) => {
-    // Handle edit action
-  };
-
-  const handleView = (id) => {
-    // Handle view action
-  };
-
   const handleDelete = (id) => {
+    const selectedCategory = categories.find((item, i) => i + 1 === id);
+
     // Handle delete action
+    deleteSingleCategory(selectedCategory._id)
+      .then((data) => {
+        if (data.data.deletedCount) {
+          toast.success("Category Deleted successfully");
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+        toast.error(error.message);
+      });
   };
 
   const columns = [
@@ -95,7 +102,6 @@ const Categories = () => {
       renderCell: (params) => <ActionButtons id={params.row.id} />,
     },
   ];
-  const { data: categories } = useGetCategoriesQuery();
 
   const rows = categories
     ? categories.map((category, i) => ({
