@@ -230,8 +230,9 @@ const AddNewPost = () => {
                   </div>
                 </div>
               </div>
+              <div></div>
             </div>
-            <div>{}</div>
+            {/* <div>{selectedCategories && }</div> */}
           </form>
         </div>
       </div>
