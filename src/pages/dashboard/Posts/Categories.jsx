@@ -135,7 +135,11 @@ const Categories = () => {
                   <label htmlFor="categoryName" className="mb-2 text-gray-500">
                     Category Name:{" "}
                   </label>
-                  <select name="" id="">
+                  <select
+                    name=""
+                    id=""
+                    {...register("categoryName", { required: true })}
+                  >
                     {categoriesList?.map((item, i) => (
                       <option key={i} value={item.value}>
                         {item.label}
