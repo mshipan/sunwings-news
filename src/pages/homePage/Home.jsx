@@ -121,7 +121,7 @@ const Home = () => {
                 <input
                   type="date"
                   placeholder="Type here"
-                  className="input input-bordered w-full text-black p-2 border border-gray-500 my-4"
+                  className="bg-white input input-bordered w-full text-black p-2 border border-gray-500 my-4"
                 />
                 <button className="w-full bg-orange-500 p-2 text-center hover:bg-orange-400">
                   খুজুন
