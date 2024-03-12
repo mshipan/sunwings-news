@@ -142,6 +142,7 @@ const Categories = () => {
                     name=""
                     id=""
                     className="bg-white border border-gray-400 py-1 px-2 text-black"
+                    {...register("categoryName", { required: true })}
                   >
                     {categoriesList?.map((item, i) => (
                       <option key={i} value={item.value}>
