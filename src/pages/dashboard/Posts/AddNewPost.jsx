@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -17,6 +17,20 @@ const AddNewPost = () => {
   const [selectedCategories, setSelectedCategories] = useState(null);
   const { register, handleSubmit, reset, watch } = useForm();
 
+  const [subcategories, setSubcategories] = useState([]);
+
+  useEffect(() => {
+    if (selectedCategories) {
+      singleCategory(selectedCategories.value).then((data) => {
+        const subcategoryNames = data?.map((item) => item.subCategoryName);
+        setSubcategories(subcategoryNames || []);
+      });
+    }
+  }, [selectedCategories]);
+
+  console.log("selectedCategories", selectedCategories);
+  console.log("subCategory", subcategories);
+
   const categoriesList = [
     { label: "জাতীয়", value: "জাতীয়" },
     { label: "রাজনীতি", value: "রাজনীতি" },
@@ -28,13 +42,6 @@ const AddNewPost = () => {
     { label: "ক্যাম্পাস", value: "ক্যাম্পাস" },
     { label: "আরো", value: "আরো" },
   ];
-
-  // console.log(selectedCategories);
-  if (selectedCategories) {
-    singleCategory(selectedCategories.value).then((data) => {
-      data?.map((item, i) => console.log(item.subCategoryName));
-    });
-  }
 
   const handleQuillChange = (content, _, __, editor) => {
     setQuillValue(content);
@@ -230,9 +237,29 @@ const AddNewPost = () => {
                   </div>
                 </div>
               </div>
-              <div></div>
+              {selectedCategories !== null && subcategories.length !== 0 && (
+                <div className="form-control">
+                  <label
+                    htmlFor="subCategoryName"
+                    className="mb-2 text-gray-500"
+                  >
+                    Sub Category Name:{" "}
+                  </label>
+                  <select {...register("subCategoryName")}>
+                    {subcategories?.map((subcategory, i) => (
+                      <option key={i} name="" id="" value={subcategory}>
+                        {subcategory}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
+              {subcategories.length === 0 && (
+                <span className="text-red-600">
+                  Selected category has no sub-category
+                </span>
+              )}
             </div>
-            {/* <div>{selectedCategories && }</div> */}
           </form>
         </div>
       </div>
