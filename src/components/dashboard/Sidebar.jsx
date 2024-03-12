@@ -38,7 +38,7 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
     <div className={sidebarOpen ? "hidden md:block" : "block"}>
       <div className="fixed left-0 top-0 w-64 h-full bg-gray-900 p-4 z-50 transition-transform">
         <div className="flex items-center justify-between pb-4">
-          <Link to="#" className="flex items-center">
+          <Link to="/" className="flex items-center">
             <img
               src="https://placehold.co/32x32"
               alt=""
@@ -127,10 +127,10 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
               </li>
               <li className="mb-4">
                 <Link
-                  to="#"
+                  to="/dashboard/advertisement"
                   className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
                 >
-                  Add New Media file
+                  Advertisement
                 </Link>
               </li>
             </ul>

@@ -11,6 +11,7 @@ import Register from "../pages/register/Register";
 import Home from "../pages/homePage/Home";
 import AllUsers from "../pages/dashboard/Users/AllUsers/AllUsers";
 import CustomizeLogo from "../pages/dashboard/media/CustomizeLogo";
+import Advertisment from "../pages/dashboard/media/Advertisment";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
       {
         path: "logo",
         element: <CustomizeLogo />,
+      },
+      {
+        path: "advertisement",
+        element: <Advertisment />,
       },
       {
         path: "all-page",
