@@ -1,5 +1,4 @@
 import homeSliderImg from "../../assets/1.png";
-import { FaFacebookSquare, FaShare, FaTwitterSquare } from "react-icons/fa";
 import SmallNewsCard from "../shared/SmallNewsCard";
 import Advertisment from "../shared/Advertisment";
 import CategoryTitle from "../shared/CategoryTitle";
