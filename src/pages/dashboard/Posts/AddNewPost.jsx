@@ -254,7 +254,7 @@ const AddNewPost = () => {
                   </select>
                 </div>
               )}
-              {subcategories.length === 0 && (
+              {selectedCategories !== null && subcategories.length === 0 && (
                 <span className="text-red-600">
                   Selected category has no sub-category
                 </span>
