@@ -102,15 +102,8 @@ const AllPosts = () => {
       type: "text",
       width: 180,
       renderCell: (params) => (
-        <div>
-          {params.value.map((category, index) => (
-            <span
-              key={index}
-              className="inline-block px-[6px] py-[2px] mr-1 bg-[#F7D7B6] rounded"
-            >
-              {category}
-            </span>
-          ))}
+        <div className="inline-block px-[6px] py-[2px] mr-1 bg-[#F7D7B6] rounded">
+          {params.value}
         </div>
       ),
     },
@@ -138,7 +131,7 @@ const AllPosts = () => {
         id: i + 1,
         author: post.author,
         title: post?.postTitle,
-        categories: post?.categories?.map((category) => category),
+        categories: post?.categories,
         publishDate: formatDate(post?.publishDate),
         status: post.status,
       }))
