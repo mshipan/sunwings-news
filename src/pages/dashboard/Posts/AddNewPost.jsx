@@ -15,9 +15,13 @@ const AddNewPost = () => {
   const [publishAccordionOpen, setPublishAccordionOpen] = useState(true);
   const [categoryAccordionOpen, setCategoryAccordionOpen] = useState(true);
   const [selectedCategories, setSelectedCategories] = useState(null);
-  const { register, handleSubmit, reset, watch } = useForm();
+  const [selectedSubCategory, setSelectedSubCategory] = useState(null); // Change here
+
+  // Other state variables...
 
   const [subcategories, setSubcategories] = useState([]);
+
+  const { register, handleSubmit, reset, watch } = useForm();
 
   useEffect(() => {
     if (selectedCategories) {
@@ -27,9 +31,6 @@ const AddNewPost = () => {
       });
     }
   }, [selectedCategories]);
-
-  console.log("selectedCategories", selectedCategories);
-  console.log("subCategory", subcategories);
 
   const categoriesList = [
     { label: "জাতীয়", value: "জাতীয়" },
@@ -63,9 +64,15 @@ const AddNewPost = () => {
 
   const now = new Date();
 
+  const handleSubCategoryChange = (selectedOption) => {
+    setSelectedSubCategory(selectedOption.value);
+    console.log(selectedOption.value); // Log selected subcategory
+  };
+
   const onSubmit = async (data, status) => {
     data.postTitle = watch("postTitle");
-    data.categories = selectedCategories?.map((ca) => ca.value);
+    data.category = selectedCategories?.value;
+    data.subCategory = selectedSubCategory;
     data.quill = quillValue;
     data.publishDate = now;
     data.status = status;
@@ -234,31 +241,34 @@ const AddNewPost = () => {
                         </h1>
                       </Link>
                     </div>
+                    {selectedCategories !== null &&
+                      subcategories.length !== 0 && (
+                        <div className="form-control">
+                          <label
+                            htmlFor="subCategoryName"
+                            className="mb-2 mt-4 text-black"
+                          >
+                            Sub Category Name:{" "}
+                          </label>
+                          <Select
+                            {...register("subCategory")}
+                            onChange={handleSubCategoryChange}
+                            options={subcategories.map((subcategory) => ({
+                              value: subcategory,
+                              label: subcategory,
+                            }))}
+                            className="text-black bg-white border border-gray-300"
+                          />
+                        </div>
+                      )}
+                    {subcategories.length === 0 && (
+                      <span className="text-red-600 mt-4">
+                        Selected category has no sub-category
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
-              {selectedCategories !== null && subcategories.length !== 0 && (
-                <div className="form-control">
-                  <label
-                    htmlFor="subCategoryName"
-                    className="mb-2 text-gray-500"
-                  >
-                    Sub Category Name:{" "}
-                  </label>
-                  <select {...register("subCategoryName")}>
-                    {subcategories?.map((subcategory, i) => (
-                      <option key={i} name="" id="" value={subcategory}>
-                        {subcategory}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              )}
-              {subcategories.length === 0 && (
-                <span className="text-red-600">
-                  Selected category has no sub-category
-                </span>
-              )}
             </div>
           </form>
         </div>
