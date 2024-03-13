@@ -5,7 +5,7 @@ import CategoryTitle from "../shared/CategoryTitle";
 const CategorizedNews = () => {
   return (
     <div>
-      <CategoryTitle />
+      <CategoryTitle title={"আন্তর্জাতিক"} />
       <div className="bg-slate-100 mb-4">
         <img src={card} alt="" />
         <div className="p-2">

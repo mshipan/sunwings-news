@@ -1,77 +1,41 @@
 import homeSliderImg from "../../assets/1.png";
 import card from "../../assets/home-slider.jpg";
-import twitter from "../../assets/twitter.jpg";
 import { Link } from "react-router-dom";
-import { FaFacebookSquare, FaShare, FaTwitterSquare } from "react-icons/fa";
 import NewsCard from "../../components/homePage/NewsCard";
 import NewsContent from "../../components/homePage/NewsContent";
 import fullImg from "../../assets/2.png";
 import CategorizedNews from "../../components/homePage/CategorizedNews";
-import Advertisment from "../../components/shared/Advertisment";
 import CategoryTitle from "../../components/shared/CategoryTitle";
 import { CiVideoOn } from "react-icons/ci";
 import Banner from "../../components/homePage/Banner";
-import SocialShare from "../../components/shared/SocialShare";
+import Aside from "../../components/homePage/Aside";
+import Advertisement from "../../components/shared/Advertisement";
 
 const Home = () => {
   return (
     <div className="container mx-auto px-2">
       <div className="flex gap-5 xl:flex-row flex-col">
         {/* home left site */}
-        <Banner />
-
-        {/* home right site */}
-        <div className="flex-none xl:w-72 text-white">
-          <div className="grid grid-cols-2 md:grid-cols-1 lg:max-xl:grid-cols-4 md:max-lg:grid-cols-4 content-between gap-4">
-            <p className="bg-slate-500 p-4 col-span-2 md:col-span-1">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt hic
-              eos repudiandae tenetur in perspiciatis ut fugiat, rem sequi
-              inventore libero odit ipsum omnis facilis repellat dicta rerum a
-              ea!
-            </p>
-
-            {/* ফেসবুকে আমরা */}
-            <div className="space-y-4">
-              <CategoryTitle title="ফেসবুকে আমরা" />
-              <SocialShare
-                title="Sunwing Tours & Travels"
-                socialUrl="https://www.facebook.com/sunwingtourstravels"
-                cardImage={twitter}
-                icon={FaFacebookSquare}
-                profileImage={card}
-              />
-            </div>
-
-            {/* টুইটারে আমরা */}
-            <div className="space-y-4">
-              <CategoryTitle title="টুইটারে আমরা" />
-              <SocialShare
-                title="Sunwing Tours & Travels"
-                socialUrl="https://www.facebook.com/sunwingtourstravels"
-                cardImage={twitter}
-                icon={FaTwitterSquare}
-                profileImage={card}
-              />
-            </div>
-
-            {/* পুরাতন সংবাদ */}
-            <div className="col-span-2 md:col-span-1">
-              <CategoryTitle title="পুরাতন সংবাদ" />
-              <div className="">
-                <input
-                  type="date"
-                  placeholder="Type here"
-                  className="bg-white input input-bordered w-full text-black p-2 border border-gray-500 my-4"
-                />
-                <button className="w-full bg-orange-500 p-2 text-center hover:bg-orange-400">
-                  খুজুন
-                </button>
-              </div>
-            </div>
+        <div>
+          {/* banner section */}
+          <Banner />
+          {/* all posts section  */}
+          <div className="py-6 grid grid-cols-2 md:grid-cols-3  gap-6">
+            <NewsCard />
+            <NewsCard />
+            <NewsCard />
+            <NewsCard />
+            <NewsCard />
+            <NewsCard />
           </div>
         </div>
+        {/* home right site */}
+        <Aside />
       </div>
-
+      <div className="flex-col lg:flex-row flex items-center gap-4 py-4">
+        <Advertisement />
+        <Advertisement />
+      </div>
       <NewsContent />
 
       <div className="py-4">
@@ -85,8 +49,8 @@ const Home = () => {
       </div>
 
       <div className="flex-col lg:flex-row flex items-center gap-4 py-4">
-        <Advertisment />
-        <Advertisment />
+        <Advertisement />
+        <Advertisement />
       </div>
 
       <div className="">
@@ -117,8 +81,8 @@ const Home = () => {
       </div>
 
       <div className="flex-col lg:flex-row flex items-center gap-4 py-4">
-        <Advertisment />
-        <Advertisment />
+        <Advertisement />
+        <Advertisement />
       </div>
 
       <div className="bg-gray-500 text-gray-200 flex gap-4 flex-col md:flex-row">
@@ -155,8 +119,8 @@ const Home = () => {
       <NewsContent />
 
       <div className="flex-col lg:flex-row flex items-center gap-4 py-4">
-        <Advertisment />
-        <Advertisment />
+        <Advertisement />
+        <Advertisement />
       </div>
 
       <div className="flex gap-4 flex-col md:flex-row mb-10">

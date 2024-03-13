@@ -1,6 +1,6 @@
 import customImg from "../../assets/HomeBanner1.png";
 
-const Advertisment = () => {
+const Advertisement = () => {
   return (
     <div>
       <img src={customImg} alt="" />
@@ -8,4 +8,4 @@ const Advertisment = () => {
   );
 };
 
-export default Advertisment;
+export default Advertisement;
