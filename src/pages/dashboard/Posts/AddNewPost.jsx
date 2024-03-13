@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -6,25 +6,42 @@ import { Link } from "react-router-dom";
 import Select from "react-select";
 import { useAddNewPostMutation } from "../../../redux/features/allApis/postApi/postApi";
 import Swal from "sweetalert2";
+import { singleCategory } from "../../../api/fetch";
 
 const AddNewPost = () => {
   const [loading, setLoading] = useState(false);
   const [quillValue, setQuillValue] = useState("");
   const [wordCount, setWordCount] = useState(0);
   const [publishAccordionOpen, setPublishAccordionOpen] = useState(true);
-  const [categoryAccordionOpen, setCategoryAccordionOpen] = useState(false);
+  const [categoryAccordionOpen, setCategoryAccordionOpen] = useState(true);
   const [selectedCategories, setSelectedCategories] = useState(null);
+  const [selectedSubCategory, setSelectedSubCategory] = useState(null); // Change here
+
+  // Other state variables...
+
+  const [subcategories, setSubcategories] = useState([]);
+
   const { register, handleSubmit, reset, watch } = useForm();
 
-  const options = [
-    { value: "category1", label: "Category 1" },
-    { value: "category2", label: "Category 2" },
-    { value: "category3", label: "Category 3" },
-    { value: "category4", label: "Category 4" },
-    { value: "category5", label: "Category 5" },
-    { value: "category6", label: "Category 6" },
-    { value: "category7", label: "Category 7" },
-    { value: "category8", label: "Category 8" },
+  useEffect(() => {
+    if (selectedCategories) {
+      singleCategory(selectedCategories.value).then((data) => {
+        const subcategoryNames = data?.map((item) => item.subCategoryName);
+        setSubcategories(subcategoryNames || []);
+      });
+    }
+  }, [selectedCategories]);
+
+  const categoriesList = [
+    { label: "জাতীয়", value: "জাতীয়" },
+    { label: "রাজনীতি", value: "রাজনীতি" },
+    { label: "আন্তর্জাতিক", value: "আন্তর্জাতিক" },
+    { label: "খেলাধূলা", value: "খেলাধূলা" },
+    { label: "বিনোদন", value: "বিনোদন" },
+    { label: "তথ্যপ্রযুক্তি", value: "তথ্যপ্রযুক্তি" },
+    { label: "সারাদেশ", value: "সারাদেশ" },
+    { label: "ক্যাম্পাস", value: "ক্যাম্পাস" },
+    { label: "আরো", value: "আরো" },
   ];
 
   const handleQuillChange = (content, _, __, editor) => {
@@ -47,9 +64,15 @@ const AddNewPost = () => {
 
   const now = new Date();
 
+  const handleSubCategoryChange = (selectedOption) => {
+    setSelectedSubCategory(selectedOption.value);
+    console.log(selectedOption.value); // Log selected subcategory
+  };
+
   const onSubmit = async (data, status) => {
     data.postTitle = watch("postTitle");
-    data.categories = selectedCategories?.map((ca) => ca.value);
+    data.category = selectedCategories?.value;
+    data.subCategory = selectedSubCategory;
     data.quill = quillValue;
     data.publishDate = now;
     data.status = status;
@@ -201,11 +224,11 @@ const AddNewPost = () => {
                     <div className="mb-2 text-black">
                       <Select
                         className="z-30"
-                        name="caregories"
+                        name="categories"
                         onChange={setSelectedCategories}
-                        options={options}
-                        isMulti
+                        options={categoriesList}
                         classNamePrefix="text-black"
+                        placeholder="Select Your Categories..."
                       />
                     </div>
                     <div className="p-2 bg-gray-200 mt-4">
@@ -218,6 +241,31 @@ const AddNewPost = () => {
                         </h1>
                       </Link>
                     </div>
+                    {selectedCategories !== null &&
+                      subcategories.length !== 0 && (
+                        <div className="form-control">
+                          <label
+                            htmlFor="subCategoryName"
+                            className="mb-2 mt-4 text-black"
+                          >
+                            Sub Category Name:{" "}
+                          </label>
+                          <Select
+                            {...register("subCategory")}
+                            onChange={handleSubCategoryChange}
+                            options={subcategories.map((subcategory) => ({
+                              value: subcategory,
+                              label: subcategory,
+                            }))}
+                            className="text-black bg-white border border-gray-300"
+                          />
+                        </div>
+                      )}
+                    {subcategories.length === 0 && (
+                      <span className="text-red-600 mt-4">
+                        Selected category has no sub-category
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>

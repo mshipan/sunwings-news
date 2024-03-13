@@ -1,14 +1,14 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { AuthContext } from "../../providers/AuthProvider";
 import toast from "react-hot-toast";
 import { saveUser } from "../../api/auth";
 import { TbFidgetSpinner } from "react-icons/tb";
 const LoginWithGoogleCompo = () => {
-  const { setUser, googleSignIn, setLoading, loading } =
-    useContext(AuthContext);
+  const { setUser, googleSignIn } = useContext(AuthContext);
+  const [googleLoading, setGoogleLoading] = useState(false);
   const handleGoogleSignIn = () => {
-    setLoading(true);
+    setGoogleLoading(true);
     googleSignIn()
       .then((result) => {
         const loggedUser = result.user;
@@ -27,28 +27,34 @@ const LoginWithGoogleCompo = () => {
                 loggedUser?.displayName || "Unknown user"
               } logged in successfully`
             );
-            setLoading(false);
+            setGoogleLoading(false);
           }
         });
       })
       .catch((error) => {
         console.log(error.message);
         toast.error(error.message);
-        setLoading(false);
+        setGoogleLoading(false);
       });
   };
   return (
     <div className="flex flex-row items-center justify-center bg-gray-50">
       <div
         onClick={handleGoogleSignIn}
-        className="max-w-md w-full p-6 bg-white rounded-md shadow-md"
+        className="w-full p-6 bg-white rounded-md shadow-md flex flex-row items-center justify-center"
       >
-        {loading ? (
-          <TbFidgetSpinner className="m-auto animate-spin" size={24} />
+        {googleLoading ? (
+          <button className="bg-blue-500 flex items-center justify-center gap-1 px-5 py-2 rounded-md w-full">
+            <TbFidgetSpinner
+              className="text-4xl m-auto animate-spin text-white"
+              size={24}
+            />
+          </button>
         ) : (
-          <>
-            <FcGoogle className="text-4xl  bg-white rounded " />
-          </>
+          <button className="bg-blue-500 flex items-center justify-center gap-1 px-5 py-1 rounded-md w-full">
+            <FcGoogle className="text-4xl rounded " />
+            <span className="text-xl text-white">Log In with Google</span>
+          </button>
         )}
       </div>
     </div>
