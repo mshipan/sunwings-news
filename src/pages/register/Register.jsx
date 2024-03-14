@@ -43,16 +43,16 @@ const Register = () => {
               photoUrl: imageUrl,
             });
             const userInfo = {
-              uid: data.uid,
+              uid: user?.uid,
               name: data.name,
               image: imageUrl,
               email: data.email,
               role: data.role,
             };
             addNewUser(userInfo)
-              .then((data) => {
-                console.log("data", data.data);
-                if (data.data.insertedId) {
+              .then((result) => {
+                console.log("data", result);
+                if (result.data) {
                   setLoading(false);
                   console.log(data);
                   toast.success("Registration Successfull!");

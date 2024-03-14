@@ -2,6 +2,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useGetPostsQuery } from "../../../redux/features/allApis/postApi/postApi";
+import { useGetAllUsersQuery } from "../../../redux/features/allApis/usersApi/usersApi";
 
 const AllPosts = () => {
   const [filters, setFilters] = useState({
@@ -11,9 +12,11 @@ const AllPosts = () => {
     status: "",
     author: "",
   });
+  const [filteredRows, setFilteredRows] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
   const { data: allPosts } = useGetPostsQuery();
+  const { data: allUsers } = useGetAllUsersQuery();
 
   const handleFilterChange = (event) => {
     const { name, value } = event.target;
@@ -24,7 +27,34 @@ const AllPosts = () => {
   };
 
   const handleFilterSubmit = () => {
-    // Handle filter submission, you can apply your filtering logic here
+    let filteredRows = allPosts;
+
+    if (filters.month && filters.year) {
+      const publishDateFilter = `${filters.year}-${filters.month}`;
+      filteredRows = filteredRows.filter((row) =>
+        row.publishDate.includes(publishDateFilter)
+      );
+    }
+
+    if (filters.category) {
+      filteredRows = filteredRows.filter(
+        (row) => row.category === filters.category
+      );
+    }
+
+    if (filters.status) {
+      filteredRows = filteredRows.filter(
+        (row) => row.status === filters.status
+      );
+    }
+
+    if (filters.author) {
+      filteredRows = filteredRows.filter(
+        (row) => row.author === filters.author
+      );
+    }
+
+    setFilteredRows(filteredRows);
   };
 
   const handleSearchInputChange = (event) => {
@@ -65,22 +95,19 @@ const AllPosts = () => {
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    const options = { day: "numeric", month: "long", year: "numeric" };
+    const options = {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    };
     const formattedDate = new Intl.DateTimeFormat("en-US", options).format(
       date
     );
-    const day = date.getDate();
-    let suffix;
-    if (day === 1 || day === 21 || day === 31) {
-      suffix = "st";
-    } else if (day === 2 || day === 22) {
-      suffix = "nd";
-    } else if (day === 3 || day === 23) {
-      suffix = "rd";
-    } else {
-      suffix = "th";
-    }
-    return `${day}${suffix} ${formattedDate}`;
+
+    return `${formattedDate}`;
   };
 
   const columns = [
@@ -97,8 +124,19 @@ const AllPosts = () => {
     },
     { field: "author", headerName: "Author", width: 180 },
     {
-      field: "categories",
+      field: "category",
       headerName: "Categories",
+      type: "text",
+      width: 180,
+      renderCell: (params) => (
+        <div className="inline-block px-[6px] py-[2px] mr-1 bg-[#F7D7B6] rounded">
+          {params.value}
+        </div>
+      ),
+    },
+    {
+      field: "subCategory",
+      headerName: "Sub Category",
       type: "text",
       width: 180,
       renderCell: (params) => (
@@ -127,28 +165,16 @@ const AllPosts = () => {
   ];
 
   const rows = allPosts
-    ? allPosts.map((post, i) => ({
+    ? allPosts?.map((post, i) => ({
         id: i + 1,
         author: post.author,
         title: post?.postTitle,
-        categories: post?.categories,
+        category: post?.category,
+        subCategory: post?.subCategory,
         publishDate: formatDate(post?.publishDate),
         status: post.status,
       }))
     : [];
-
-  const filterRows = () => {
-    if (!searchQuery) {
-      return rows;
-    }
-
-    const query = searchQuery.toLowerCase();
-    return rows?.filter((row) => {
-      return Object.values(row).some((value) =>
-        value?.toString()?.toLowerCase()?.includes(query)
-      );
-    });
-  };
 
   const handleEdit = (id) => {
     // Handle edit action
@@ -221,6 +247,17 @@ const AllPosts = () => {
     { value: "amy_carter", label: "Amy Carter" },
   ];
 
+  const allPostLength = allPosts?.length;
+  const publishedPostsLength = allPosts
+    ? allPosts.filter((post) => post.status === "published").length
+    : 0;
+  const draftPostsLength = allPosts
+    ? allPosts.filter((post) => post.status === "draft").length
+    : 0;
+
+  const authorss = allUsers?.map((post) => post.name);
+  console.log(authorss);
+
   return (
     <div className="flex flex-col gap-3">
       <div className="flex flex-col md:flex-row gap-3">
@@ -231,43 +268,45 @@ const AllPosts = () => {
           </button>
         </Link>
       </div>
-      <div className="mt-5 flex items-center gap-1 text-xs">
-        <p className="text-xs">All (344) </p>|
-        <p className="text-xs">Published (300)</p>|
-        <p className="text-xs"> Draft (44)</p>
+      <div className="mt-5 flex items-center gap-1 text-lg  text-black">
+        <p>
+          All
+          <span className="text-blue-500 hover:underline cursor-pointer">
+            ({allPostLength || 0})
+          </span>
+        </p>
+        |
+        <p>
+          Published
+          <span className="text-blue-500 hover:underline cursor-pointer">
+            ({publishedPostsLength})
+          </span>
+        </p>
+        |
+        <p>
+          Draft
+          <span className="text-blue-500 hover:underline cursor-pointer">
+            ({draftPostsLength})
+          </span>
+        </p>
       </div>
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 md:gap-0">
         <div className="flex flex-col md:flex-row md:items-center gap-3">
+          <input
+            type="date"
+            name=""
+            id=""
+            className="block rounded-sm px-2 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6 bg-white"
+          />
+
           <select
-            name="month"
-            onChange={handleFilterChange}
-            className="block rounded-sm px-2 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6 bg-white "
-          >
-            {months?.map((month, i) => (
-              <option key={i} value={month?.value}>
-                {month?.lable}
-              </option>
-            ))}
-          </select>
-          <select
-            name="year"
+            name="category"
             onChange={handleFilterChange}
             className="block rounded-sm px-2 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6 bg-white"
           >
-            {years?.map((year, i) => (
-              <option key={i} value={year?.value}>
-                {year?.lable}
-              </option>
-            ))}
-          </select>
-          <select
-            name="categories"
-            onChange={handleFilterChange}
-            className="block rounded-sm px-2 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6 bg-white"
-          >
-            {categories?.map((category, i) => (
-              <option key={i} value={category?.value}>
-                {category?.label}
+            {categories?.map((category) => (
+              <option key={category.value} value={category.value}>
+                {category.label}
               </option>
             ))}
           </select>
@@ -322,7 +361,7 @@ const AllPosts = () => {
 
       <div className="w-full h-[30rem]">
         <DataGrid
-          rows={filterRows()}
+          rows={rows}
           columns={columns}
           initialState={{
             pagination: {

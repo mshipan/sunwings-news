@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -7,17 +7,19 @@ import Select from "react-select";
 import { useAddNewPostMutation } from "../../../redux/features/allApis/postApi/postApi";
 import Swal from "sweetalert2";
 import { singleCategory } from "../../../api/fetch";
+import { AuthContext } from "../../../providers/AuthProvider";
+import { useGetUserByUidQuery } from "../../../redux/features/allApis/usersApi/usersApi";
+import { imageUpload } from "../../../api/utils";
 
 const AddNewPost = () => {
+  const { user } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [quillValue, setQuillValue] = useState("");
   const [wordCount, setWordCount] = useState(0);
   const [publishAccordionOpen, setPublishAccordionOpen] = useState(true);
   const [categoryAccordionOpen, setCategoryAccordionOpen] = useState(true);
   const [selectedCategories, setSelectedCategories] = useState(null);
-  const [selectedSubCategory, setSelectedSubCategory] = useState(null); // Change here
-
-  // Other state variables...
+  const [selectedSubCategory, setSelectedSubCategory] = useState(null);
 
   const [subcategories, setSubcategories] = useState([]);
 
@@ -61,24 +63,31 @@ const AddNewPost = () => {
   };
 
   const [createPost] = useAddNewPostMutation();
+  const { data: singleUser } = useGetUserByUidQuery(user?.uid);
 
   const now = new Date();
 
   const handleSubCategoryChange = (selectedOption) => {
     setSelectedSubCategory(selectedOption.value);
-    console.log(selectedOption.value); // Log selected subcategory
   };
 
   const onSubmit = async (data, status) => {
+    data.author = singleUser?.name;
+    data.authorImage = singleUser?.image;
+    data.authorEmail = singleUser?.email;
     data.postTitle = watch("postTitle");
     data.category = selectedCategories?.value;
     data.subCategory = selectedSubCategory;
     data.quill = quillValue;
     data.publishDate = now;
     data.status = status;
+    const thumbnailImage = watch("postThumbnail");
 
     try {
       setLoading(true);
+      const imageData = await imageUpload(thumbnailImage[0]);
+
+      data.postThumbnail = imageData.data.display_url;
       const result = await createPost(data);
       if (result.data) {
         Swal.fire({
@@ -115,7 +124,14 @@ const AddNewPost = () => {
   return (
     <div className="flex flex-col gap-3">
       <div className="flex flex-col gap-3">
-        <h1 className="text-black text-2xl mb-4">Add New Post</h1>
+        <div className="flex flex-col md:flex-row gap-3 mb-4">
+          <h1 className="text-black text-2xl ">Add New Post</h1>
+          <Link to="/dashboard/all-posts">
+            <button className="bg-blue-100 px-4 py-1 border border-blue-500 rounded-sm text-blue-500 hover:bg-gray-100 transition-all duration-300 ease-in-out">
+              All Posts
+            </button>
+          </Link>
+        </div>
         <div>
           <form
             onSubmit={handleSubmit((data) => onSubmit(data, "draft"))}
@@ -125,12 +141,31 @@ const AddNewPost = () => {
 
             <div className="flex flex-col gap-6 md:w-2/3">
               <div className="form-control">
+                <label htmlFor="postTitle" className="text-xl text-black mb-2">
+                  Post Title:
+                </label>
                 <input
                   type="text"
                   name="postTitle"
                   {...register("postTitle")}
                   className="py-3 bg-white border border-gray-300 px-2 placeholder:text-2xl text-2xl placeholder:text-gray-500 text-black rounded-sm"
                   placeholder="Add title"
+                />
+              </div>
+
+              <div className="form-control">
+                <label
+                  htmlFor="postThumbnail"
+                  className="text-xl text-black mb-2"
+                >
+                  Thumbnail:
+                </label>
+                <input
+                  type="file"
+                  name="postThumbnail"
+                  {...register("postThumbnail")}
+                  className="py-3 bg-white border border-gray-300 px-2 placeholder:text-2xl text-2xl placeholder:text-gray-500 text-black rounded-sm"
+                  placeholder="Add thumbnail"
                 />
               </div>
 
@@ -142,7 +177,7 @@ const AddNewPost = () => {
                   theme="snow"
                   value={quillValue}
                   onChange={handleQuillChange}
-                  className="h-96 bg-white"
+                  className="h-96 bg-white text-black"
                   modules={{
                     toolbar: [
                       [{ header: "1" }, { header: "2" }, { font: [] }],
@@ -278,7 +313,7 @@ const AddNewPost = () => {
         <h1 className="text-xl text-black my-5">Your Post Preview:</h1>
         <div
           dangerouslySetInnerHTML={{ __html: quillValue }}
-          className="max-w-4xl"
+          className="md:max-w-3xl"
         />
       </div>
     </div>

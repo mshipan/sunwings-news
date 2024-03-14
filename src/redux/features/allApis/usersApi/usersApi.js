@@ -7,6 +7,11 @@ const usersApi = baseApi.injectEndpoints({
       providesTags: ["users"],
     }),
 
+    getUserByUid: builder.query({
+      query: (uid) => `/users/${uid}`,
+      providesTags: ["users"],
+    }),
+
     addNewUser: builder.mutation({
       query: (data) => ({
         url: "/users",
@@ -18,4 +23,8 @@ const usersApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetAllUsersQuery, useAddNewUserMutation } = usersApi;
+export const {
+  useGetAllUsersQuery,
+  useGetUserByUidQuery,
+  useAddNewUserMutation,
+} = usersApi;

@@ -141,16 +141,16 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
               onClick={() => toggleCollapse("theme")}
             >
               <MdOutlineCamera className="ri-instance-line mr-3 text-lg" />
-              <span className="text-sm select-none">Theme Options</span>
+              <span className="text-sm select-none">Theme Settings</span>
               <MdOutlineKeyboardArrowRight className=" ml-auto " />
             </div>
             <ul className={`pl-7 mt-2 ${collapsed.theme ? "hidden" : "block"}`}>
               <li className="mb-4">
                 <Link
-                  to="#"
+                  to="/dashboard/social-profiles"
                   className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
                 >
-                  Activation Theme
+                  Social Profiles
                 </Link>
               </li>
               <li className="mb-4">
@@ -158,95 +158,7 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
                   to="#"
                   className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
                 >
-                  Header Options
-                </Link>
-              </li>
-              <li className="mb-4">
-                <Link
-                  to="#"
-                  className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
-                >
-                  Footer Options
-                </Link>
-              </li>
-              <li className="mb-4">
-                <Link
-                  to="#"
-                  className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
-                >
-                  Category Settings
-                </Link>
-              </li>
-              <li className="mb-4">
-                <Link
-                  to="#"
-                  className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
-                >
-                  Layout
-                </Link>
-              </li>
-              <li className="mb-4">
-                <Link
-                  to="#"
-                  className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
-                >
-                  Single Post Options
-                </Link>
-              </li>
-              <li className="mb-4">
-                <Link
-                  to="#"
-                  className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
-                >
-                  Category Post Options
-                </Link>
-              </li>
-              <li className="mb-4">
-                <Link
-                  to="#"
-                  className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
-                >
-                  Style
-                </Link>
-              </li>
-              <li className="mb-4">
-                <Link
-                  to="#"
-                  className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
-                >
-                  Support
-                </Link>
-              </li>
-              <li className="mb-4">
-                <Link
-                  to="#"
-                  className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
-                >
-                  Our More Themes
-                </Link>
-              </li>
-              <li className="mb-4">
-                <Link
-                  to="#"
-                  className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
-                >
-                  Setup Tutorial
-                </Link>
-              </li>
-              <li className="mb-4">
-                <Link
-                  to="#"
-                  className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
-                >
-                  Documentation
-                </Link>
-              </li>
-              <li className="mb-4">
-                <Link
-                  to="#"
-                  className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
-                >
-                  Import / Export
+                  Footer
                 </Link>
               </li>
             </ul>
