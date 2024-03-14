@@ -1,4 +1,3 @@
-import homeSliderImg from "../../assets/1.png";
 import { useGetPostsQuery } from "../../redux/features/allApis/postApi/postApi";
 import CategoryTitle from "../shared/CategoryTitle";
 import SmallNewsCard from "../shared/SmallNewsCard";
