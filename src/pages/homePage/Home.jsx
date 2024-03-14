@@ -10,6 +10,7 @@ import { CiVideoOn } from "react-icons/ci";
 import Banner from "../../components/homePage/Banner";
 import Aside from "../../components/homePage/Aside";
 import Advertisement from "../../components/shared/Advertisement";
+import MiddleCategorySec from "../../components/homePage/MiddleCategorySec";
 
 const Home = () => {
   return (
@@ -41,12 +42,8 @@ const Home = () => {
       <div className="py-4">
         <img src={fullImg} alt="" />
       </div>
-
-      <div className="grid gap-4 grid-cols-1 md:max-lg:grid-cols-2 lg:grid-cols-3">
-        <CategorizedNews />
-        <CategorizedNews />
-        <CategorizedNews />
-      </div>
+      {/* middle category section */}
+      <MiddleCategorySec />
 
       <div className="flex-col lg:flex-row flex items-center gap-4 py-4">
         <Advertisement />
@@ -129,7 +126,7 @@ const Home = () => {
           <img src={homeSliderImg} alt="" />
         </div>
         <div className="">
-          <CategorizedNews />
+          {/* <CategorizedNews /> */}
         </div>
       </div>
     </div>
