@@ -2,11 +2,13 @@ import { useContext, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { AuthContext } from "../../providers/AuthProvider";
 import toast from "react-hot-toast";
-import { saveUser } from "../../api/auth";
 import { TbFidgetSpinner } from "react-icons/tb";
+import { useAddNewUserMutation } from "../../redux/features/allApis/usersApi/usersApi";
 const LoginWithGoogleCompo = () => {
   const { setUser, googleSignIn } = useContext(AuthContext);
   const [googleLoading, setGoogleLoading] = useState(false);
+  const [addNewUser] = useAddNewUserMutation();
+
   const handleGoogleSignIn = () => {
     setGoogleLoading(true);
     googleSignIn()
@@ -16,12 +18,13 @@ const LoginWithGoogleCompo = () => {
 
         setUser(loggedUser);
         const userInfo = {
+          uid: loggedUser.uid,
           name: loggedUser.displayName,
           email: loggedUser.email,
           image: loggedUser.photoURL,
         };
-        saveUser(userInfo).then((data) => {
-          if (data.insertedId) {
+        addNewUser(userInfo).then((data) => {
+          if (data) {
             toast.success(
               `${
                 loggedUser?.displayName || "Unknown user"

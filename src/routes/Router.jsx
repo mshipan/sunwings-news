@@ -12,6 +12,7 @@ import Home from "../pages/homePage/Home";
 import AllUsers from "../pages/dashboard/Users/AllUsers/AllUsers";
 import CustomizeLogo from "../pages/dashboard/media/CustomizeLogo";
 import Advertisment from "../pages/dashboard/media/Advertisment";
+import SocialProfiles from "../pages/dashboard/themeSettings/socialProfiles/SocialProfiles";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
       {
         path: "advertisement",
         element: <Advertisment />,
+      },
+      {
+        path: "social-profiles",
+        element: <SocialProfiles />,
       },
       {
         path: "all-page",
