@@ -10,7 +10,10 @@ import Login from "../pages/login/Login";
 import Register from "../pages/register/Register";
 import Home from "../pages/homePage/Home";
 import AllUsers from "../pages/dashboard/Users/AllUsers/AllUsers";
+import SinglePage from "../pages/homePage/SinglePage";
 import CustomizeLogo from "../pages/dashboard/media/CustomizeLogo";
+import Advertisment from "../pages/dashboard/media/Advertisment";
+import SocialProfiles from "../pages/dashboard/themeSettings/socialProfiles/SocialProfiles";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/news/:id",
+        element: <SinglePage />,
       },
     ],
   },
@@ -42,6 +49,14 @@ const router = createBrowserRouter([
       {
         path: "logo",
         element: <CustomizeLogo />,
+      },
+      {
+        path: "advertisement",
+        element: <Advertisment />,
+      },
+      {
+        path: "social-profiles",
+        element: <SocialProfiles />,
       },
       {
         path: "all-page",
