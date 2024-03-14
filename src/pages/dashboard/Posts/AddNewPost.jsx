@@ -201,46 +201,6 @@ const AddNewPost = () => {
             <div className="md:w-1/3 flex flex-col gap-3">
               <div
                 className={`collapse-arrow w-full rounded-none select-none ${
-                  publishAccordionOpen ? "collapse-open" : "collapse-close"
-                }`}
-              >
-                <div
-                  onClick={togglePublishAccordion}
-                  className="collapse-title text-xl font-medium bg-white border border-gray-400"
-                >
-                  <h1 className="text-black">Publish</h1>
-                </div>
-                <div
-                  className={`collapse-content border border-gray-400 ${
-                    publishAccordionOpen ? "open" : ""
-                  }`}
-                >
-                  <div className="flex flex-row justify-between mt-4">
-                    <button
-                      type="button"
-                      className="px-4 py-1 border border-green-600 bg-transparent hover:bg-green-600 text-green-600 hover:text-white font-medium"
-                      onClick={() => onSubmit({}, "draft")}
-                    >
-                      Save Draft
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => onSubmit({}, "published")}
-                      className="px-4 py-1 border border-blue-600 bg-transparent hover:bg-blue-600 text-blue-600 hover:text-white font-medium"
-                    >
-                      {loading ? "Publishing..." : "Publish"}
-                    </button>
-
-                    <button className="px-4 py-1 border border-red-600 bg-transparent hover:bg-red-600 text-red-600 hover:text-white font-medium">
-                      Move to Trash
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <div
-                className={`collapse-arrow w-full rounded-none select-none ${
                   categoryAccordionOpen ? "collapse-open" : "collapse-close"
                 }`}
               >
@@ -301,6 +261,46 @@ const AddNewPost = () => {
                         Selected category has no sub-category
                       </span>
                     )}
+                  </div>
+                </div>
+              </div>
+
+              <div
+                className={`collapse-arrow w-full rounded-none select-none ${
+                  publishAccordionOpen ? "collapse-open" : "collapse-close"
+                }`}
+              >
+                <div
+                  onClick={togglePublishAccordion}
+                  className="collapse-title text-xl font-medium bg-white border border-gray-400"
+                >
+                  <h1 className="text-black">Publish</h1>
+                </div>
+                <div
+                  className={`collapse-content border border-gray-400 ${
+                    publishAccordionOpen ? "open" : ""
+                  }`}
+                >
+                  <div className="flex flex-row justify-between mt-4">
+                    <button
+                      type="button"
+                      className="px-4 py-1 border border-green-600 bg-transparent hover:bg-green-600 text-green-600 hover:text-white font-medium"
+                      onClick={() => onSubmit({}, "draft")}
+                    >
+                      {loading ? "Saving..." : "Save Draft"}
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => onSubmit({}, "published")}
+                      className="px-4 py-1 border border-blue-600 bg-transparent hover:bg-blue-600 text-blue-600 hover:text-white font-medium"
+                    >
+                      {loading ? "Publishing..." : "Publish"}
+                    </button>
+
+                    {/* <button className="px-4 py-1 border border-red-600 bg-transparent hover:bg-red-600 text-red-600 hover:text-white font-medium">
+                      Move to Trash
+                    </button> */}
                   </div>
                 </div>
               </div>
