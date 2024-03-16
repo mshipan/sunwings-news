@@ -1,14 +1,24 @@
-import twitter from "../../assets/twitter.jpg";
+import { Link } from "react-router-dom";
+import { useGetPostsQuery } from "../../redux/features/allApis/postApi/postApi";
 
 const SinglePageLeft = () => {
+  const { data: posts, isLoading } = useGetPostsQuery("");
+  const slicedPosts = posts?.slice(0, 7);
+  // console.log(slicedPosts);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div className="">
-      <div className="">
-        <img src={twitter} alt="" />
-        <p className="bg-gray-300 px-2 py-1 pb-2">
-          ৫ ধরনের ছুটির সুবিধাসহ আর্থিক প্রতিষ্ঠানে চাকরির সুযোগ
-        </p>
-      </div>
+    <div className="flex flex-col gap-4">
+      {slicedPosts?.map((post) => (
+        <div key={post?._id} className="">
+          <img className="" src={post?.postThumbnail} alt="" />
+          <Link to={`/posts/${post._id}`}>
+            <p className="bg-gray-300 px-2 py-1 pb-2">{post?.postTitle}</p>
+          </Link>
+        </div>
+      ))}
     </div>
   );
 };

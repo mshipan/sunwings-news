@@ -3,11 +3,14 @@ import baseApi from "../../baseApi";
 const postApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getPosts: builder.query({
-      query: ({ category, subCategory = "" }) =>
+      query: ({ category = "", subCategory = "" }) =>
         `/posts?category=${category}&&subCategory=${subCategory}`,
       providesTags: ["posts"],
     }),
-
+    getPostById: builder.query({
+      query: ({ id }) => `/posts/${id}`,
+      providesTags: ["posts"],
+    }),
     addNewPost: builder.mutation({
       query: (data) => ({
         url: "/posts",
@@ -19,4 +22,5 @@ const postApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetPostsQuery, useAddNewPostMutation } = postApi;
+export const { useGetPostsQuery, useAddNewPostMutation, useGetPostByIdQuery } =
+  postApi;
