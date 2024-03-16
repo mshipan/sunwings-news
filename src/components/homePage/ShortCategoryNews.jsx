@@ -8,7 +8,7 @@ const ShortCategoryNews = () => {
     isLoading,
     isError,
   } = useGetPostsQuery({ category: "রাজনীতি" });
-  console.log("Posts Data:", posts);
+  // console.log("Posts Data:", posts);
 
   // Handling loading state
   if (isLoading) {
