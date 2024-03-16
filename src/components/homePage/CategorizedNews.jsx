@@ -6,7 +6,7 @@ const CategorizedNews = ({ secTitle, news, loading }) => {
   // console.log(news);
   if (!loading) {
     const newArray = news?.slice(1);
-    console.log("new", newArray);
+    // console.log("new", newArray);
 
     return (
       <div>

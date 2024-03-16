@@ -1,7 +1,7 @@
 import homeSliderImg from "../../assets/1.png";
 
 const SmallNewsCard = ({ post, isLoading }) => {
-  console.log(post);
+  // console.log(post);
 
   if (isLoading) {
     return (

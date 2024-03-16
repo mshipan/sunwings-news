@@ -1,16 +1,16 @@
 import homeSliderImg from "../../assets/1.png";
 import card from "../../assets/home-slider.jpg";
 import { Link } from "react-router-dom";
-import NewsCard from "../../components/homePage/NewsCard";
 import NewsContent from "../../components/homePage/NewsContent";
 import fullImg from "../../assets/2.png";
-import CategorizedNews from "../../components/homePage/CategorizedNews";
 import CategoryTitle from "../../components/shared/CategoryTitle";
 import { CiVideoOn } from "react-icons/ci";
 import Banner from "../../components/homePage/Banner";
 import Aside from "../../components/homePage/Aside";
 import Advertisement from "../../components/shared/Advertisement";
 import MiddleCategorySec from "../../components/homePage/MiddleCategorySec";
+import AllNews from "../../components/homePage/AllNews";
+import EntertainmentSection from "../../components/homePage/EntertainmentSection";
 
 const Home = () => {
   return (
@@ -21,14 +21,7 @@ const Home = () => {
           {/* banner section */}
           <Banner />
           {/* all posts section  */}
-          <div className="py-6 grid grid-cols-2 md:grid-cols-3  gap-6">
-            <NewsCard />
-            <NewsCard />
-            <NewsCard />
-            <NewsCard />
-            <NewsCard />
-            <NewsCard />
-          </div>
+          <AllNews />
         </div>
         {/* home right site */}
         <Aside />
@@ -50,32 +43,7 @@ const Home = () => {
         <Advertisement />
       </div>
 
-      <div className="">
-        <CategoryTitle />
-        <div className="flex gap-4 flex-col md:flex-row">
-          <div className="flex gap-4 flex-row md:flex-col">
-            <NewsCard />
-            <NewsCard />
-          </div>
-          <div className="md:w-5/6 w-full">
-            <img src={homeSliderImg} alt="" />
-            <h2 className="text-black font-semibold text-xl py-4">
-              ‘সিন্দাবাদ-আলাদীনের মতো কাজল রেখাও দর্শকমনে স্থান করে নেবে’
-            </h2>
-            <p className="text-black">
-              এটা একটা ডেমো নিউজ। এটা একটা ডেমো নিউজ। এটা একটা ডেমো নিউজ। এটা
-              একটা ডেমো নিউজ। এটা একটা ডেমো নিউজ। এটা একটা ডেমো নিউজ। এটা একটা
-              ডেমো নিউজ। এটা একটা ডেমো নিউজ। এটা একটা ডেমো নিউজ। এটা একটা ডেমো
-              নিউজ। এটা একটা ডেমো নিউজ। এটা একটা ডেমো নিউজ। এটা একটা ডেমো নিউজ।
-              এটা একটা ডেমো নিউজ। এটা একটা ডেমো নিউজ।
-            </p>
-          </div>
-          <div className="flex gap-4 flex-row md:flex-col">
-            <NewsCard />
-            <NewsCard />
-          </div>
-        </div>
-      </div>
+      <EntertainmentSection />
 
       <div className="flex-col lg:flex-row flex items-center gap-4 py-4">
         <Advertisement />
@@ -113,7 +81,7 @@ const Home = () => {
         </div>
       </div>
 
-      <NewsContent />
+      {/* <NewsContent /> */}
 
       <div className="flex-col lg:flex-row flex items-center gap-4 py-4">
         <Advertisement />
@@ -125,9 +93,7 @@ const Home = () => {
           <CategoryTitle />
           <img src={homeSliderImg} alt="" />
         </div>
-        <div className="">
-          {/* <CategorizedNews /> */}
-        </div>
+        <div className="">{/* <CategorizedNews /> */}</div>
       </div>
     </div>
   );
