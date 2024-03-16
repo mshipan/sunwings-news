@@ -1,8 +1,6 @@
-import cover from "../../../../assets/twitter.jpg";
-import logo from "../../../../assets/facebook.jpg";
 import { useForm } from "react-hook-form";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { imageUpload } from "../../../../api/utils";
 import Swal from "sweetalert2";
 import {
@@ -10,24 +8,16 @@ import {
   useGetFacebookByIdQuery,
   useUpdateFacebookMutation,
 } from "../../../../redux/features/allApis/socialMediaApi/facebookApi";
+import { Link } from "react-router-dom";
 
 const Facebook = () => {
   const [loading, setLoading] = useState(false);
   const { register, handleSubmit, watch } = useForm();
-  const { data: allFacebook, isLoading } = useGetAllFacebookQuery();
-  console.log("allFa", allFacebook);
-  const { data: singleFacebook } = useGetFacebookByIdQuery();
-  useEffect(() => {
-    if (isLoading) {
-      setLoading(true);
-    } else {
-      setLoading(false);
-    }
-  }, [isLoading]);
-  // console.log("sin", singleFacebook);
-  // const id = singleFacebook?._id;
-  // console.log(id);
+
+  const { data: allFacebooks } = useGetAllFacebookQuery();
   const [updateFacebook] = useUpdateFacebookMutation();
+  const id = allFacebooks?.[0]._id;
+  const { data: singleFacebook } = useGetFacebookByIdQuery(id);
 
   const onSubmit = async (data) => {
     const profileImage = watch("profilePhoto");
@@ -36,12 +26,10 @@ const Facebook = () => {
       setLoading(true);
       const imageData1 = await imageUpload(profileImage[0]);
       const imageData2 = await imageUpload(coverImage[0]);
-
       data.profilePhoto = imageData1.data.display_url;
       data.coverPhoto = imageData2.data.display_url;
-
       const result = await updateFacebook({
-        id: singleFacebook?._id,
+        id: id,
         data: data,
       });
       if (result.data.modifiedCount > 0) {
@@ -141,13 +129,13 @@ const Facebook = () => {
         <div className="md:w-1/2 flex flex-col gap-3 border border-gray-500">
           <div className="relative">
             <div>
-              <img src={cover} alt="" className="" />
+              <img src={singleFacebook?.coverPhoto} alt="" className="w-full" />
             </div>
-            <div className="absolute bottom-4 left-4">
+            <div className="absolute -bottom-7 left-4">
               <img
-                src={logo}
+                src={singleFacebook?.profilePhoto}
                 alt=""
-                className="size-36 rounded-full border border-gray-500"
+                className="size-48 rounded-full border border-gray-500"
               />
             </div>
           </div>
@@ -158,7 +146,11 @@ const Facebook = () => {
             </h1>
             <p className="text-xl text-black font-medium leading-none">
               Facebook Page Link:
-              <span className="text-lg ml-5">{singleFacebook?.link}</span>
+              <Link to={singleFacebook?.link}>
+                <span className="text-lg ml-5 text-blue-600 hover:underline">
+                  {singleFacebook?.link}
+                </span>
+              </Link>
             </p>
           </div>
         </div>
