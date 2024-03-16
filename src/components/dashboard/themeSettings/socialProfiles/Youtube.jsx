@@ -2,29 +2,29 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { imageUpload } from "../../../../api/utils";
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import {
-  useGetAllTwitterQuery,
-  useUpdateTwitterMutation,
-} from "../../../../redux/features/allApis/socialMediaApi/twitterApi";
-const Twitter = () => {
+  useGetAllYoutubeQuery,
+  useUpdateYoutubeMutation,
+} from "../../../../redux/features/allApis/socialMediaApi/youtubeApi";
+
+const Youtube = () => {
   const [loading, setLoading] = useState(false);
   const { register, handleSubmit, watch, reset } = useForm();
 
-  const { data: allTwitters } = useGetAllTwitterQuery();
-  const [updateTwitter] = useUpdateTwitterMutation();
-  const id = allTwitters?.[0]._id;
-  const singleTwitter = allTwitters?.[0];
+  const { data: allYoutube } = useGetAllYoutubeQuery();
+  const [updateYoutube] = useUpdateYoutubeMutation();
+  const id = allYoutube?.[0]._id;
+  const singleYoutube = allYoutube?.[0];
   const onSubmit = async (data) => {
-    const profileImage = watch("profilePhoto");
-    const coverImage = watch("coverPhoto");
+    const thumbnailImage = watch("thumbnail");
     try {
       setLoading(true);
-      const imageData1 = await imageUpload(profileImage[0]);
-      const imageData2 = await imageUpload(coverImage[0]);
-      data.profilePhoto = imageData1.data.display_url;
-      data.coverPhoto = imageData2.data.display_url;
-      const result = await updateTwitter({
+      const imageData = await imageUpload(thumbnailImage[0]);
+
+      data.thumbnail = imageData.data.display_url;
+
+      const result = await updateYoutube({
         id: id,
         data: data,
       });
@@ -32,7 +32,7 @@ const Twitter = () => {
         setLoading(false);
         reset();
         Swal.fire({
-          title: "Twitter Updated Successfully!",
+          title: "Youtube Updated Successfully!",
           text: "Press OK to continue",
           icon: "success",
           confirmButtonText: "OK",
@@ -43,7 +43,7 @@ const Twitter = () => {
       Swal.fire({
         position: "center",
         icon: "error",
-        title: `Error Updating Twitter: ${error}`,
+        title: `Error Updating Youtube: ${error}`,
         showConfirmButton: false,
         timer: 1500,
       });
@@ -51,7 +51,7 @@ const Twitter = () => {
   };
   return (
     <div>
-      <h1 className="text-black text-xl mb-2">Twitter</h1>
+      <h1 className="text-black text-xl mb-2">Youtube</h1>
       <div className="flex flex-col md:flex-row gap-6">
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -59,7 +59,7 @@ const Twitter = () => {
         >
           <div className="form-control">
             <label htmlFor="title" className="text-black mb-2 text-lg">
-              Twitter Id Title:
+              Youtube Channel Title:
             </label>
             <input
               type="text"
@@ -69,40 +69,53 @@ const Twitter = () => {
               placeholder="Enter Title..."
             />
           </div>
-
           <div className="form-control">
-            <label htmlFor="link" className="text-black mb-2 text-lg">
-              Id Link:
+            <label htmlFor="videoTitle" className="text-black mb-2 text-lg">
+              Video Title:
             </label>
             <input
               type="text"
-              name="link"
-              {...register("link")}
+              name="videoTitle"
+              {...register("videoTitle")}
               className="bg-white border border-gray-400 px-3 py-2 text-black"
-              placeholder="Enter Link..."
+              placeholder="Enter Video Title..."
             />
           </div>
 
           <div className="form-control">
-            <label htmlFor="profilePhoto" className="text-black mb-2 text-lg">
-              Profile Photo:
+            <label htmlFor="embedLink" className="text-black mb-2 text-lg">
+              Video Embed Link:
             </label>
             <input
-              type="file"
-              name="profilePhoto"
-              {...register("profilePhoto")}
+              type="text"
+              name="embedLink"
+              {...register("embedLink")}
               className="bg-white border border-gray-400 px-3 py-2 text-black"
+              placeholder="Enter Embed Link..."
             />
           </div>
 
           <div className="form-control">
-            <label htmlFor="coverPhoto" className="text-black mb-2 text-lg">
-              Cover Photo:
+            <label htmlFor="channelLink" className="text-black mb-2 text-lg">
+              Channel Link:
+            </label>
+            <input
+              type="text"
+              name="channelLink"
+              {...register("channelLink")}
+              className="bg-white border border-gray-400 px-3 py-2 text-black"
+              placeholder="Enter Youtube Channel Link..."
+            />
+          </div>
+
+          <div className="form-control">
+            <label htmlFor="thumbnail" className="text-black mb-2 text-lg">
+              Thumbnail Photo:
             </label>
             <input
               type="file"
-              name="coverPhoto"
-              {...register("coverPhoto")}
+              name="thumbnail"
+              {...register("thumbnail")}
               className="bg-white border border-gray-400 px-3 py-2 text-black"
             />
           </div>
@@ -117,36 +130,18 @@ const Twitter = () => {
                 Updating...
               </div>
             ) : (
-              "Update Twitter"
+              "Update Youtube"
             )}
           </button>
         </form>
-        {singleTwitter && (
+        {singleYoutube && (
           <div className="md:w-1/2 h-fit flex flex-col gap-3 border border-gray-500">
             <div className="relative">
-              <div>
-                <img
-                  src={singleTwitter?.coverPhoto}
-                  alt=""
-                  className="w-full"
-                />
-              </div>
-              <div className="absolute bottom-0 md:-bottom-7 left-4">
-                <img
-                  src={singleTwitter?.profilePhoto}
-                  alt=""
-                  className="md:size-48 size-32 rounded-full border border-gray-500"
-                />
-              </div>
-              <div className="flex flex-col gap-1 p-4 absolute bottom-2 md:bottom-6 left-28 md:left-48 ">
-                <h1 className=" text-xl md:text-4xl text-white font-medium leading-none">
-                  <Link to={singleTwitter?.link}>
-                    <span className="ml-5 hover:underline">
-                      {singleTwitter?.title}
-                    </span>
-                  </Link>
-                </h1>
-              </div>
+              <iframe
+                src="https://www.youtube.com/embed/NgrljB7UU34?si=a3TEPOJILUy3OKV2"
+                frameBorder="0"
+                className="w-full h-96"
+              ></iframe>
             </div>
           </div>
         )}
@@ -155,4 +150,4 @@ const Twitter = () => {
   );
 };
 
-export default Twitter;
+export default Youtube;
