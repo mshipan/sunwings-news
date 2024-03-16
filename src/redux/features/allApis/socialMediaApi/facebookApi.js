@@ -6,14 +6,10 @@ const facebookApi = baseApi.injectEndpoints({
       query: () => "/facebook",
       providesTags: ["facebook"],
     }),
-    getFacebookById: builder.query({
-      query: (id) => `/facebook/${id}`,
-      providesTags: ["facebook"],
-    }),
     updateFacebook: builder.mutation({
       query: ({ id, data }) => ({
         url: `/facebook/${id}`,
-        method: "PATCH",
+        method: "PUT",
         body: data,
       }),
       invalidatesTags: ["facebook"],
@@ -21,8 +17,5 @@ const facebookApi = baseApi.injectEndpoints({
   }),
 });
 
-export const {
-  useGetAllFacebookQuery,
-  useGetFacebookByIdQuery,
-  useUpdateFacebookMutation,
-} = facebookApi;
+export const { useGetAllFacebookQuery, useUpdateFacebookMutation } =
+  facebookApi;
