@@ -1,4 +1,5 @@
 import Facebook from "../../../../components/dashboard/themeSettings/socialProfiles/Facebook";
+import Twitter from "../../../../components/dashboard/themeSettings/socialProfiles/Twitter";
 
 const SocialProfiles = () => {
   return (
@@ -8,6 +9,7 @@ const SocialProfiles = () => {
       </div>
       <div className="flex flex-col gap-4">
         <Facebook />
+        <Twitter />
       </div>
     </div>
   );
