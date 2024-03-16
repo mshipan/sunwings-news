@@ -12,6 +12,7 @@ const baseApi = createApi({
     "category",
     "advertisements",
     "facebook",
+    "twitter",
   ],
   endpoints: () => ({}),
 });
