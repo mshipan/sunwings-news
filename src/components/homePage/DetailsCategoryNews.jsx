@@ -5,7 +5,7 @@ import SmallNewsCard from "../shared/SmallNewsCard";
 const DetailsCategoryNews = () => {
   const { data: posts, isLoading } = useGetPostsQuery({ category: "জাতীয়" });
   if (!isLoading) {
-    const newArray = posts.slice(1);
+    const newArray = posts?.slice(1);
     console.log("new", newArray);
 
     return (

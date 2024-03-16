@@ -15,7 +15,10 @@ const AllPosts = () => {
   const [filteredRows, setFilteredRows] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const { data: allPosts } = useGetPostsQuery();
+  const { data: allPosts } = useGetPostsQuery({
+    category: "",
+    subCategory: "",
+  });
   const { data: allUsers } = useGetAllUsersQuery();
 
   const handleFilterChange = (event) => {
