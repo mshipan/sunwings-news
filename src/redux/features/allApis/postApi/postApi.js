@@ -7,10 +7,12 @@ const postApi = baseApi.injectEndpoints({
         `/posts?category=${category}&&subCategory=${subCategory}`,
       providesTags: ["posts"],
     }),
+
     getPostById: builder.query({
       query: ({ id }) => `/posts/${id}`,
       providesTags: ["posts"],
     }),
+
     addNewPost: builder.mutation({
       query: (data) => ({
         url: "/posts",
@@ -19,8 +21,30 @@ const postApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["posts"],
     }),
+
+    updatePost: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/posts/${id}`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["posts"],
+    }),
+
+    deletePost: builder.mutation({
+      query: ({ id }) => ({
+        url: `/posts/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["posts"],
+    }),
   }),
 });
 
-export const { useGetPostsQuery, useAddNewPostMutation, useGetPostByIdQuery } =
-  postApi;
+export const {
+  useGetPostsQuery,
+  useAddNewPostMutation,
+  useGetPostByIdQuery,
+  useUpdatePostMutation,
+  useDeletePostMutation,
+} = postApi;
