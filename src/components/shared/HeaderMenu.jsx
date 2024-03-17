@@ -4,6 +4,8 @@ import { TiHomeOutline } from "react-icons/ti";
 import { Link } from "react-router-dom";
 import { singleCategory } from "../../api/fetch";
 import { useState } from "react";
+import Headline from "../homePage/Headline";
+import Marquee from "react-fast-marquee";
 
 const HeaderLogo = () => {
   const [subCategoryItems, setSubcategoryItems] = useState([]);
@@ -64,7 +66,7 @@ const HeaderLogo = () => {
                 {subCategoryItems?.map((item, i) => (
                   <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
                     {" "}
-                    <li className="py-2 px-3">{item.subCategoryName}</li>
+                    <li className="py-2 px-3 z-10">{item.subCategoryName}</li>
                   </Link>
                 ))}
               </ul>
@@ -238,10 +240,15 @@ const HeaderLogo = () => {
         </div>
       </div>
       <div className="flex py-5">
-        <div className="bg-orange-500 text-white w-2/12 h-10 flex justify-center items-center">
+        <div className="bg-orange-500 text-white w-2/12 flex justify-center items-center">
           <h3 className="">সংবাদ শিরোনাম :</h3>
         </div>
-        <div className="bg-gray-400 w-10/12 h-10"></div>
+
+        <div className="bg-gray-400 w-10/12">
+          <Marquee pauseOnHover={true}>
+            <Headline />
+          </Marquee>
+        </div>
       </div>
     </div>
   );
