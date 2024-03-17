@@ -4,10 +4,16 @@ import { AuthContext } from "../../providers/AuthProvider";
 import toast from "react-hot-toast";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { useAddNewUserMutation } from "../../redux/features/allApis/usersApi/usersApi";
+import { useLocation, useNavigate } from "react-router-dom";
 const LoginWithGoogleCompo = () => {
   const { setUser, googleSignIn } = useContext(AuthContext);
   const [googleLoading, setGoogleLoading] = useState(false);
   const [addNewUser] = useAddNewUserMutation();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
 
   const handleGoogleSignIn = () => {
     setGoogleLoading(true);
@@ -31,6 +37,7 @@ const LoginWithGoogleCompo = () => {
               } logged in successfully`
             );
             setGoogleLoading(false);
+            navigate(from, { replace: true });
           }
         });
       })
