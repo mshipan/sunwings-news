@@ -15,6 +15,7 @@ import CustomizeLogo from "../pages/dashboard/media/CustomizeLogo";
 import Advertisment from "../pages/dashboard/media/Advertisment";
 import SocialProfiles from "../pages/dashboard/themeSettings/socialProfiles/SocialProfiles";
 import SubCategoryNews from "../pages/homePage/SubCategoryNews";
+import UpdatePost from "../pages/dashboard/Posts/UpdatePost";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: "add-new-post",
         element: <AddNewPost />,
+      },
+      {
+        path: "edit-post/:id",
+        element: <UpdatePost />,
       },
       {
         path: "categories",
