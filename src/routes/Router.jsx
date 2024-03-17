@@ -14,6 +14,7 @@ import SinglePage from "../pages/homePage/SinglePage";
 import CustomizeLogo from "../pages/dashboard/media/CustomizeLogo";
 import Advertisment from "../pages/dashboard/media/Advertisment";
 import SocialProfiles from "../pages/dashboard/themeSettings/socialProfiles/SocialProfiles";
+import SubCategoryNews from "../pages/homePage/SubCategoryNews";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: "/posts/:id",
         element: <SinglePage />,
+      },
+      {
+        path: "/sub-category/:subCategory",
+        element: <SubCategoryNews />,
       },
     ],
   },

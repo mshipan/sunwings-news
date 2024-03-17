@@ -8,7 +8,7 @@ import { useState } from "react";
 const HeaderLogo = () => {
   const [subCategoryItems, setSubcategoryItems] = useState([]);
   const [activeCategory, setActiveCategory] = useState(null);
-  console.log(subCategoryItems);
+  // console.log(subCategoryItems);
   const handleNavItems = (value) => {
     setActiveCategory(value);
     singleCategory(value)
@@ -23,7 +23,7 @@ const HeaderLogo = () => {
         <ul className="flex flex-wrap cursor-pointer">
           <li className="group active">
             <Link
-              to="#"
+              to="/"
               className="flex items-center py-3 px-4 text-gray-300 hover:bg-[#ffae00] hover:text-gray-100"
             >
               <TiHomeOutline className="mr-2 text-lg" />
@@ -41,10 +41,11 @@ const HeaderLogo = () => {
             </div>
             {activeCategory === "জাতীয়" && subCategoryItems.length > 0 && (
               <ul className="absolute top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2">
-                {subCategoryItems.map((item, i) => (
-                  <li className="py-2 px-3" key={i}>
-                    {item.subCategoryName}
-                  </li>
+                {subCategoryItems?.map((item, i) => (
+                  <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
+                    {" "}
+                    <li className="py-2 px-3">{item.subCategoryName}</li>
+                  </Link>
                 ))}
               </ul>
             )}
@@ -60,10 +61,11 @@ const HeaderLogo = () => {
             </div>
             {activeCategory === "রাজনীতি" && subCategoryItems.length > 0 && (
               <ul className="absolute top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2">
-                {subCategoryItems.map((item, i) => (
-                  <li className="py-2 px-3" key={i}>
-                    {item.subCategoryName}
-                  </li>
+                {subCategoryItems?.map((item, i) => (
+                  <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
+                    {" "}
+                    <li className="py-2 px-3">{item.subCategoryName}</li>
+                  </Link>
                 ))}
               </ul>
             )}
@@ -80,10 +82,11 @@ const HeaderLogo = () => {
             {activeCategory === "আন্তর্জাতিক" &&
               subCategoryItems.length > 0 && (
                 <ul className="absolute top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2">
-                  {subCategoryItems.map((item, i) => (
-                    <li className="py-2 px-3" key={i}>
-                      {item.subCategoryName}
-                    </li>
+                  {subCategoryItems?.map((item, i) => (
+                    <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
+                      {" "}
+                      <li className="py-2 px-3">{item.subCategoryName}</li>
+                    </Link>
                   ))}
                 </ul>
               )}
@@ -99,10 +102,11 @@ const HeaderLogo = () => {
             </div>
             {activeCategory === "খেলাধুলা" && subCategoryItems.length > 0 && (
               <ul className="absolute top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2">
-                {subCategoryItems.map((item, i) => (
-                  <li className="py-2 px-3" key={i}>
-                    {item.subCategoryName}
-                  </li>
+                {subCategoryItems?.map((item, i) => (
+                  <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
+                    {" "}
+                    <li className="py-2 px-3">{item.subCategoryName}</li>
+                  </Link>
                 ))}
               </ul>
             )}
@@ -118,10 +122,11 @@ const HeaderLogo = () => {
             </div>
             {activeCategory === "বিনোদন" && subCategoryItems.length > 0 && (
               <ul className="absolute top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2">
-                {subCategoryItems.map((item, i) => (
-                  <li className="py-2 px-3" key={i}>
-                    {item.subCategoryName}
-                  </li>
+                {subCategoryItems?.map((item, i) => (
+                  <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
+                    {" "}
+                    <li className="py-2 px-3">{item.subCategoryName}</li>
+                  </Link>
                 ))}
               </ul>
             )}
@@ -138,10 +143,11 @@ const HeaderLogo = () => {
             {activeCategory === "তথ্যপ্রযুক্তি" &&
               subCategoryItems.length > 0 && (
                 <ul className="absolute top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2">
-                  {subCategoryItems.map((item, i) => (
-                    <li className="py-2 px-3" key={i}>
-                      {item.subCategoryName}
-                    </li>
+                  {subCategoryItems?.map((item, i) => (
+                    <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
+                      {" "}
+                      <li className="py-2 px-3">{item.subCategoryName}</li>
+                    </Link>
                   ))}
                 </ul>
               )}
@@ -157,10 +163,11 @@ const HeaderLogo = () => {
             </div>
             {activeCategory === "সারাদেশ" && subCategoryItems.length > 0 && (
               <ul className="absolute top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2">
-                {subCategoryItems.map((item, i) => (
-                  <li className="py-2 px-3" key={i}>
-                    {item.subCategoryName}
-                  </li>
+                {subCategoryItems?.map((item, i) => (
+                  <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
+                    {" "}
+                    <li className="py-2 px-3">{item.subCategoryName}</li>
+                  </Link>
                 ))}
               </ul>
             )}
@@ -176,10 +183,11 @@ const HeaderLogo = () => {
             </div>
             {activeCategory === "ক্যাম্পাস" && subCategoryItems.length > 0 && (
               <ul className="absolute top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2">
-                {subCategoryItems.map((item, i) => (
-                  <li className="py-2 px-3" key={i}>
-                    {item.subCategoryName}
-                  </li>
+                {subCategoryItems?.map((item, i) => (
+                  <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
+                    {" "}
+                    <li className="py-2 px-3">{item.subCategoryName}</li>
+                  </Link>
                 ))}
               </ul>
             )}
@@ -195,10 +203,11 @@ const HeaderLogo = () => {
             </div>
             {activeCategory === "গণমাধ্যম" && subCategoryItems.length > 0 && (
               <ul className="absolute top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2">
-                {subCategoryItems.map((item, i) => (
-                  <li className="py-2 px-3" key={i}>
-                    {item.subCategoryName}
-                  </li>
+                {subCategoryItems?.map((item, i) => (
+                  <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
+                    {" "}
+                    <li className="py-2 px-3">{item.subCategoryName}</li>
+                  </Link>
                 ))}
               </ul>
             )}
@@ -214,10 +223,11 @@ const HeaderLogo = () => {
             </div>
             {activeCategory === "আরো" && subCategoryItems.length > 0 && (
               <ul className="absolute top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2">
-                {subCategoryItems.map((item, i) => (
-                  <li className="py-2 px-3" key={i}>
-                    {item.subCategoryName}
-                  </li>
+                {subCategoryItems?.map((item, i) => (
+                  <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
+                    {" "}
+                    <li className="py-2 px-3">{item.subCategoryName}</li>
+                  </Link>
                 ))}
               </ul>
             )}
