@@ -4,6 +4,7 @@ import SinglePageRight from "../../components/homePage/SinglePageRight";
 import CategoryTitle from "../../components/shared/CategoryTitle";
 import { useGetPostByIdQuery } from "../../redux/features/allApis/postApi/postApi";
 import SinglePageLeft from "../../components/homePage/SinglePageLeft";
+import moment from "moment/moment";
 
 const SinglePage = () => {
   const { id } = useParams();
@@ -20,10 +21,23 @@ const SinglePage = () => {
           <SinglePageLeft />
         </div>
       </div>
-      <div className="md:w-3/6 order-1 md:order-2">
-        <h3>{singlePost._id}</h3>
+      <div className="md:w-4/6 space-y-2 order-1 md:order-2">
+        <h3 className="text-3xl text-black font-semibold">
+          {singlePost?.postTitle}
+        </h3>
+        <div className="flex flex-row gap-2 items-center">
+          <img src={singlePost?.authorImage} className="rounded-full w-16" />
+          <p className="text-lg text-[#2A388F]">{singlePost?.author}</p>
+        </div>
+        <p className="text-md">
+          {moment(singlePost?.publishDate).format("MMMM Do YYYY, h:mm a ")}
+        </p>
+        <p
+          dangerouslySetInnerHTML={{ __html: singlePost?.quill }}
+          className="text-black"
+        ></p>
       </div>
-      <div className="md:w-2/6 order-3">
+      <div className="md:w-1/6 order-3">
         <SinglePageRight />
       </div>
     </div>
