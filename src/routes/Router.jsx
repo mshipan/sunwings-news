@@ -16,6 +16,7 @@ import Advertisment from "../pages/dashboard/media/Advertisment";
 import SocialProfiles from "../pages/dashboard/themeSettings/socialProfiles/SocialProfiles";
 import SubCategoryNews from "../pages/homePage/SubCategoryNews";
 import UpdatePost from "../pages/dashboard/Posts/UpdatePost";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -38,7 +39,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <DashboardLayout />,
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "all-posts",
