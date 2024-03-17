@@ -2,16 +2,22 @@ import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Select from "react-select";
-import { useAddNewPostMutation } from "../../../redux/features/allApis/postApi/postApi";
+import {
+  useGetPostByIdQuery,
+  useUpdatePostMutation,
+} from "../../../redux/features/allApis/postApi/postApi";
 import Swal from "sweetalert2";
 import { singleCategory } from "../../../api/fetch";
 import { AuthContext } from "../../../providers/AuthProvider";
 import { useGetUserByUidQuery } from "../../../redux/features/allApis/usersApi/usersApi";
 import { imageUpload } from "../../../api/utils";
 
-const AddNewPost = () => {
+const UpdatePost = () => {
+  const { id } = useParams();
+  console.log(id);
+  const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [daftLoading, setDraftLoading] = useState(false);
@@ -26,6 +32,12 @@ const AddNewPost = () => {
 
   const { register, handleSubmit, reset, watch } = useForm();
 
+  const [updatePost] = useUpdatePostMutation();
+  const { data: singleUser } = useGetUserByUidQuery(user?.uid);
+  console.log(singleUser);
+  const { data: singlePost } = useGetPostByIdQuery({ id });
+  console.log("sing", singlePost);
+
   useEffect(() => {
     if (selectedCategories) {
       singleCategory(selectedCategories.value).then((data) => {
@@ -34,6 +46,12 @@ const AddNewPost = () => {
       });
     }
   }, [selectedCategories]);
+
+  useEffect(() => {
+    if (singlePost) {
+      setQuillValue(singlePost.quill || ""); // Ensure it's not undefined
+    }
+  }, [singlePost]);
 
   const categoriesList = [
     { label: "জাতীয়", value: "জাতীয়" },
@@ -63,9 +81,6 @@ const AddNewPost = () => {
     setCategoryAccordionOpen(!categoryAccordionOpen);
   };
 
-  const [createPost] = useAddNewPostMutation();
-  const { data: singleUser } = useGetUserByUidQuery(user?.uid);
-
   const now = new Date();
 
   const handleSubCategoryChange = (selectedOption) => {
@@ -73,19 +88,16 @@ const AddNewPost = () => {
   };
 
   const onSubmit = async (data, status) => {
-    data.author = singleUser?.name;
-    data.authorImage = singleUser?.image;
-    data.authorEmail = singleUser?.email;
     data.postTitle = watch("postTitle");
     data.category = selectedCategories?.value;
     data.subCategory = selectedSubCategory;
     data.quill = quillValue;
     data.publishDate = now;
-    data.updateDate = "";
-    data.updateAuthor = "";
-    data.updateAuthorImage = "";
-    data.updateAuthorEmail = "";
     data.status = status;
+    data.updateAuthor = singleUser?.name;
+    data.updateAuthorImage = singleUser?.image;
+    data.updateAuthorEmail = singleUser?.email;
+
     const thumbnailImage = watch("postThumbnail");
 
     try {
@@ -98,21 +110,26 @@ const AddNewPost = () => {
       const imageData = await imageUpload(thumbnailImage[0]);
 
       data.postThumbnail = imageData.data.display_url;
-      const result = await createPost(data);
-      if (result.data) {
+
+      const result = await updatePost({
+        id: id,
+        data: data,
+      });
+      if (result.data.modifiedCount > 0) {
         Swal.fire({
           title: `${
             status === "draft"
-              ? "Post Saved to Draft Successfully!"
-              : "Post Published Successfully!"
+              ? "Post Updated and Saved to Draft Successfully!"
+              : "Post Updated and Published Successfully!"
           }`,
           icon: "success",
           confirmButtonText: "OK",
         });
         reset();
+        navigate("/dashboard/all-posts");
       } else {
         Swal.fire({
-          title: "Failed to Publish Post.",
+          title: "Failed to Update Post.",
           text: "Press OK to continue",
           icon: "error",
           confirmButtonText: "OK",
@@ -135,7 +152,7 @@ const AddNewPost = () => {
     <div className="flex flex-col gap-3">
       <div className="flex flex-col gap-3">
         <div className="flex flex-col md:flex-row gap-3 mb-4">
-          <h1 className="text-black text-2xl ">Add New Post</h1>
+          <h1 className="text-black text-2xl ">Edit Post</h1>
           <Link to="/dashboard/all-posts">
             <button className="bg-blue-100 px-4 py-1 border border-blue-500 rounded-sm text-blue-500 hover:bg-gray-100 transition-all duration-300 ease-in-out">
               All Posts
@@ -158,6 +175,7 @@ const AddNewPost = () => {
                   type="text"
                   name="postTitle"
                   {...register("postTitle")}
+                  defaultValue={singlePost?.postTitle}
                   className="py-3 bg-white border border-gray-300 px-2 placeholder:text-2xl text-2xl placeholder:text-gray-500 text-black rounded-sm"
                   placeholder="Add title"
                 />
@@ -170,6 +188,15 @@ const AddNewPost = () => {
                 >
                   Thumbnail:
                 </label>
+                {singlePost?.postThumbnail && (
+                  <div>
+                    <img
+                      src={singlePost.postThumbnail}
+                      alt="Thumbnail"
+                      className="w-40 mb-4"
+                    />
+                  </div>
+                )}
                 <input
                   type="file"
                   name="postThumbnail"
@@ -227,6 +254,10 @@ const AddNewPost = () => {
                 >
                   <div className="mt-4">
                     <div className="mb-2 text-black">
+                      <div className="flex justify-between">
+                        <p>selected category: {singlePost?.category}</p>
+                        <p>selected sub-category: {singlePost?.subCategory}</p>
+                      </div>
                       <Select
                         className="z-30"
                         name="categories"
@@ -258,6 +289,7 @@ const AddNewPost = () => {
                           <Select
                             {...register("subCategory")}
                             onChange={handleSubCategoryChange}
+                            defaultValue={singlePost?.subCategory}
                             options={subcategories.map((subcategory) => ({
                               value: subcategory,
                               label: subcategory,
@@ -330,4 +362,4 @@ const AddNewPost = () => {
   );
 };
 
-export default AddNewPost;
+export default UpdatePost;

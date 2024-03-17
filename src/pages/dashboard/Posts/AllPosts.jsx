@@ -1,8 +1,12 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useGetPostsQuery } from "../../../redux/features/allApis/postApi/postApi";
+import {
+  useDeletePostMutation,
+  useGetPostsQuery,
+} from "../../../redux/features/allApis/postApi/postApi";
 import { useGetAllUsersQuery } from "../../../redux/features/allApis/usersApi/usersApi";
+import Swal from "sweetalert2";
 
 const AllPosts = () => {
   const [filters, setFilters] = useState({
@@ -20,6 +24,7 @@ const AllPosts = () => {
     subCategory: "",
   });
   const { data: allUsers } = useGetAllUsersQuery();
+  const [deletePost] = useDeletePostMutation();
 
   const handleFilterChange = (event) => {
     const { name, value } = event.target;
@@ -71,12 +76,10 @@ const AllPosts = () => {
   const ActionButtons = ({ id }) => {
     return (
       <div className="flex justify-center items-center gap-2">
-        <button className="text-blue-500" onClick={() => handleEdit(id)}>
+        <Link to={`/dashboard/edit-post/${id}`} className="text-blue-500">
           Edit
-        </button>
-        <button className="text-green-500" onClick={() => handleView(id)}>
-          View
-        </button>
+        </Link>
+
         <button className="text-red-500" onClick={() => handleDelete(id)}>
           Delete
         </button>
@@ -121,19 +124,27 @@ const AllPosts = () => {
       width: 270,
       renderCell: (params) => (
         <Link to="#" className="hover:text-blue-500 hover:underline">
-          {params.value}
+          {params.value || "---"}
         </Link>
       ),
     },
-    { field: "author", headerName: "Author", width: 180 },
+    {
+      field: "author",
+      headerName: "Author",
+      width: 180,
+      renderCell: (params) => <p className="">{params.value || "---"}</p>,
+    },
     {
       field: "category",
       headerName: "Categories",
       type: "text",
       width: 180,
       renderCell: (params) => (
-        <div className="inline-block px-[6px] py-[2px] mr-1 bg-[#F7D7B6] rounded">
-          {params.value}
+        <div
+          className="inline-block px-[6px] py-[2px] mr-1 rounded"
+          style={{ backgroundColor: params.value ? "#F7D7B6" : "transparent" }}
+        >
+          {params.value || "---"}
         </div>
       ),
     },
@@ -143,8 +154,11 @@ const AllPosts = () => {
       type: "text",
       width: 180,
       renderCell: (params) => (
-        <div className="inline-block px-[6px] py-[2px] mr-1 bg-[#F7D7B6] rounded">
-          {params.value}
+        <div
+          className="inline-block px-[6px] py-[2px] mr-1 rounded"
+          style={{ backgroundColor: params.value ? "#F7D7B6" : "transparent" }}
+        >
+          {params.value || "---"}
         </div>
       ),
     },
@@ -162,7 +176,7 @@ const AllPosts = () => {
     {
       field: "action",
       headerName: "Action",
-      renderCell: (params) => <ActionButtons id={params.row.id} />,
+      renderCell: (params) => <ActionButtons id={params.value} />,
       width: 150,
     },
   ];
@@ -176,19 +190,41 @@ const AllPosts = () => {
         subCategory: post?.subCategory,
         publishDate: formatDate(post?.publishDate),
         status: post.status,
+        action: post._id,
       }))
     : [];
 
-  const handleEdit = (id) => {
-    // Handle edit action
-  };
-
-  const handleView = (id) => {
-    // Handle view action
-  };
-
-  const handleDelete = (id) => {
-    // Handle delete action
+  const handleDelete = async (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const result = await deletePost({ id: id });
+          console.log("result", result);
+          if (result.data.deletedCount > 0) {
+            Swal.fire({
+              title: "Deleted!",
+              text: "This post has been deleted.",
+              icon: "success",
+            });
+          }
+        } catch (error) {
+          Swal.fire({
+            title: "Failed to delete post",
+            text: `${error}`,
+            icon: "error",
+            confirmButtonText: "OK",
+          });
+        }
+      }
+    });
   };
 
   const months = [
