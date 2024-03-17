@@ -245,7 +245,7 @@ const HeaderLogo = () => {
         </div>
 
         <div className="bg-gray-400 w-10/12">
-          <Marquee pauseOnHover={true}>
+          <Marquee pauseOnHover={true} speed={110}>
             <Headline />
           </Marquee>
         </div>
