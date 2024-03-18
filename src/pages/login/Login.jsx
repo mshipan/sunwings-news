@@ -6,11 +6,17 @@ import { useContext, useState } from "react";
 import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { TbFidgetSpinner } from "react-icons/tb";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { signIn } = useContext(AuthContext);
   const [loading, setLoadingState] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
   const {
     register,
     handleSubmit,
@@ -29,6 +35,7 @@ const Login = () => {
           `${loggedUser?.displayName || "Unknown user"} logged in successfully`
         );
         setLoadingState(false);
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         setLoadingState(false);

@@ -6,6 +6,7 @@ import "swiper/css/pagination";
 
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { useGetPostsQuery } from "../../redux/features/allApis/postApi/postApi";
+import NewsTab from "./NewsTab";
 
 const Banner = () => {
   const { data: allPosts } = useGetPostsQuery({});
@@ -41,12 +42,9 @@ const Banner = () => {
           </Swiper>
         </div>
       </div>
-      <div className="flex-none md:w-80 p-4 bg-yellow-300 w-full ">
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt hic eos
-          repudiandae tenetur in perspiciatis ut fugiat, rem sequi inventore
-          libero odit ipsum omnis facilis repellat dicta rerum a ea!
-        </p>
+      <div className="w-1/6 text-black">
+        <p>hello</p>
+        <NewsTab />
       </div>
     </div>
   );
