@@ -7,10 +7,11 @@ import "swiper/css/pagination";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { useGetPostsQuery } from "../../redux/features/allApis/postApi/postApi";
 import NewsTab from "./NewsTab";
+import { Link } from "react-router-dom";
 
 const Banner = () => {
   const { data: allPosts } = useGetPostsQuery({});
-  console.log("all", allPosts);
+
   return (
     <div className="grow text-white flex flex-col md:flex-row gap-6">
       <div className="">
@@ -33,8 +34,12 @@ const Banner = () => {
                   <div>
                     <img src={post?.postThumbnail} alt="" className="w-full" />
                   </div>
-                  <div className="absolute bottom-0 bg-gray-500 bg-opacity-35 w-full">
-                    <h1 className="text-black text-xl">{post?.postTitle}</h1>
+                  <div className="absolute bottom-0 bg-gray-500 bg-opacity-35 w-full py-5 px-2">
+                    <Link to={`/posts/${post?._id}`}>
+                      <h1 className="text-black text-xl hover:text-blue-600 hover:underline">
+                        {post?.postTitle}
+                      </h1>
+                    </Link>
                   </div>
                 </div>
               </SwiperSlide>

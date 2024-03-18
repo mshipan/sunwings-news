@@ -23,7 +23,7 @@ const NewsCard = ({ post }) => {
       <img src={post?.postThumbnail} alt="" />
       <div className="p-2">
         <Link to={`/posts/${post._id}`}>
-          <h3 className="text-base font-medium text-black hover:text-blue-600">
+          <h3 className="text-base font-medium text-black hover:text-blue-600 hover:underline">
             {post?.postTitle}
           </h3>
         </Link>
