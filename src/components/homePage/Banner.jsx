@@ -12,10 +12,10 @@ const Banner = () => {
   ];
   return (
     <div className="text-white flex flex-col md:flex-row gap-6">
-      <div className="grow w-4/6">
+      <div className="grow md:w-4/6">
         <img src={homeSliderImg} alt="" />
       </div>
-      <div className="w-2/6 text-black ">
+      <div className="md:w-2/6 text-black text-sm md:text-lg">
         {/* need to change the selected border radius */}
         <Tabs
           defaultFocus={false}
