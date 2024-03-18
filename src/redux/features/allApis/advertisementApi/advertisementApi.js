@@ -14,8 +14,19 @@ const advertisementApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["advertisements"],
     }),
+    updateAdSelection: builder.mutation({
+      query: ({ id, isSelected }) => ({
+        url: `/advertisements/${id}`,
+        method: "PATCH",
+        body: { isSelected },
+      }),
+      invalidatesTags: ["advertisements"],
+    }),
   }),
 });
 
-export const { useGetAllAdvertisementQuery, useUploadAnAdvertisementMutation } =
-  advertisementApi;
+export const {
+  useGetAllAdvertisementQuery,
+  useUploadAnAdvertisementMutation,
+  useUpdateAdSelectionMutation,
+} = advertisementApi;

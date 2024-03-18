@@ -3,16 +3,25 @@ import { FaFacebookSquare, FaTwitterSquare } from "react-icons/fa";
 import CategoryTitle from "../shared/CategoryTitle";
 import SocialShare from "../shared/SocialShare";
 import card from "../../assets/home-slider.jpg";
+import { useGetAllAdvertisementQuery } from "../../redux/features/allApis/advertisementApi/advertisementApi";
 
 const Aside = () => {
+  const { data: allAds } = useGetAllAdvertisementQuery();
+  const ad250x250 = allAds
+    ? allAds.find((ad) => ad.isSelected === true && ad.size === "250x250")
+    : null;
   return (
     <div className="flex-none xl:w-72 text-white">
       <div className="grid grid-cols-2 md:grid-cols-1 lg:max-xl:grid-cols-4 md:max-lg:grid-cols-4 content-between gap-4">
-        <p className="bg-slate-500 p-4 col-span-2 md:col-span-1">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt hic eos
-          repudiandae tenetur in perspiciatis ut fugiat, rem sequi inventore
-          libero odit ipsum omnis facilis repellat dicta rerum a ea!
-        </p>
+        {ad250x250 ? (
+          <img src={ad250x250?.banner} alt="Advertisement" className="w-full" />
+        ) : (
+          <p className="bg-slate-500 p-4 col-span-2 md:col-span-1">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt hic
+            eos repudiandae tenetur in perspiciatis ut fugiat, rem sequi
+            inventore libero odit ipsum omnis facilis repellat dicta rerum a ea!
+          </p>
+        )}
 
         {/* ফেসবুকে আমরা */}
         <div className="space-y-4">
