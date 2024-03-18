@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import homeSliderImg from "../../assets/1.png";
 
 const SmallNewsCard = ({ post, isLoading }) => {
@@ -20,7 +21,11 @@ const SmallNewsCard = ({ post, isLoading }) => {
           <div className="w-1/3">
             <img src={postThumbnail || homeSliderImg} alt="" />
           </div>
-          <p className="text-black w-2/3">{postTitle}</p>
+          <Link to={`/posts/${post._id}`} className="text-base w-2/3">
+            <p className="text-black font-medium hover:text-blue-500">
+              {postTitle}
+            </p>
+          </Link>
         </div>
       </div>
     </div>

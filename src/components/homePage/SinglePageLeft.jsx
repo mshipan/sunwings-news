@@ -3,7 +3,7 @@ import { useGetPostsQuery } from "../../redux/features/allApis/postApi/postApi";
 
 const SinglePageLeft = () => {
   const { data: posts, isLoading } = useGetPostsQuery("");
-  const slicedPosts = posts?.slice(0, 7);
+  const slicedPosts = posts?.slice(0, 4);
   // console.log(slicedPosts);
   if (isLoading) {
     return <div>Loading...</div>;
