@@ -11,8 +11,14 @@ import Advertisement from "../../components/shared/Advertisement";
 import MiddleCategorySec from "../../components/homePage/MiddleCategorySec";
 import AllNews from "../../components/homePage/AllNews";
 import EntertainmentSection from "../../components/homePage/EntertainmentSection";
+import { useGetAllAdvertisementQuery } from "../../redux/features/allApis/advertisementApi/advertisementApi";
 
 const Home = () => {
+  const { data: allAds } = useGetAllAdvertisementQuery();
+
+  const ad1600x250 = allAds
+    ? allAds.find((ad) => ad.isSelected === true && ad.size === "1600x250")
+    : null;
   return (
     <div className="container mx-auto px-2">
       <div className="flex gap-5 xl:flex-row flex-col">
@@ -33,7 +39,15 @@ const Home = () => {
       <NewsContent />
 
       <div className="py-4">
-        <img src={fullImg} alt="" />
+        {ad1600x250 ? (
+          <img
+            src={ad1600x250.banner}
+            alt="AdvertiseMent"
+            className="w-full h-28"
+          />
+        ) : (
+          <img src={fullImg} alt="Advertisement big" className="w-full h-28" />
+        )}
       </div>
       {/* middle category section */}
       <MiddleCategorySec />

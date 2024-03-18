@@ -240,11 +240,11 @@ const HeaderLogo = () => {
         </div>
       </div>
       <div className="flex py-5">
-        <div className="bg-orange-500 text-white w-2/12 flex justify-center items-center">
-          <h3 className="">সংবাদ শিরোনাম :</h3>
+        <div className="bg-orange-500 text-white w-1/4 md:w-2/12 flex justify-center items-center">
+          <h3 className="text-sm md:text-lg">সংবাদ শিরোনাম :</h3>
         </div>
 
-        <div className="bg-gray-400 w-10/12">
+        <div className="bg-gray-400 w-3/4 md:w-10/12 text-sm md:text-lg">
           <Marquee pauseOnHover={true} speed={110}>
             <Headline />
           </Marquee>

@@ -17,6 +17,7 @@ import SocialProfiles from "../pages/dashboard/themeSettings/socialProfiles/Soci
 import SubCategoryNews from "../pages/homePage/SubCategoryNews";
 import UpdatePost from "../pages/dashboard/Posts/UpdatePost";
 import PrivateRoute from "./PrivateRoute";
+import CategoryNewsPage from "../pages/homePage/CategoryNewsPage";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: "/sub-category/:subCategory",
         element: <SubCategoryNews />,
+      },
+      {
+        path: "/category/:category",
+        element: <CategoryNewsPage />,
       },
     ],
   },

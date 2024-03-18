@@ -24,9 +24,9 @@ const SubCategoryNews = () => {
   //   console.log(posts);
 
   return (
-    <div className="flex flex-col md:flex-row gap-4">
+    <div className="flex flex-col md:flex-row gap-4 container mx-auto">
       {/* Render your component with data here */}
-      <div className="grid md:grid-cols-3 gap-3 grid-cols-2 w-3/4">
+      <div className="grid md:grid-cols-3 gap-4 grid-rows-4 grid-cols-2 w-3/4">
         {posts.length !== 0 &&
           posts?.map((post) => (
             <div key={post?._id} className="">

@@ -14,7 +14,19 @@ const logoApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["logos"],
     }),
+    updateLogoSelection: builder.mutation({
+      query: ({ id, isSelected }) => ({
+        url: `/logos/${id}`,
+        method: "PATCH",
+        body: { isSelected },
+      }),
+      invalidatesTags: ["logos"],
+    }),
   }),
 });
 
-export const { useGetAllLogoQuery, useUploadALogoMutation } = logoApi;
+export const {
+  useGetAllLogoQuery,
+  useUploadALogoMutation,
+  useUpdateLogoSelectionMutation,
+} = logoApi;
