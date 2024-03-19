@@ -57,12 +57,12 @@ const AllUsers = () => {
     setSelectedOption(event.target.value);
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     // Here you can handle form submission logic, such as sending data to the server
-    console.log("Selected option:", selectedOption, selectedUID);
+    // console.log("Selected option:", selectedOption, selectedUID);
     // const roleInfo = { uid: selectedUID, role: selectedOption };
-    const result = await addRoleToUser(selectedUID, selectedOption);
+    const result = addRoleToUser(selectedUID, selectedOption);
     console.log(result);
 
     // Optionally, you can close the modal after submission
@@ -117,8 +117,11 @@ const AllUsers = () => {
     );
   };
 
-  const SetRole = ({ status }) => {
-    setSelectedUID(status);
+  const SetRole = ({ uid }) => {
+    console.log("uid:   ", uid);
+
+    setSelectedUID(uid);
+
     return (
       <>
         <Button onClick={handleOpen}>Give role</Button>
@@ -206,7 +209,7 @@ const AllUsers = () => {
       field: "giveRole",
       headerName: "Give Role",
       width: 140,
-      renderCell: (params) => <SetRole status={params.row.uid} />,
+      renderCell: (params) => <SetRole uid={params.row.uid} />,
     },
     {
       field: "action",
