@@ -7,36 +7,11 @@ import {
   useGetAllUsersQuery,
 } from "../../../../redux/features/allApis/usersApi/usersApi";
 import Swal from "sweetalert2";
-import {
-  Box,
-  Button,
-  MenuItem,
-  Modal,
-  Select,
-  Typography,
-} from "@mui/material";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
+import toast from "react-hot-toast";
 
 const AllUsers = () => {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const [selectedUID, setSelectedUID] = useState("");
-  const [selectedOption, setSelectedOption] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
-
-  console.log(selectedUID, selectedOption);
+  const [uid, setUid] = useState("");
 
   // get all users
   const { data: users } = useGetAllUsersQuery();
@@ -51,23 +26,6 @@ const AllUsers = () => {
     status: "",
     author: "",
   });
-  // all functions
-  const handleChange = (event) => {
-    // console.log(event.target);
-    setSelectedOption(event.target.value);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Here you can handle form submission logic, such as sending data to the server
-    // console.log("Selected option:", selectedOption, selectedUID);
-    // const roleInfo = { uid: selectedUID, role: selectedOption };
-    const result = addRoleToUser(selectedUID, selectedOption);
-    console.log(result);
-
-    // Optionally, you can close the modal after submission
-    handleClose();
-  };
 
   const handleFilterChange = (event) => {
     const { name, value } = event.target;
@@ -116,74 +74,65 @@ const AllUsers = () => {
       </span>
     );
   };
+  const handleRoleSubmit = (e) => {
+    e.preventDefault();
+    const role = e.target.role.value;
+    // console.log(uid, role);
+    addRoleToUser({ uid, role })
+      .then((result) => {
+        if (result.data.modifiedCount > 0) {
+          toast.success("Role added");
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
 
   const SetRole = ({ uid }) => {
-    console.log("uid:   ", uid);
-
-    setSelectedUID(uid);
-
+    setUid(uid);
     return (
-      <>
-        <Button onClick={handleOpen}>Give role</Button>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Set role
-            </Typography>
-            <form className="text-black" onSubmit={handleSubmit}>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={selectedOption}
-                onChange={handleChange} // Add function to handle selection change
-                fullWidth
-              >
-                <MenuItem selected disabled value="">
-                  Set a Role
-                </MenuItem>
-                <MenuItem value={"journalist"}>Journalist/Reporter</MenuItem>
-                <MenuItem value={"editor"}>Editor</MenuItem>
-                <MenuItem value={"moderator"}>Moderator</MenuItem>
-              </Select>
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                fullWidth
-              >
-                Submit
-              </Button>
-            </form>
-          </Box>
-        </Modal>
-      </>
+      <div>
+        <form onSubmit={handleRoleSubmit} action="" className="flex flex-row">
+          <select name="role" id="">
+            <option value="" selected disabled>
+              Select
+            </option>
+            <option value="journalist">Journalist/Reporter</option>
+            <option value="editor">Editor</option>
+            <option value="administrator">Administrator</option>
+            <option value="advertiser">Advertiser</option>
+            <option value="moderator">Moderator</option>
+          </select>
+          <input
+            className="px-2 py-1 bg-green-700 text-white"
+            type="submit"
+            value="Submit"
+          />
+        </form>
+      </div>
     );
   };
 
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const options = { day: "numeric", month: "long", year: "numeric" };
-    const formattedDate = new Intl.DateTimeFormat("en-US", options).format(
-      date
-    );
-    const day = date.getDate();
-    let suffix;
-    if (day === 1 || day === 21 || day === 31) {
-      suffix = "st";
-    } else if (day === 2 || day === 22) {
-      suffix = "nd";
-    } else if (day === 3 || day === 23) {
-      suffix = "rd";
-    } else {
-      suffix = "th";
-    }
-    return `${day}${suffix} ${formattedDate}`;
-  };
+  // const formatDate = (dateString) => {
+  //   const date = new Date(dateString);
+  //   const options = { day: "numeric", month: "long", year: "numeric" };
+  //   const formattedDate = new Intl.DateTimeFormat("en-US", options).format(
+  //     date
+  //   );
+  //   const day = date.getDate();
+  //   let suffix;
+  //   if (day === 1 || day === 21 || day === 31) {
+  //     suffix = "st";
+  //   } else if (day === 2 || day === 22) {
+  //     suffix = "nd";
+  //   } else if (day === 3 || day === 23) {
+  //     suffix = "rd";
+  //   } else {
+  //     suffix = "th";
+  //   }
+  //   return `${day}${suffix} ${formattedDate}`;
+  // };
 
   const columns = [
     { field: "id", headerName: "Sl No", width: 80 },
@@ -208,7 +157,7 @@ const AllUsers = () => {
     {
       field: "giveRole",
       headerName: "Give Role",
-      width: 140,
+      width: 240,
       renderCell: (params) => <SetRole uid={params.row.uid} />,
     },
     {
@@ -240,11 +189,6 @@ const AllUsers = () => {
         value?.toString()?.toLowerCase()?.includes(query)
       );
     });
-  };
-
-  const handleSetRole = (value) => {
-    // handle set role
-    console.log(value);
   };
 
   const handleEdit = (id) => {
