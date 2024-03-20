@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useGetPostsQuery } from "../../redux/features/allApis/postApi/postApi";
 import CategoryTitle from "../shared/CategoryTitle";
 import NewsCard from "./NewsCard";
+import { Link } from "react-router-dom";
+import { HiChevronDoubleRight } from "react-icons/hi2";
 
 const EntertainmentSection = () => {
   const { data: posts, isLoading } = useGetPostsQuery({ category: "বিনোদন" });
@@ -21,14 +23,14 @@ const EntertainmentSection = () => {
     ? posts[0].quill
     : posts[0].quill.split(" ").slice(0, 150).join(" ");
 
-  const newArray = posts?.slice(1);
+  const newArray = posts?.slice(1, 5);
 
   return (
     <div className="">
       <CategoryTitle title="বিনোদন" />
-      <div className="flex gap-4 flex-col md:flex-row">
+      <div className="flex gap-4 flex-col md:flex-row my-2">
         {/* Render the main content */}
-        <div className="md:w-5/6 w-full">
+        <div className="md:w-4/6 w-full">
           {/* Check if posts exist */}
           {posts && posts.length > 0 && (
             <>
@@ -50,11 +52,19 @@ const EntertainmentSection = () => {
           )}
         </div>
         {/* Render two more NewsCard components */}
-       { <div className="flex gap-4 flex-row md:flex-col">
-          {newArray?.map((post, i) => (
-            <NewsCard key={i} post={post} />
-          ))}
-        </div>}
+        <div className="w-full md:w-2/6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {newArray?.map((post, i) => (
+              <NewsCard key={i} post={post} />
+            ))}
+          </div>
+          <Link to={`/category/বিনোদন`}>
+            <button className="flex mx-auto justify-center items-center gap-1  text-black cursor-pointer underline hover:text-blue-600 py-2 px-4 rounded mt-4">
+              আরো খবর
+              <HiChevronDoubleRight />
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   );
