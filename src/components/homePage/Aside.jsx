@@ -1,37 +1,44 @@
-import twitter from "../../assets/twitter.jpg";
 import { FaFacebookSquare, FaTwitterSquare } from "react-icons/fa";
 import CategoryTitle from "../shared/CategoryTitle";
 import SocialShare from "../shared/SocialShare";
-import card from "../../assets/home-slider.jpg";
 import { useGetAllAdvertisementQuery } from "../../redux/features/allApis/advertisementApi/advertisementApi";
+import ad250x250Img from "../../assets/testad2.jpg";
+import { useGetAllFacebookQuery } from "../../redux/features/allApis/socialMediaApi/facebookApi";
+import { useGetAllTwitterQuery } from "../../redux/features/allApis/socialMediaApi/twitterApi";
+import { FacebookShareButton, TwitterShareButton } from "react-share";
 
 const Aside = () => {
   const { data: allAds } = useGetAllAdvertisementQuery();
+  const { data: allFacebook } = useGetAllFacebookQuery();
+  const { data: allTwitter } = useGetAllTwitterQuery();
+
+  const singleFacebook = allFacebook?.[0];
+  const singleTwitter = allTwitter?.[0];
+
   const ad250x250 = allAds
     ? allAds.find((ad) => ad.isSelected === true && ad.size === "250x250")
     : null;
+
   return (
     <div className="flex-none xl:w-72 text-white">
       <div className="grid grid-cols-2 md:grid-cols-1 lg:max-xl:grid-cols-4 md:max-lg:grid-cols-4 content-between gap-4">
         {ad250x250 ? (
           <img src={ad250x250?.banner} alt="Advertisement" className="w-full" />
         ) : (
-          <p className="bg-slate-500 p-4 col-span-2 md:col-span-1">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt hic
-            eos repudiandae tenetur in perspiciatis ut fugiat, rem sequi
-            inventore libero odit ipsum omnis facilis repellat dicta rerum a ea!
-          </p>
+          <img src={ad250x250Img} alt="ad 250 x 250" />
         )}
 
         {/* ফেসবুকে আমরা */}
         <div className="space-y-4">
           <CategoryTitle title="ফেসবুকে আমরা" />
           <SocialShare
-            title="Sunwing Tours & Travels"
-            socialUrl="https://www.facebook.com/sunwingtourstravels"
-            cardImage={twitter}
+            title={singleFacebook?.title}
+            socialUrl={singleFacebook?.link}
+            cardImage={singleFacebook?.coverPhoto}
             icon={FaFacebookSquare}
-            profileImage={card}
+            profileImage={singleFacebook?.profilePhoto}
+            shareUrl={singleFacebook?.link}
+            shareButton={FacebookShareButton}
           />
         </div>
 
@@ -39,11 +46,13 @@ const Aside = () => {
         <div className="space-y-4">
           <CategoryTitle title="টুইটারে আমরা" />
           <SocialShare
-            title="Sunwing Tours & Travels"
-            socialUrl="https://www.facebook.com/sunwingtourstravels"
-            cardImage={twitter}
+            title={singleTwitter?.title}
+            socialUrl={singleTwitter?.link}
+            cardImage={singleTwitter?.coverPhoto}
             icon={FaTwitterSquare}
-            profileImage={card}
+            profileImage={singleTwitter?.profilePhoto}
+            shareUrl={singleTwitter?.link}
+            shareButton={TwitterShareButton}
           />
         </div>
 

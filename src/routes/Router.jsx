@@ -18,6 +18,7 @@ import SubCategoryNews from "../pages/homePage/SubCategoryNews";
 import UpdatePost from "../pages/dashboard/Posts/UpdatePost";
 import PrivateRoute from "./PrivateRoute";
 import CategoryNewsPage from "../pages/homePage/CategoryNewsPage";
+import CustomizeFooter from "../pages/dashboard/themeSettings/footer/CustomizeFooter";
 
 const router = createBrowserRouter([
   {
@@ -77,6 +78,10 @@ const router = createBrowserRouter([
       {
         path: "social-profiles",
         element: <SocialProfiles />,
+      },
+      {
+        path: "footer-customize",
+        element: <CustomizeFooter />,
       },
       {
         path: "all-page",

@@ -8,7 +8,7 @@ const NewsCard = ({ post }) => {
       <img src={post?.postThumbnail} alt="" />
       <div className="p-2">
         <Link to={`/posts/${post._id}`}>
-          <p className="text-base font-medium hover:text-blue-500">
+          <p className="text-base font-medium text-black hover:text-blue-500">
             {post?.postTitle}
           </p>
         </Link>
