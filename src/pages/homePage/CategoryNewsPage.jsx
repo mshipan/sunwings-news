@@ -29,7 +29,9 @@ const CategoryNewsPage = () => {
           <div key={post?._id}>
             <img className="" src={post?.postThumbnail} alt="" />
             <Link to={`/posts/${post._id}`}>
-              <p className="bg-gray-300 px-2 py-1 pb-2">{post?.postTitle}</p>
+              <p className="bg-gray-300 px-2 py-1 pb-2 text-black">
+                {post?.postTitle}
+              </p>
             </Link>
           </div>
         ))}

@@ -16,9 +16,9 @@ const SocialShare = ({
     <div className="">
       <div className="relative group">
         {cardImage ? (
-          <img src={cardImage} alt="banner image" />
+          <img src={cardImage} alt="banner image" className="h-44" />
         ) : (
-          <img src={bannerBg} alt="banner image demo" />
+          <img src={bannerBg} alt="banner image demo" className="h-44" />
         )}
         <div className="absolute top-0 w-full pl-2 bg-white/30 backdrop-blur-sm">
           <Link
