@@ -13,6 +13,8 @@ import SmallNewsCard from "../shared/SmallNewsCard";
 const Banner = () => {
   const { data: posts } = useGetPostsQuery({});
 
+  const lastFiveNews = posts?.slice(0, 5);
+
   const tabList = [
     { label: "সর্বশেষ সংবাদ", value: "" },
     { label: "আলোচিত সংবাদ", value: "" },
@@ -20,7 +22,7 @@ const Banner = () => {
   return (
     <div className="grow text-white flex flex-col md:flex-row gap-6">
       <div className="md:w-2/3">
-        <div className="w-full md:max-w-[30rem] lg:max-w-2xl xl:max-w-[38rem] 2xl:max-w-[54rem]">
+        <div className="w-full md:max-w-[30rem] lg:max-w-[41rem] xl:max-w-[38rem] 2xl:max-w-[54rem]">
           <Swiper
             spaceBetween={30}
             effect={"fade"}
@@ -31,17 +33,21 @@ const Banner = () => {
             }}
             loop={true}
             modules={[Autoplay, Pagination, Navigation]}
-            className="mySwiper"
+            className="mySwiper w-full"
           >
-            {posts?.map((post) => (
+            {lastFiveNews?.map((post) => (
               <SwiperSlide key={post?._id}>
-                <div className="relative">
-                  <div>
-                    <img src={post?.postThumbnail} alt="" className="w-full" />
+                <div className="relative h-fit">
+                  <div className="h-[30rem]">
+                    <img
+                      src={post?.postThumbnail}
+                      alt=""
+                      className="w-full h-full"
+                    />
                   </div>
-                  <div className="absolute bottom-0 bg-gray-500 bg-opacity-35 w-full py-5 px-2">
+                  <div className="absolute bottom-0 bg-black  w-full py-4 px-2">
                     <Link to={`/posts/${post?._id}`}>
-                      <h1 className="text-black text-xl hover:text-blue-600 hover:underline">
+                      <h1 className="text-white text-xl hover:text-orange-300 hover:underline">
                         {post?.postTitle}
                       </h1>
                     </Link>
@@ -73,7 +79,7 @@ const Banner = () => {
             ))}
           </TabList>
 
-          <div className="max-h-[300px] md:max-h-[195px] lg:max-h-[333px] xl:max-h-[295px] 2xl:max-h-[420px] overflow-y-scroll">
+          <div className="max-h-[300px] md:max-h-[400px] lg:max-h-[430px] xl:max-h-[425px] 2xl:max-h-[420px] overflow-y-scroll">
             <TabPanel className={"space-y-2"}>
               {posts?.map((post, i) => (
                 <SmallNewsCard post={post} key={i} />

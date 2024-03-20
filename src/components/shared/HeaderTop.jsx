@@ -1,8 +1,12 @@
 import { CiLocationOn } from "react-icons/ci";
 import { SlCalender } from "react-icons/sl";
 import { Link } from "react-router-dom";
-import { IoLogInOutline, IoLogOutOutline } from "react-icons/io5";
-import { useContext } from "react";
+import {
+  IoLogInOutline,
+  IoLogOutOutline,
+  IoTimerOutline,
+} from "react-icons/io5";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import toast from "react-hot-toast";
 import { useGetAllFacebookQuery } from "../../redux/features/allApis/socialMediaApi/facebookApi";
@@ -11,8 +15,11 @@ import { useGetAllYoutubeQuery } from "../../redux/features/allApis/socialMediaA
 import { FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { useGetAllTwitterQuery } from "../../redux/features/allApis/socialMediaApi/twitterApi";
+import moment from "moment";
+import Calendar from "date-bengali-revised";
 
 const HeaderTop = () => {
+  const [currentTime, setCurrentTime] = useState("");
   const { logOut, user } = useContext(AuthContext);
   const { data: allFacebook } = useGetAllFacebookQuery();
   const { data: allInstagram } = useGetAllInstagramQuery();
@@ -34,21 +41,45 @@ const HeaderTop = () => {
         toast.error(error.message);
       });
   };
+
+  const cityName = "ঢাকা";
+
+  // Get current date and time using Moment.js
+  const currentDay = moment().format("dddd");
+  const currentFormattedDate = moment().format("LL");
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const newTime = moment().format("hh:mm:ss A");
+      setCurrentTime(newTime);
+    }, 1000); // Update every second
+
+    // Cleanup function to clear interval
+    return () => clearInterval(interval);
+  }, []);
+
+  // Get current Bengali date
+  const today = new Date();
+  const cal = new Calendar();
+  cal.fromDate(today);
+  const currentBnDate = cal.format("dddd D MMMM, Y ");
+
   return (
     <div className="container mx-auto py-4 px-2 border-b border-gray-200">
       <div className="flex flex-wrap flex-col md:flex-row justify-between items-center">
         <div className="flex flex-wrap items-center justify-center gap-2">
           <div className="flex items-center gap-1">
             <CiLocationOn className="text-black" />
-            <p className="text-black">ঢাকা,</p>
+            <p className="text-black">{cityName},</p>
           </div>
           <div className="flex items-center gap-1">
-            <SlCalender className="text-black" />
-            <p className="text-black">০৫:৩৬:৩৯ পিএম,</p>
+            <IoTimerOutline className="text-black" />
+            <p className="text-black">{currentTime},</p>
           </div>
           <div className="text-center">
-            <p className="text-black">
-              ০৫:৪২:৩৫ পিএম, মঙ্গলবার, ০৫ মার্চ ২০২৪ , ২২ ফাল্গুন ১৪৩০ বঙ্গাব্দ
+            <p className="text-black flex items-center gap-1">
+              <SlCalender />
+              {currentDay} {currentFormattedDate} , <SlCalender />{" "}
+              {currentBnDate} বঙ্গাব্দ
             </p>
           </div>
         </div>
