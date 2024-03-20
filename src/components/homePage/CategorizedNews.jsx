@@ -1,8 +1,8 @@
 import SmallNewsCard from "../shared/SmallNewsCard";
 import card from "../../assets/home-slider.jpg";
 import CategoryTitle from "../shared/CategoryTitle";
-import { Link } from "@mui/material";
 import { HiChevronDoubleRight } from "react-icons/hi2";
+import { Link } from "react-router-dom";
 
 const CategorizedNews = ({ secTitle, news, loading }) => {
   if (loading) {
@@ -20,7 +20,7 @@ const CategorizedNews = ({ secTitle, news, loading }) => {
     <div>
       <CategoryTitle title={secTitle} />
       <div className="bg-slate-100 mb-4">
-        <img src={news[0].postThumbnail || card} alt="" />
+        <img src={news[0].postThumbnail || card} alt="post thumbnail" />
         <Link to={`/posts/${news[0]._id}`}>
           <p className="text-black no-underline font-medium hover:text-blue-500">
             {news[0]?.postTitle}
