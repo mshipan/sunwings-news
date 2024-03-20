@@ -15,6 +15,7 @@ const baseApi = createApi({
     "twitter",
     "instagram",
     "youtube",
+    "footer",
   ],
   endpoints: () => ({}),
 });
