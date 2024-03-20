@@ -1,5 +1,7 @@
 import { FaShare } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import bannerBg from "../../assets/social-media.webp";
+import userProfile from "../../assets/user-square.png";
 
 const SocialShare = ({
   title,
@@ -8,18 +10,35 @@ const SocialShare = ({
   socialUrl,
   shareUrl,
   icon: Icon,
+  shareButton: ShareButton,
 }) => {
   return (
     <div className="">
       <div className="relative group">
-        <img src={cardImage} alt="" />
+        {cardImage ? (
+          <img src={cardImage} alt="banner image" />
+        ) : (
+          <img src={bannerBg} alt="banner image demo" />
+        )}
         <div className="absolute top-0 w-full pl-2 bg-white/30 backdrop-blur-sm">
           <Link
             to={socialUrl}
             target="_blank"
             className="flex items-center gap-2 p-1"
           >
-            <img className="size-10 rounded-full" src={profileImage} alt="" />
+            {profileImage ? (
+              <img
+                className="size-10 rounded-full"
+                src={profileImage}
+                alt="profile image"
+              />
+            ) : (
+              <img
+                src={userProfile}
+                alt="profile image demo"
+                className="size-10 rounded-full"
+              />
+            )}
             <h3 className="cursor-pointer text-black text-base font-semibold hover:underline">
               {title}
             </h3>
@@ -33,13 +52,12 @@ const SocialShare = ({
             <Icon className="text-blue-800" />
             <span className="text-black">Follow</span>
           </Link>
-          <Link
-            to={shareUrl}
-            className="bg-white/30 backdrop-blur-sm flex items-center py-1 px-2 text-black gap-1 font-semibold"
-          >
-            <FaShare />
-            <span>share</span>
-          </Link>
+          <ShareButton url={shareUrl}>
+            <div className="bg-white/30 backdrop-blur-sm flex items-center py-1 px-2 text-black gap-1 font-semibold">
+              <FaShare />
+              <span>share</span>
+            </div>
+          </ShareButton>
         </div>
       </div>
     </div>

@@ -19,8 +19,8 @@ const Banner = () => {
   ];
   return (
     <div className="grow text-white flex flex-col md:flex-row gap-6">
-      <div className="">
-        <div className="w-full md:max-w-[25rem] lg:max-w-2xl xl:max-w-[38rem] 2xl:max-w-[54rem]">
+      <div className="md:w-2/3">
+        <div className="w-full md:max-w-[30rem] lg:max-w-2xl xl:max-w-[38rem] 2xl:max-w-[54rem]">
           <Swiper
             spaceBetween={30}
             effect={"fade"}
@@ -52,7 +52,7 @@ const Banner = () => {
           </Swiper>
         </div>
       </div>
-      <div className="md:w-2/6 text-black text-sm md:text-lg">
+      <div className="md:w-1/3 text-black text-sm md:text-lg">
         {/* need to change the selected border radius */}
         <Tabs
           defaultFocus={false}
@@ -65,7 +65,7 @@ const Banner = () => {
           >
             {tabList.map((tab, i) => (
               <Tab
-                className="p-[10px] w-full flex items-center justify-center border-t-[3px] border-solid border-[#022940] rounded-none"
+                className="p-[10px] w-full flex items-center justify-center border-t-[3px] border-solid border-[#022940] rounded-none cursor-pointer"
                 key={i}
               >
                 {tab.label}
@@ -73,7 +73,7 @@ const Banner = () => {
             ))}
           </TabList>
 
-          <div className="max-h-[530px] overflow-y-scroll">
+          <div className="max-h-[300px] md:max-h-[195px] lg:max-h-[333px] xl:max-h-[295px] 2xl:max-h-[420px] overflow-y-scroll">
             <TabPanel className={"space-y-2"}>
               {posts?.map((post, i) => (
                 <SmallNewsCard post={post} key={i} />
