@@ -27,10 +27,9 @@ const usersApi = baseApi.injectEndpoints({
     }),
 
     addRoleToUser: builder.mutation({
-      query: (uid, data) => ({
-        url: `/users/${uid}`,
+      query: ({ uid, role }) => ({
+        url: `/users/role?uid=${uid}&&role=${role}`,
         method: "PUT",
-        body: data,
       }),
       invalidatesTags: ["users"],
     }),

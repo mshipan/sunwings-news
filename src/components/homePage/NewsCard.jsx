@@ -14,7 +14,7 @@ const NewsCard = ({ post }) => {
         </Link>
         <p className="flex items-center border-l-2 border-orange-500 gap-1 mt-2">
           <MdAccessTime className="text-orange-500 ml-2" />
-          <span>{moment(post?.publishDate).endOf("day").fromNow()}</span>
+          <span>{moment(post?.publishDate).startOf("hour").fromNow()}</span>
         </p>
       </div>
     </div>
