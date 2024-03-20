@@ -1,18 +1,48 @@
 import { DataGrid } from "@mui/x-data-grid";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useGetPostsQuery } from "../../../../redux/features/allApis/postApi/postApi";
+import {
+  useAddRoleToUserMutation,
+  useDeleteSingleUserMutation,
+  useGetAllUsersQuery,
+} from "../../../../redux/features/allApis/usersApi/usersApi";
+import Swal from "sweetalert2";
+import {
+  Box,
+  Button,
+  MenuItem,
+  Modal,
+  Select,
+  Typography,
+} from "@mui/material";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 const AllUsers = () => {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const [selectedUID, setSelectedUID] = useState("");
+  const [selectedOption, setSelectedOption] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+
+  console.log(selectedUID, selectedOption);
+
   // get all users
-  const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    fetch(`${import.meta.env.VITE_BASE_API_URL}/users`)
-      .then((res) => res.json())
-      .then((data) => setUsers(data));
-  }, []);
-
+  const { data: users } = useGetAllUsersQuery();
+  // delete a single user mutation
+  const [deleteSingleUser] = useDeleteSingleUserMutation();
+  const [addRoleToUser] = useAddRoleToUserMutation();
   // table data
   const [filters, setFilters] = useState({
     month: "",
@@ -21,9 +51,23 @@ const AllUsers = () => {
     status: "",
     author: "",
   });
-  const [searchQuery, setSearchQuery] = useState("");
+  // all functions
+  const handleChange = (event) => {
+    // console.log(event.target);
+    setSelectedOption(event.target.value);
+  };
 
-  const { data: allPosts } = useGetPostsQuery();
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Here you can handle form submission logic, such as sending data to the server
+    // console.log("Selected option:", selectedOption, selectedUID);
+    // const roleInfo = { uid: selectedUID, role: selectedOption };
+    const result = addRoleToUser(selectedUID, selectedOption);
+    console.log(result);
+
+    // Optionally, you can close the modal after submission
+    handleClose();
+  };
 
   const handleFilterChange = (event) => {
     const { name, value } = event.target;
@@ -45,16 +89,16 @@ const AllUsers = () => {
     // Handle search submission
   };
 
-  const ActionButtons = ({ id }) => {
+  const ActionButtons = ({ uid }) => {
     return (
       <div className="flex justify-center items-center gap-2">
-        <button className="text-blue-500" onClick={() => handleEdit(id)}>
+        {/* <button className="text-blue-500" onClick={() => handleEdit(id)}>
           Edit
         </button>
         <button className="text-green-500" onClick={() => handleView(id)}>
           View
-        </button>
-        <button className="text-red-500" onClick={() => handleDelete(id)}>
+        </button> */}
+        <button className="text-red-500" onClick={() => handleDelete(uid)}>
           Delete
         </button>
       </div>
@@ -70,6 +114,54 @@ const AllUsers = () => {
       >
         {status}
       </span>
+    );
+  };
+
+  const SetRole = ({ uid }) => {
+    console.log("uid:   ", uid);
+
+    setSelectedUID(uid);
+
+    return (
+      <>
+        <Button onClick={handleOpen}>Give role</Button>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Set role
+            </Typography>
+            <form className="text-black" onSubmit={handleSubmit}>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={selectedOption}
+                onChange={handleChange} // Add function to handle selection change
+                fullWidth
+              >
+                <MenuItem selected disabled value="">
+                  Set a Role
+                </MenuItem>
+                <MenuItem value={"journalist"}>Journalist/Reporter</MenuItem>
+                <MenuItem value={"editor"}>Editor</MenuItem>
+                <MenuItem value={"moderator"}>Moderator</MenuItem>
+              </Select>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                fullWidth
+              >
+                Submit
+              </Button>
+            </form>
+          </Box>
+        </Modal>
+      </>
     );
   };
 
@@ -114,9 +206,15 @@ const AllUsers = () => {
       renderCell: (params) => <StatusBadge status={params.value} />,
     },
     {
+      field: "giveRole",
+      headerName: "Give Role",
+      width: 140,
+      renderCell: (params) => <SetRole uid={params.row.uid} />,
+    },
+    {
       field: "action",
       headerName: "Action",
-      renderCell: (params) => <ActionButtons id={params.row.id} />,
+      renderCell: (params) => <ActionButtons uid={params.row.uid} />,
       width: 150,
     },
   ];
@@ -127,6 +225,7 @@ const AllUsers = () => {
         name: user.name,
         email: user?.email,
         role: user.role,
+        uid: user?.uid,
       }))
     : [];
 
@@ -143,6 +242,11 @@ const AllUsers = () => {
     });
   };
 
+  const handleSetRole = (value) => {
+    // handle set role
+    console.log(value);
+  };
+
   const handleEdit = (id) => {
     // Handle edit action
   };
@@ -151,8 +255,39 @@ const AllUsers = () => {
     // Handle view action
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = (uid) => {
     // Handle delete action
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const result = await deleteSingleUser(uid);
+          console.log("result", result);
+          if (result.data.deletedCount > 0) {
+            Swal.fire({
+              title: "Deleted!",
+              text: "This user has been deleted.",
+              icon: "success",
+            });
+          }
+        } catch (error) {
+          Swal.fire({
+            title: "Failed to delete user",
+            text: error,
+            icon: "error",
+            confirmButtonText: "OK",
+          });
+        }
+      }
+    });
   };
 
   const months = [
