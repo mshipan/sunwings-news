@@ -12,6 +12,7 @@ import MiddleCategorySec from "../../components/homePage/MiddleCategorySec";
 import AllNews from "../../components/homePage/AllNews";
 import EntertainmentSection from "../../components/homePage/EntertainmentSection";
 import { useGetAllAdvertisementQuery } from "../../redux/features/allApis/advertisementApi/advertisementApi";
+import Gallery from "../../components/homePage/Gallery";
 
 const Home = () => {
   const { data: allAds } = useGetAllAdvertisementQuery();
@@ -102,13 +103,7 @@ const Home = () => {
         <Advertisement />
       </div>
 
-      <div className="flex gap-4 flex-col md:flex-row mb-10">
-        <div className="md:w-5/6 w-full">
-          <CategoryTitle />
-          <img src={homeSliderImg} alt="" />
-        </div>
-        <div className="">{/* <CategorizedNews /> */}</div>
-      </div>
+      <Gallery />
     </div>
   );
 };
