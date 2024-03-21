@@ -1,18 +1,27 @@
-import twitter from "../../assets/twitter.jpg";
-import CategoryTitle from "../shared/CategoryTitle";
-import SinglePageLeft from "./SinglePageLeft";
+import { useGetPostsQuery } from "../../redux/features/allApis/postApi/postApi";
+import { Link } from "react-router-dom";
 
 const SinglePageRight = () => {
+  const { data: posts, isLoading } = useGetPostsQuery({});
+  const filteredPosts = posts?.filter((post) => post?.isPopular === true);
+  const popularPosts = filteredPosts?.slice(0, 5);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div className="bg-gray-200 ">
-      <CategoryTitle title={"আলোচিত সংবাদ"} />
-      <div className="">
-        <img className="px-2" src={twitter} alt="" />
-        <p className="px-2">শুরু হয়েছে শীতের মৌসুম, শীতের ফুলে রঙিন প্রকৃতি</p>
-      </div>
-      <div className="mt-4 px-2">
-        <SinglePageLeft />
-      </div>
+    <div className="flex flex-col gap-4 my-3">
+      {popularPosts?.map((post) => (
+        <div key={post?._id} className="">
+          <img className="" src={post?.postThumbnail} alt="" />
+          <Link to={`/posts/${post._id}`}>
+            <p className="bg-gray-300 px-2 py-1 pb-2 text-black hover:text-blue-600">
+              {post?.postTitle}
+            </p>
+          </Link>
+        </div>
+      ))}
     </div>
   );
 };

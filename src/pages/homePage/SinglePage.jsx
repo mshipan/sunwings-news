@@ -5,6 +5,7 @@ import CategoryTitle from "../../components/shared/CategoryTitle";
 import { useGetPostByIdQuery } from "../../redux/features/allApis/postApi/postApi";
 import SinglePageLeft from "../../components/homePage/SinglePageLeft";
 import moment from "moment/moment";
+import { Helmet } from "react-helmet-async";
 
 const SinglePage = () => {
   const { id } = useParams();
@@ -15,6 +16,9 @@ const SinglePage = () => {
   }
   return (
     <div className="flex flex-col md:flex-row m-auto container px-2 bg-white gap-4">
+      <Helmet>
+        <title>Sunwings | News Details</title>
+      </Helmet>
       <div className="md:w-1/6 space-y-4 order-2 md:order-1">
         <CategoryTitle title={"সর্বশেষ সংবাদ"} />
         <div className="grid grid-cols-2 md:grid-cols-1 gap-4">
@@ -38,6 +42,7 @@ const SinglePage = () => {
         ></p>
       </div>
       <div className="md:w-1/6 order-3">
+        <CategoryTitle title={"আলোচিত সংবাদ"} />
         <SinglePageRight />
       </div>
     </div>

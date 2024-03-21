@@ -1,9 +1,8 @@
 import { Link, useParams } from "react-router-dom";
 import { useGetPostsQuery } from "../../redux/features/allApis/postApi/postApi";
-import SinglePageLeft from "../../components/homePage/SinglePageLeft";
-import CategoryTitle from "../../components/shared/CategoryTitle";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import SmallNewsCard from "../../components/shared/SmallNewsCard";
+import { Helmet } from "react-helmet-async";
 
 const SubCategoryNews = () => {
   const { subCategory } = useParams();
@@ -11,6 +10,7 @@ const SubCategoryNews = () => {
   const { data: posts, error, isLoading } = useGetPostsQuery({ subCategory });
 
   const { data: allPosts } = useGetPostsQuery({});
+  const popularNews = allPosts?.filter((post) => post.isPopular === true);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -34,6 +34,9 @@ const SubCategoryNews = () => {
 
   return (
     <div className="flex flex-col md:flex-row gap-4 container mx-auto">
+      <Helmet>
+        <title>Sunwings | Sub Category News</title>
+      </Helmet>
       {/* Render your component with data here */}
       <div className="grid grid-cols-1 md:grid-cols-3 justify-items-center gap-4 md:w-2/3 px-2 md:px-0">
         {posts.length !== 0 &&
@@ -76,7 +79,9 @@ const SubCategoryNews = () => {
                 ))}
               </TabPanel>
               <TabPanel>
-                <h2>Any content 2</h2>
+                {popularNews?.map((post, i) => (
+                  <SmallNewsCard post={post} key={i} />
+                ))}
               </TabPanel>
             </div>
           </div>

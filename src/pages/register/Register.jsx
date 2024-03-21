@@ -6,6 +6,7 @@ import { useAddNewUserMutation } from "../../redux/features/allApis/usersApi/use
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
 
 const Register = () => {
   const { createUser, setUser, updateUserProfile, loading, setLoading, user } =
@@ -82,8 +83,13 @@ const Register = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <Helmet>
+        <title>Sunwings | Add New User</title>
+      </Helmet>
       <div className="max-w-md w-full p-6 bg-white rounded-md shadow-md">
-        <h2 className="text-3xl font-extrabold text-gray-800 mb-6">Sign Up</h2>
+        <h2 className="text-3xl font-extrabold text-gray-800 mb-6">
+          Add New User
+        </h2>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="form-control">
             <label

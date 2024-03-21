@@ -2,6 +2,7 @@ import SinglePageLeft from "../../components/homePage/SinglePageLeft";
 import CategoryTitle from "../../components/shared/CategoryTitle";
 import { useGetPostsQuery } from "../../redux/features/allApis/postApi/postApi";
 import { Link, useParams } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const CategoryNewsPage = () => {
   const { category } = useParams();
@@ -23,6 +24,9 @@ const CategoryNewsPage = () => {
   console.log("postsss", posts);
   return (
     <div className="flex flex-col md:flex-row gap-4 container mx-auto">
+      <Helmet>
+        <title>Sunwings | Category News</title>
+      </Helmet>
       {/* Render your component with data here */}
       <div className="grid md:grid-cols-3 grid-cols-2 grid-rows-4 gap-3 w-3/4">
         {posts?.map((post) => (

@@ -11,52 +11,57 @@ import { Link } from "react-router-dom";
 import SmallNewsCard from "../shared/SmallNewsCard";
 
 const Banner = () => {
-  const { data: posts } = useGetPostsQuery({});
+  const { data: posts, isLoading: loading } = useGetPostsQuery({});
 
   const lastFiveNews = posts?.slice(0, 5);
+  const popularNews = posts?.filter((post) => post.isPopular === true);
 
   const tabList = [
     { label: "সর্বশেষ সংবাদ", value: "" },
     { label: "আলোচিত সংবাদ", value: "" },
   ];
   return (
-    <div className="grow text-white flex flex-col md:flex-row gap-6">
+    <div className="grow text-white flex flex-col md:flex-row gap-6 container mx-auto">
       <div className="md:w-2/3">
-        <div className="w-full md:max-w-[30rem] lg:max-w-[41rem] xl:max-w-[38rem] 2xl:max-w-[54rem]">
-          <Swiper
-            spaceBetween={30}
-            effect={"fade"}
-            navigation={false}
-            autoplay={{
-              delay: 2000,
-              disableOnInteraction: false,
-            }}
-            loop={true}
-            modules={[Autoplay, Pagination, Navigation]}
-            className="mySwiper w-full"
-          >
-            {lastFiveNews?.map((post) => (
-              <SwiperSlide key={post?._id}>
-                <div className="relative h-fit">
-                  <div className="h-[30rem]">
-                    <img
-                      src={post?.postThumbnail}
-                      alt=""
-                      className="w-full h-full"
-                    />
+        {loading ? (
+          <div className="skeleton w-full md:w-[30rem] lg:w-[41rem] xl:w-[38rem] 2xl:w-[54rem] h-full md:h-[30rem] lg:h-[41rem] xl:h-[38rem] 2xl:h-[54rem]"></div>
+        ) : (
+          <div className="w-full md:max-w-[30rem] lg:max-w-[41rem] xl:max-w-[38rem] 2xl:max-w-[54rem]">
+            <Swiper
+              spaceBetween={30}
+              effect={"fade"}
+              navigation={false}
+              autoplay={{
+                delay: 2000,
+                disableOnInteraction: false,
+              }}
+              loop={true}
+              modules={[Autoplay, Pagination, Navigation]}
+              className="mySwiper w-full"
+            >
+              {lastFiveNews?.map((post) => (
+                <SwiperSlide key={post?._id}>
+                  <div className="relative h-fit">
+                    <div className="h-[30rem]">
+                      <img
+                        src={post?.postThumbnail}
+                        alt=""
+                        className="w-full h-full"
+                      />
+                    </div>
+                    <div className="absolute bottom-0 bg-black  w-full py-4 px-2">
+                      <Link to={`/posts/${post?._id}`}>
+                        <h1 className="text-white text-xl hover:text-orange-300 hover:underline">
+                          {post?.postTitle}
+                        </h1>
+                      </Link>
+                    </div>
                   </div>
-                  <div className="absolute bottom-0 bg-black  w-full py-4 px-2">
-                    <Link to={`/posts/${post?._id}`}>
-                      <h1 className="text-white text-xl hover:text-orange-300 hover:underline">
-                        {post?.postTitle}
-                      </h1>
-                    </Link>
-                  </div>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        )}
       </div>
       <div className="md:w-1/3 text-black text-sm md:text-lg">
         {/* need to change the selected border radius */}
@@ -86,7 +91,9 @@ const Banner = () => {
               ))}
             </TabPanel>
             <TabPanel>
-              <h2>Any content 2</h2>
+              {popularNews?.map((post, i) => (
+                <SmallNewsCard post={post} key={i} />
+              ))}
             </TabPanel>
           </div>
         </Tabs>

@@ -43,7 +43,7 @@ const Banner250x250 = () => {
         const imageData = await imageUpload(image);
         data.banner = imageData.data.display_url;
         data.createdAt = now;
-        data.size = "250x250";
+        data.position = "beside_news_slider_top_right_corner";
         data.link = adLink;
         const response = await uploadAdvertisement(data);
 
@@ -107,6 +107,17 @@ const Banner250x250 = () => {
           >
             Select file
           </button>
+          <div className="mt-5 flex flex-col gap-2">
+            <p className="text-black font-semibold">
+              accepted file extensions are
+            </p>
+            <small className="text-black text-xs italic">
+              .jpeg, .jpg, .png, .gif
+            </small>
+            <p className="text-red-600 font-semibold">
+              ** Advertisement Size Must be 250 x 250 px **
+            </p>
+          </div>
         </div>
         {selectedImage && (
           <div className="flex flex-col items-center gap-4 mt-10 md:w-1/2">

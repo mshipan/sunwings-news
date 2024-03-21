@@ -21,7 +21,14 @@ const EntertainmentSection = () => {
   // Render only the first 150 words if showFullContent is false
   const renderContent = showFullContent
     ? posts[0].quill
-    : posts[0].quill.split(" ").slice(0, 150).join(" ");
+    : posts[0].quill
+        .split(" ")
+        .slice(0, 150)
+        .join(" ")
+        .replace(
+          /<img/g,
+          '<img style="max-width:100%;width:100%;height:auto;"'
+        );
 
   const newArray = posts?.slice(1, 5);
 
@@ -37,7 +44,7 @@ const EntertainmentSection = () => {
               {/* Render content using dangerouslySetInnerHTML */}
               <p
                 dangerouslySetInnerHTML={{ __html: renderContent }}
-                className="text-black"
+                className="text-black max-w-full text-justify"
               ></p>
               {/* Render the "Details" button */}
               {posts[0].quill.length > 150 && (

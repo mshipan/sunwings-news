@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "../components/dashboard/Sidebar";
 import Topbar from "../components/dashboard/Topbar";
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 const DashboardLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -11,6 +12,9 @@ const DashboardLayout = () => {
   };
   return (
     <>
+      <Helmet>
+        <title>Sunwings | Dashboard</title>
+      </Helmet>
       {/* Start: Sidebar */}
       <Sidebar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
       {/* End: Sidebar */}

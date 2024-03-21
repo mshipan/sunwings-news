@@ -6,6 +6,7 @@ import ad250x250Img from "../../assets/testad2.jpg";
 import { useGetAllFacebookQuery } from "../../redux/features/allApis/socialMediaApi/facebookApi";
 import { useGetAllTwitterQuery } from "../../redux/features/allApis/socialMediaApi/twitterApi";
 import { FacebookShareButton, TwitterShareButton } from "react-share";
+import { Link } from "react-router-dom";
 
 const Aside = () => {
   const { data: allAds } = useGetAllAdvertisementQuery();
@@ -15,15 +16,25 @@ const Aside = () => {
   const singleFacebook = allFacebook?.[0];
   const singleTwitter = allTwitter?.[0];
 
-  const ad250x250 = allAds
-    ? allAds.find((ad) => ad.isSelected === true && ad.size === "250x250")
+  const adBesideTopLogo = allAds
+    ? allAds.find(
+        (ad) =>
+          ad.isSelected === true &&
+          ad.position === "beside_news_slider_top_right_corner"
+      )
     : null;
 
   return (
     <div className="flex-none xl:w-72 text-white">
       <div className="grid grid-cols-2 md:grid-cols-1 lg:max-xl:grid-cols-4 md:max-lg:grid-cols-4 content-between gap-4">
-        {ad250x250 ? (
-          <img src={ad250x250?.banner} alt="Advertisement" className="w-full" />
+        {adBesideTopLogo ? (
+          <Link to={adBesideTopLogo?.link ? adBesideTopLogo?.link : null}>
+            <img
+              src={adBesideTopLogo?.banner}
+              alt="Advertisement"
+              className="w-full"
+            />
+          </Link>
         ) : (
           <img src={ad250x250Img} alt="ad 250 x 250" />
         )}

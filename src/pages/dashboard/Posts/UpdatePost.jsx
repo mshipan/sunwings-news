@@ -4,6 +4,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Select from "react-select";
+import { Helmet } from "react-helmet-async";
 import {
   useGetPostByIdQuery,
   useUpdatePostMutation,
@@ -150,6 +151,9 @@ const UpdatePost = () => {
 
   return (
     <div className="flex flex-col gap-3">
+      <Helmet>
+        <title>Sunwings | Update Post</title>
+      </Helmet>
       <div className="flex flex-col gap-3">
         <div className="flex flex-col md:flex-row gap-3 mb-4">
           <h1 className="text-black text-2xl ">Edit Post</h1>

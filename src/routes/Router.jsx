@@ -12,13 +12,14 @@ import Home from "../pages/homePage/Home";
 import AllUsers from "../pages/dashboard/Users/AllUsers/AllUsers";
 import SinglePage from "../pages/homePage/SinglePage";
 import CustomizeLogo from "../pages/dashboard/media/CustomizeLogo";
-import Advertisment from "../pages/dashboard/media/Advertisment";
+import Advertisment from "../pages/dashboard/media/Advertisement";
 import SocialProfiles from "../pages/dashboard/themeSettings/socialProfiles/SocialProfiles";
 import SubCategoryNews from "../pages/homePage/SubCategoryNews";
 import UpdatePost from "../pages/dashboard/Posts/UpdatePost";
 import PrivateRoute from "./PrivateRoute";
 import CategoryNewsPage from "../pages/homePage/CategoryNewsPage";
 import CustomizeFooter from "../pages/dashboard/themeSettings/footer/CustomizeFooter";
+import TermsAndCondition from "../pages/termsAndCondition/TermsAndCondition";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "/category/:category",
         element: <CategoryNewsPage />,
+      },
+      {
+        path: "/terms-and-condition",
+        element: <TermsAndCondition />,
       },
     ],
   },
@@ -103,7 +108,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/sign-up",
-    element: <Register />,
+    element: (
+      <PrivateRoute>
+        <Register />
+      </PrivateRoute>
+    ),
   },
 ]);
 
