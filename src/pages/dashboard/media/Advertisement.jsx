@@ -12,6 +12,7 @@ import BannerVIdeoTopLeft from "../../../components/dashboard/media/advertisment
 import BannerVideoTopRight from "../../../components/dashboard/media/advertisment/BannerVideoTopRight";
 import BannerVideoBottomLeft from "../../../components/dashboard/media/advertisment/BannerVideoBottomLeft";
 import BannerVideoBottomRight from "../../../components/dashboard/media/advertisment/BannerVideoBottomRight";
+import { Helmet } from "react-helmet-async";
 
 const Advertisment = () => {
   const [selectedPosition, setSelectedPosition] = useState("");
@@ -67,6 +68,9 @@ const Advertisment = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Sunwings | Advertisement</title>
+      </Helmet>
       <h1 className="text-black text-2xl mb-10">Customize Advertisement</h1>
 
       <div className="flex flex-col gap-5">

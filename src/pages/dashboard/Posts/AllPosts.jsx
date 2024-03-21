@@ -1,6 +1,7 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import {
   useDeletePostMutation,
   useGetPostsQuery,
@@ -76,6 +77,9 @@ const AllPosts = () => {
   const ActionButtons = ({ id }) => {
     return (
       <div className="flex justify-center items-center gap-2">
+        <Helmet>
+          <title>Sunwings | All Posts</title>
+        </Helmet>
         <Link to={`/dashboard/edit-post/${id}`} className="text-blue-500">
           Edit
         </Link>

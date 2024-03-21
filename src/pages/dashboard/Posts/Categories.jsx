@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
 import {
   useAddNewCategoryMutation,
   useDeleteSingleCategoryMutation,
@@ -127,6 +128,9 @@ const Categories = () => {
   ];
   return (
     <div className="h-fit md:h-screen">
+      <Helmet>
+        <title>Sunwings | Categories</title>
+      </Helmet>
       <div className="flex flex-col gap-3">
         <h1 className="text-black text-2xl mb-4">Categories</h1>
 
