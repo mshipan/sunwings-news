@@ -10,6 +10,7 @@ import { singleCategory } from "../../../api/fetch";
 import { AuthContext } from "../../../providers/AuthProvider";
 import { useGetUserByUidQuery } from "../../../redux/features/allApis/usersApi/usersApi";
 import { imageUpload } from "../../../api/utils";
+import { Helmet } from "react-helmet-async";
 
 const AddNewPost = () => {
   const { user } = useContext(AuthContext);
@@ -133,6 +134,9 @@ const AddNewPost = () => {
 
   return (
     <div className="flex flex-col gap-3">
+      <Helmet>
+        <title>Sunwings | Add New Post</title>
+      </Helmet>
       <div className="flex flex-col gap-3">
         <div className="flex flex-col md:flex-row gap-3 mb-4">
           <h1 className="text-black text-2xl ">Add New Post</h1>

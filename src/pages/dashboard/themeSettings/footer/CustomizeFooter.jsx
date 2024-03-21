@@ -5,6 +5,7 @@ import {
   useUpdateFooterMutation,
 } from "../../../../redux/features/allApis/footerApi/footerApi";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const CustomizeFooter = () => {
   const [loading, setLoading] = useState(false);
@@ -51,6 +52,9 @@ const CustomizeFooter = () => {
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+      <Helmet>
+        <title>Sunwings | Customize Footer</title>
+      </Helmet>
       <div className="flex flex-col md:flex-row gap-3">
         <h1 className="text-black text-2xl">Footer Customize</h1>
       </div>

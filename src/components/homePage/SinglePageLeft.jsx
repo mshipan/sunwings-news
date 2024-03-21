@@ -15,7 +15,9 @@ const SinglePageLeft = () => {
         <div key={post?._id} className="">
           <img className="" src={post?.postThumbnail} alt="" />
           <Link to={`/posts/${post._id}`}>
-            <p className="bg-gray-300 px-2 py-1 pb-2">{post?.postTitle}</p>
+            <p className="bg-gray-300 px-2 py-1 pb-2 text-black hover:text-blue-600">
+              {post?.postTitle}
+            </p>
           </Link>
         </div>
       ))}

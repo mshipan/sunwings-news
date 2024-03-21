@@ -8,6 +8,7 @@ import {
 } from "../../../../redux/features/allApis/usersApi/usersApi";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
 
 const AllUsers = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -295,6 +296,9 @@ const AllUsers = () => {
 
   return (
     <div className="flex flex-col gap-3">
+      <Helmet>
+        <title>Sunwings | All Users</title>
+      </Helmet>
       <div className="flex flex-col md:flex-row gap-3">
         <h1 className="text-black text-2xl">All Users</h1>
         {/* <Link to="/dashboard/add-new-post">

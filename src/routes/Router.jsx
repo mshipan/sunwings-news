@@ -12,7 +12,7 @@ import Home from "../pages/homePage/Home";
 import AllUsers from "../pages/dashboard/Users/AllUsers/AllUsers";
 import SinglePage from "../pages/homePage/SinglePage";
 import CustomizeLogo from "../pages/dashboard/media/CustomizeLogo";
-import Advertisment from "../pages/dashboard/media/Advertisment";
+import Advertisment from "../pages/dashboard/media/Advertisement";
 import SocialProfiles from "../pages/dashboard/themeSettings/socialProfiles/SocialProfiles";
 import SubCategoryNews from "../pages/homePage/SubCategoryNews";
 import UpdatePost from "../pages/dashboard/Posts/UpdatePost";
@@ -103,7 +103,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/sign-up",
-    element: <Register />,
+    element: (
+      <PrivateRoute>
+        <Register />
+      </PrivateRoute>
+    ),
   },
 ]);
 
