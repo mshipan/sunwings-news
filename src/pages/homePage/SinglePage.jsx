@@ -42,6 +42,7 @@ const SinglePage = () => {
         ></p>
       </div>
       <div className="md:w-1/6 order-3">
+        <CategoryTitle title={"আলোচিত সংবাদ"} />
         <SinglePageRight />
       </div>
     </div>
