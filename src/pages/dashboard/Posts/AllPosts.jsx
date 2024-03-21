@@ -2,9 +2,11 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import Button from "@mui/material/Button";
 import {
   useDeletePostMutation,
   useGetPostsQuery,
+  useUpdatePopularMutation,
 } from "../../../redux/features/allApis/postApi/postApi";
 import { useGetAllUsersQuery } from "../../../redux/features/allApis/usersApi/usersApi";
 import Swal from "sweetalert2";
@@ -26,6 +28,7 @@ const AllPosts = () => {
   });
   const { data: allUsers } = useGetAllUsersQuery();
   const [deletePost] = useDeletePostMutation();
+  const [updatePopularPost] = useUpdatePopularMutation();
 
   const handleFilterChange = (event) => {
     const { name, value } = event.target;
@@ -77,9 +80,6 @@ const AllPosts = () => {
   const ActionButtons = ({ id }) => {
     return (
       <div className="flex justify-center items-center gap-2">
-        <Helmet>
-          <title>Sunwings | All Posts</title>
-        </Helmet>
         <Link to={`/dashboard/edit-post/${id}`} className="text-blue-500">
           Edit
         </Link>
@@ -87,6 +87,30 @@ const AllPosts = () => {
         <button className="text-red-500" onClick={() => handleDelete(id)}>
           Delete
         </button>
+      </div>
+    );
+  };
+
+  const PopularButtons = ({ value }) => {
+    return (
+      <div>
+        {value.isPopular ? (
+          <Button
+            onClick={() => handlePopular(value.id, false)}
+            variant="contained"
+            color="error"
+          >
+            Unpopular
+          </Button>
+        ) : (
+          <Button
+            onClick={() => handlePopular(value.id, true)}
+            color="success"
+            variant="contained"
+          >
+            Popular
+          </Button>
+        )}
       </div>
     );
   };
@@ -121,7 +145,7 @@ const AllPosts = () => {
   };
 
   const columns = [
-    { field: "id", headerName: "Sl No", width: 80 },
+    { field: "id", headerName: "Sl No", width: 20 },
     {
       field: "title",
       headerName: "Title",
@@ -135,14 +159,14 @@ const AllPosts = () => {
     {
       field: "author",
       headerName: "Author",
-      width: 180,
+      width: 170,
       renderCell: (params) => <p className="">{params.value || "---"}</p>,
     },
     {
       field: "category",
       headerName: "Categories",
       type: "text",
-      width: 180,
+      width: 100,
       renderCell: (params) => (
         <div
           className="inline-block px-[6px] py-[2px] mr-1 rounded"
@@ -156,7 +180,7 @@ const AllPosts = () => {
       field: "subCategory",
       headerName: "Sub Category",
       type: "text",
-      width: 180,
+      width: 100,
       renderCell: (params) => (
         <div
           className="inline-block px-[6px] py-[2px] mr-1 rounded"
@@ -169,18 +193,25 @@ const AllPosts = () => {
     {
       field: "publishDate",
       headerName: "Publish Date",
-      width: 180,
+      width: 100,
     },
     {
       field: "status",
       headerName: "Status",
-      width: 140,
+      width: 100,
       renderCell: (params) => <StatusBadge status={params.value} />,
     },
     {
       field: "action",
       headerName: "Action",
       renderCell: (params) => <ActionButtons id={params.value} />,
+      width: 100,
+    },
+    {
+      field: "popular",
+      headerName: "Make Popular",
+      renderCell: (params) => <PopularButtons value={params.value} />,
+
       width: 150,
     },
   ];
@@ -195,6 +226,7 @@ const AllPosts = () => {
         publishDate: formatDate(post?.publishDate),
         status: post.status,
         action: post._id,
+        popular: { id: post._id, isPopular: post.isPopular },
       }))
     : [];
 
@@ -222,6 +254,48 @@ const AllPosts = () => {
         } catch (error) {
           Swal.fire({
             title: "Failed to delete post",
+            text: `${error}`,
+            icon: "error",
+            confirmButtonText: "OK",
+          });
+        }
+      }
+    });
+  };
+
+  const handlePopular = (id, isPopular) => {
+    const popularInfo = { isPopular: isPopular };
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: `Make ${
+        isPopular === true ? "Popular" : "Unpopular"
+      }!`,
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const result = await updatePopularPost({
+            id: id,
+            data: popularInfo,
+          });
+          console.log("result", result);
+          if (result.data.modifiedCount > 0) {
+            Swal.fire({
+              title: `Made ${
+                isPopular === true ? "Popular" : "Unpopular"
+              } successfully!`,
+              icon: "success",
+            });
+          }
+        } catch (error) {
+          Swal.fire({
+            title: `Failed to make ${
+              isPopular === true ? "Popular" : "Unpopular"
+            }`,
             text: `${error}`,
             icon: "error",
             confirmButtonText: "OK",
@@ -303,6 +377,9 @@ const AllPosts = () => {
 
   return (
     <div className="flex flex-col gap-3">
+      <Helmet>
+        <title>Sunwings | All Posts</title>
+      </Helmet>
       <div className="flex flex-col md:flex-row gap-3">
         <h1 className="text-black text-2xl">All Posts</h1>
         <Link to="/dashboard/add-new-post">

@@ -14,6 +14,7 @@ const Banner = () => {
   const { data: posts } = useGetPostsQuery({});
 
   const lastFiveNews = posts?.slice(0, 5);
+  const popularNews = posts?.filter((post) => post.isPopular === true);
 
   const tabList = [
     { label: "সর্বশেষ সংবাদ", value: "" },
@@ -86,7 +87,9 @@ const Banner = () => {
               ))}
             </TabPanel>
             <TabPanel>
-              <h2>Any content 2</h2>
+              {popularNews?.map((post, i) => (
+                <SmallNewsCard post={post} key={i} />
+              ))}
             </TabPanel>
           </div>
         </Tabs>
