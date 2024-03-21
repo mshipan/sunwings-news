@@ -1,13 +1,21 @@
 import HomeLogo1 from "../../assets/logo1.png";
+import { useGetAllAdvertisementQuery } from "../../redux/features/allApis/advertisementApi/advertisementApi";
 import { useGetAllLogoQuery } from "../../redux/features/allApis/logoApi/logoApi";
 
 import Advertisement from "./Advertisement";
 
 const LogoSection = () => {
   const { data: allLogos } = useGetAllLogoQuery();
+  const { data: allAds } = useGetAllAdvertisementQuery();
 
   const selectedLogo = allLogos
     ? allLogos.find((logo) => logo.isSelected === true)
+    : null;
+
+  const adBesideTopLogo = allAds
+    ? allAds.find(
+        (ad) => ad.isSelected === true && ad.position === "beside_top_logo"
+      )
     : null;
 
   return (
@@ -21,7 +29,7 @@ const LogoSection = () => {
           )}
         </div>
         <div className="w-full md:w-8/12 rounded">
-          <Advertisement />
+          <Advertisement selectedAd={adBesideTopLogo} />
         </div>
       </div>
     </div>
