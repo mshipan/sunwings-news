@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { imageUpload } from "../../../../api/utils";
 import toast from "react-hot-toast";
 
-const Banner240x32 = () => {
+const BannerBinodonTopLeft = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [adLink, setAdLink] = useState("");
   const [loading, setLoading] = useState(false);
@@ -43,7 +43,7 @@ const Banner240x32 = () => {
         const imageData = await imageUpload(image);
         data.banner = imageData.data.display_url;
         data.createdAt = now;
-        data.position = "beside_top_logo";
+        data.position = "binodon_category_top_left";
         data.link = adLink;
         const response = await uploadAdvertisement(data);
 
@@ -142,4 +142,4 @@ const Banner240x32 = () => {
   );
 };
 
-export default Banner240x32;
+export default BannerBinodonTopLeft;
