@@ -1,9 +1,7 @@
-import homeSliderImg from "../../assets/1.png";
 import card from "../../assets/home-slider.jpg";
 import { Link } from "react-router-dom";
 import NewsContent from "../../components/homePage/NewsContent";
 import fullImg from "../../assets/2.png";
-import CategoryTitle from "../../components/shared/CategoryTitle";
 import { CiVideoOn } from "react-icons/ci";
 import Banner from "../../components/homePage/Banner";
 import Aside from "../../components/homePage/Aside";
@@ -14,12 +12,75 @@ import EntertainmentSection from "../../components/homePage/EntertainmentSection
 import { useGetAllAdvertisementQuery } from "../../redux/features/allApis/advertisementApi/advertisementApi";
 import Gallery from "../../components/homePage/Gallery";
 import { Helmet } from "react-helmet-async";
+import { useGetPostsQuery } from "../../redux/features/allApis/postApi/postApi";
+import CategorizedNews from "../../components/homePage/CategorizedNews";
 
 const Home = () => {
   const { data: allAds } = useGetAllAdvertisementQuery();
+  const { data: nationalNews, isLoading: nationalLoading } = useGetPostsQuery({
+    category: "সারাদেশ",
+  });
 
-  const ad1600x250 = allAds
-    ? allAds.find((ad) => ad.isSelected === true && ad.size === "1600x250")
+  const adCenterOfHomePage = allAds
+    ? allAds.find(
+        (ad) => ad.isSelected === true && ad.position === "center_home_page"
+      )
+    : null;
+
+  const adJatioCategoryTopLeft = allAds
+    ? allAds.find(
+        (ad) =>
+          ad.isSelected === true && ad.position === "jatio_category_top_left"
+      )
+    : null;
+
+  const adJatioCategoryTopRight = allAds
+    ? allAds.find(
+        (ad) =>
+          ad.isSelected === true && ad.position === "jatio_category_top_right"
+      )
+    : null;
+
+  const adBinodonCategoryTopLeft = allAds
+    ? allAds.find(
+        (ad) =>
+          ad.isSelected === true && ad.position === "binodon_category_top_left"
+      )
+    : null;
+
+  const adBinodonCategoryTopRight = allAds
+    ? allAds.find(
+        (ad) =>
+          ad.isSelected === true && ad.position === "binodon_category_top_right"
+      )
+    : null;
+
+  const adVideoSectionTopLeft = allAds
+    ? allAds.find(
+        (ad) =>
+          ad.isSelected === true && ad.position === "video_section_top_left"
+      )
+    : null;
+
+  const adVideoSectionTopRight = allAds
+    ? allAds.find(
+        (ad) =>
+          ad.isSelected === true && ad.position === "video_section_top_right"
+      )
+    : null;
+
+  const adVideoSectionBottomLeft = allAds
+    ? allAds.find(
+        (ad) =>
+          ad.isSelected === true && ad.position === "video_section_bottom_left"
+      )
+    : null;
+
+  const adVideoSectionBottomRight = allAds
+    ? allAds.find(
+        (ad) =>
+          ad.isSelected === true && ad.position === "video_section_bottom_right"
+      )
     : null;
   return (
     <div className="container mx-auto px-2">
@@ -38,15 +99,15 @@ const Home = () => {
         <Aside />
       </div>
       <div className="flex-col lg:flex-row flex items-center gap-4 py-4">
-        <Advertisement />
-        <Advertisement />
+        <Advertisement selectedAd={adJatioCategoryTopLeft} />
+        <Advertisement selectedAd={adJatioCategoryTopRight} />
       </div>
       <NewsContent />
 
       <div className="py-4">
-        {ad1600x250 ? (
+        {adCenterOfHomePage ? (
           <img
-            src={ad1600x250.banner}
+            src={adCenterOfHomePage?.banner}
             alt="AdvertiseMent"
             className="w-full h-28"
           />
@@ -58,15 +119,15 @@ const Home = () => {
       <MiddleCategorySec />
 
       <div className="flex-col lg:flex-row flex items-center gap-4 py-4">
-        <Advertisement />
-        <Advertisement />
+        <Advertisement selectedAd={adBinodonCategoryTopLeft} />
+        <Advertisement selectedAd={adBinodonCategoryTopRight} />
       </div>
 
       <EntertainmentSection />
 
       <div className="flex-col lg:flex-row flex items-center gap-4 py-4">
-        <Advertisement />
-        <Advertisement />
+        <Advertisement selectedAd={adVideoSectionTopLeft} />
+        <Advertisement selectedAd={adVideoSectionTopRight} />
       </div>
 
       <div className="bg-gray-500 text-gray-200 flex gap-4 flex-col md:flex-row">
@@ -103,11 +164,22 @@ const Home = () => {
       {/* <NewsContent /> */}
 
       <div className="flex-col lg:flex-row flex items-center gap-4 py-4">
-        <Advertisement />
-        <Advertisement />
+        <Advertisement selectedAd={adVideoSectionBottomLeft} />
+        <Advertisement selectedAd={adVideoSectionBottomRight} />
       </div>
 
-      <Gallery />
+      <div className="flex flex-row gap-3">
+        <div className="w-2/3">
+          <Gallery />
+        </div>
+        <div className="w-1/3">
+          <CategorizedNews
+            secTitle={"সারাদেশ"}
+            news={nationalNews}
+            loading={nationalLoading}
+          />
+        </div>
+      </div>
     </div>
   );
 };

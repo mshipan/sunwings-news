@@ -18,15 +18,26 @@ const AllNews = () => {
   if (isError) {
     return <div>Fetching error occurred.</div>;
   }
+
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="py-6 grid grid-cols-2 md:grid-cols-3 gap-6">
+        {[...Array(perPage)].map((_, i) => (
+          <div key={i} className="flex flex-col gap-4 w-52">
+            <div className="skeleton h-48 w-full"></div>
+            <div className="skeleton h-4 w-28"></div>
+            <div className="skeleton h-4 w-full"></div>
+          </div>
+        ))}
+      </div>
+    );
   }
 
   return (
     <div>
       <div className="py-6 grid grid-cols-2 md:grid-cols-3 gap-6">
         {visiblePosts.map((post, i) => (
-          <NewsCard key={i} post={post} loading={isLoading} error={isError} />
+          <NewsCard key={i} post={post} isLoading={isLoading} error={isError} />
         ))}
       </div>
       {/* Show More button */}
