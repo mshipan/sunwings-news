@@ -10,6 +10,7 @@ const SubCategoryNews = () => {
   const { data: posts, error, isLoading } = useGetPostsQuery({ subCategory });
 
   const { data: allPosts } = useGetPostsQuery({});
+  const popularNews = allPosts?.filter((post) => post.isPopular === true);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -78,7 +79,9 @@ const SubCategoryNews = () => {
                 ))}
               </TabPanel>
               <TabPanel>
-                <h2>Any content 2</h2>
+                {popularNews?.map((post, i) => (
+                  <SmallNewsCard post={post} key={i} />
+                ))}
               </TabPanel>
             </div>
           </div>
