@@ -20,7 +20,7 @@ const Banner = () => {
     { label: "আলোচিত সংবাদ", value: "" },
   ];
   return (
-    <div className="grow text-white flex flex-col md:flex-row gap-6">
+    <div className="grow text-white flex flex-col md:flex-row gap-6 container mx-auto">
       <div className="md:w-2/3">
         <div className="w-full md:max-w-[30rem] lg:max-w-[41rem] xl:max-w-[38rem] 2xl:max-w-[54rem]">
           <Swiper

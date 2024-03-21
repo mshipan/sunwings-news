@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
   const { signIn } = useContext(AuthContext);
@@ -49,6 +50,9 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <Helmet>
+        <title>Sunwings | Login</title>
+      </Helmet>
       <div className="max-w-md w-full p-6 bg-white rounded-md shadow-md">
         <h2 className="text-3xl font-extrabold text-gray-800 mb-6">Login</h2>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">

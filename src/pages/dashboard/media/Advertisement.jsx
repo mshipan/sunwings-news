@@ -4,8 +4,8 @@ import Banner250x250 from "../../../components/dashboard/media/advertisment/Bann
 import Banner1600x250 from "../../../components/dashboard/media/advertisment/Banner1600x250";
 import AdvertisementCollection from "../../../components/dashboard/media/advertisment/AdvertisementCollection";
 import { useGetAllAdvertisementQuery } from "../../../redux/features/allApis/advertisementApi/advertisementApi";
-
-const Advertisment = () => {
+import { Helmet } from "react-helmet-async";
+const Advertisement = () => {
   const [selectedSize, setSelectedSize] = useState("");
   const { data: allAdvert } = useGetAllAdvertisementQuery();
 
@@ -21,6 +21,9 @@ const Advertisment = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Sunwings | Advertisement</title>
+      </Helmet>
       <h1 className="text-black text-2xl mb-10">Customize Advertisement</h1>
 
       <div className="flex flex-col gap-5">
@@ -84,4 +87,4 @@ const Advertisment = () => {
   );
 };
 
-export default Advertisment;
+export default Advertisement;

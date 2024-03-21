@@ -13,6 +13,7 @@ import AllNews from "../../components/homePage/AllNews";
 import EntertainmentSection from "../../components/homePage/EntertainmentSection";
 import { useGetAllAdvertisementQuery } from "../../redux/features/allApis/advertisementApi/advertisementApi";
 import Gallery from "../../components/homePage/Gallery";
+import { Helmet } from "react-helmet-async";
 
 const Home = () => {
   const { data: allAds } = useGetAllAdvertisementQuery();
@@ -22,6 +23,9 @@ const Home = () => {
     : null;
   return (
     <div className="container mx-auto px-2">
+      <Helmet>
+        <title>Home</title>
+      </Helmet>
       <div className="flex gap-5 xl:flex-row flex-col">
         {/* home left site */}
         <div>
