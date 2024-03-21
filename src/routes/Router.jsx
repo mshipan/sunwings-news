@@ -19,6 +19,7 @@ import UpdatePost from "../pages/dashboard/Posts/UpdatePost";
 import PrivateRoute from "./PrivateRoute";
 import CategoryNewsPage from "../pages/homePage/CategoryNewsPage";
 import CustomizeFooter from "../pages/dashboard/themeSettings/footer/CustomizeFooter";
+import TermsAndCondition from "../pages/termsAndCondition/TermsAndCondition";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "/category/:category",
         element: <CategoryNewsPage />,
+      },
+      {
+        path: "/terms-and-condition",
+        element: <TermsAndCondition />,
       },
     ],
   },

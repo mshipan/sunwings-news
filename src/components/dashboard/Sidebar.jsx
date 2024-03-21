@@ -245,7 +245,7 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
               <span className="text-sm select-none">Settings</span>
               <MdOutlineKeyboardArrowRight className=" ml-auto " />
             </div>
-            <ul
+            {/* <ul
               className={`pl-7 mt-2 ${collapsed.setting ? "hidden" : "block"}`}
             >
               <li className="mb-4">
@@ -272,7 +272,7 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
                   Profile
                 </Link>
               </li>
-            </ul>
+            </ul> */}
           </li>
         </ul>
       </div>

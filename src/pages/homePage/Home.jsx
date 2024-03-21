@@ -1,9 +1,7 @@
-import homeSliderImg from "../../assets/1.png";
 import card from "../../assets/home-slider.jpg";
 import { Link } from "react-router-dom";
 import NewsContent from "../../components/homePage/NewsContent";
 import fullImg from "../../assets/2.png";
-import CategoryTitle from "../../components/shared/CategoryTitle";
 import { CiVideoOn } from "react-icons/ci";
 import Banner from "../../components/homePage/Banner";
 import Aside from "../../components/homePage/Aside";
