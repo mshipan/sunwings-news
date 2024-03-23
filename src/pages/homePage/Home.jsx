@@ -1,8 +1,5 @@
-import card from "../../assets/home-slider.jpg";
-import { Link } from "react-router-dom";
 import NewsContent from "../../components/homePage/NewsContent";
 import fullImg from "../../assets/2.png";
-import { CiVideoOn } from "react-icons/ci";
 import Banner from "../../components/homePage/Banner";
 import Aside from "../../components/homePage/Aside";
 import Advertisement from "../../components/shared/Advertisement";
@@ -14,6 +11,7 @@ import Gallery from "../../components/homePage/Gallery";
 import { Helmet } from "react-helmet-async";
 import { useGetPostsQuery } from "../../redux/features/allApis/postApi/postApi";
 import CategorizedNews from "../../components/homePage/CategorizedNews";
+import VideoNews from "../../components/homePage/VideoNews";
 
 const Home = () => {
   const { data: allAds } = useGetAllAdvertisementQuery();
@@ -130,36 +128,7 @@ const Home = () => {
         <Advertisement selectedAd={adVideoSectionTopRight} />
       </div>
 
-      <div className="bg-gray-500 text-gray-200 flex gap-4 flex-col md:flex-row">
-        <div className="p-10 bg-gray-700 w-full">
-          <h2 className="text-white font-semibold mb-4 flex items-center gap-2 cursor-pointer">
-            <CiVideoOn className="text-lg" />
-            <span>ভিডিও লিড</span>
-          </h2>
-          <img className="w-96 cursor-pointer" src={card} alt="" />
-        </div>
-        <div className=" p-6">
-          <ul className="flex gap-4 font-medium text-xs md:text-base">
-            <li className="border p-2 bg-orange-500 hover:bg-red-500 cursor-pointer">
-              <Link>ভিডিও নিউজ</Link>
-            </li>
-            <li className="border p-2 bg-gray-500 hover:bg-red-500 cursor-pointer">
-              <Link>ভিডিও বিনোদন</Link>
-            </li>
-            <li className="border p-2 bg-gray-500 hover:bg-red-500 cursor-pointer">
-              <Link>ভিডিও টকশো</Link>
-            </li>
-          </ul>
-          <div className="flex gap-3 mt-4">
-            <div className="w-1/2">
-              <img src={card} alt="" />
-            </div>
-            <div className="w-1/2">
-              <img src={card} alt="" />
-            </div>
-          </div>
-        </div>
-      </div>
+      <VideoNews />
 
       {/* <NewsContent /> */}
 
@@ -174,7 +143,7 @@ const Home = () => {
         </div>
         <div className="w-1/3">
           <CategorizedNews
-            secTitle={"সারাদেশ"}
+            secTitle={"ভ্রমণ"}
             news={nationalNews}
             loading={nationalLoading}
           />
