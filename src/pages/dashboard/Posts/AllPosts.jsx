@@ -13,12 +13,12 @@ import Swal from "sweetalert2";
 
 const AllPosts = () => {
   const [filters, setFilters] = useState({
-    month: "",
-    year: "",
-    categories: "",
+    date: "",
+    category: "",
     status: "",
     author: "",
   });
+  console.log(filters);
   const [filteredRows, setFilteredRows] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -31,6 +31,7 @@ const AllPosts = () => {
   const [updatePopularPost] = useUpdatePopularMutation();
 
   const handleFilterChange = (event) => {
+    // console.log(event.target.name);
     const { name, value } = event.target;
     setFilters((prevFilters) => ({
       ...prevFilters,
@@ -40,17 +41,16 @@ const AllPosts = () => {
 
   const handleFilterSubmit = () => {
     let filteredRows = allPosts;
-
-    if (filters.month && filters.year) {
-      const publishDateFilter = `${filters.year}-${filters.month}`;
-      filteredRows = filteredRows.filter((row) =>
-        row.publishDate.includes(publishDateFilter)
+    if (filters.date) {
+      // const publishDateFilter = `${filters.year}-${filters.month}`;
+      filteredRows = filteredRows.filter(
+        (row) => row.publishDate.split("T").slice(0, 1).join() === filters.date
       );
     }
 
     if (filters.category) {
       filteredRows = filteredRows.filter(
-        (row) => row.category === filters.category
+        (row) => row?.category === filters?.category
       );
     }
 
@@ -62,7 +62,7 @@ const AllPosts = () => {
 
     if (filters.author) {
       filteredRows = filteredRows.filter(
-        (row) => row.author === filters.author
+        (row) => row?.author === filters?.author
       );
     }
 
@@ -75,6 +75,13 @@ const AllPosts = () => {
 
   const handleSearchSubmit = () => {
     // Handle search submission
+    let filteredRows = allPosts;
+    if (searchQuery) {
+      filteredRows = filteredRows.filter((row) =>
+        row.postTitle.includes(searchQuery)
+      );
+      setFilteredRows(filteredRows);
+    }
   };
 
   const ActionButtons = ({ id }) => {
@@ -216,7 +223,7 @@ const AllPosts = () => {
     },
   ];
 
-  const rows = allPosts
+  let rows = allPosts
     ? allPosts?.map((post, i) => ({
         id: i + 1,
         author: post.author,
@@ -229,6 +236,22 @@ const AllPosts = () => {
         popular: { id: post._id, isPopular: post.isPopular },
       }))
     : [];
+
+  if (filteredRows.length) {
+    rows = filteredRows
+      ? filteredRows?.map((post, i) => ({
+          id: i + 1,
+          author: post.author,
+          title: post?.postTitle,
+          category: post?.category,
+          subCategory: post?.subCategory,
+          publishDate: formatDate(post?.publishDate),
+          status: post.status,
+          action: post._id,
+          popular: { id: post._id, isPopular: post.isPopular },
+        }))
+      : [];
+  }
 
   const handleDelete = async (id) => {
     Swal.fire({
@@ -337,33 +360,16 @@ const AllPosts = () => {
   ];
 
   const categories = [
-    { value: "allCategory", label: "All Category" },
-    { value: "politics", label: "Politics" },
-    { value: "business", label: "Business" },
-    { value: "technology", label: "Technology" },
-    { value: "sports", label: "Sports" },
-    { value: "entertainment", label: "Entertainment" },
-    { value: "health", label: "Health" },
-    { value: "science", label: "Science" },
-    { value: "education", label: "Education" },
-    { value: "environment", label: "Environment" },
-    { value: "travel", label: "Travel" },
+    { label: "জাতীয়", value: "জাতীয়" },
+    { label: "রাজনীতি", value: "রাজনীতি" },
+    { label: "আন্তর্জাতিক", value: "আন্তর্জাতিক" },
+    { label: "খেলাধুলা", value: "খেলাধুলা" },
+    { label: "বিনোদন", value: "বিনোদন" },
+    { label: "তথ্যপ্রযুক্তি", value: "তথ্যপ্রযুক্তি" },
+    { label: "সারাদেশ", value: "সারাদেশ" },
+    { label: "ক্যাম্পাস", value: "ক্যাম্পাস" },
+    { label: "আরো", value: "আরো" },
   ];
-
-  const authors = [
-    { value: "", label: "Author" },
-    { value: "john_doe", label: "John Doe" },
-    { value: "jane_smith", label: "Jane Smith" },
-    { value: "alex_jones", label: "Alex Jones" },
-    { value: "emily_wilson", label: "Emily Wilson" },
-    { value: "michael_brown", label: "Michael Brown" },
-    { value: "sarah_adams", label: "Sarah Adams" },
-    { value: "david_clark", label: "David Clark" },
-    { value: "lisa_jackson", label: "Lisa Jackson" },
-    { value: "ryan_roberts", label: "Ryan Roberts" },
-    { value: "amy_carter", label: "Amy Carter" },
-  ];
-
   const allPostLength = allPosts?.length;
   const publishedPostsLength = allPosts
     ? allPosts.filter((post) => post.status === "published").length
@@ -372,8 +378,8 @@ const AllPosts = () => {
     ? allPosts.filter((post) => post.status === "draft").length
     : 0;
 
-  const authorss = allUsers?.map((post) => post.name);
-  console.log(authorss);
+  const authors = allUsers?.map((post) => post?.name);
+  console.log(authors);
 
   return (
     <div className="flex flex-col gap-3">
@@ -414,8 +420,9 @@ const AllPosts = () => {
         <div className="flex flex-col md:flex-row md:items-center gap-3">
           <input
             type="date"
-            name=""
-            id=""
+            name="date"
+            id="date"
+            onChange={handleFilterChange}
             className="block rounded-sm px-2 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6 bg-white"
           />
 
@@ -424,6 +431,9 @@ const AllPosts = () => {
             onChange={handleFilterChange}
             className="block rounded-sm px-2 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6 bg-white"
           >
+            <option value="" selected disabled>
+              Select Category
+            </option>
             {categories?.map((category) => (
               <option key={category.value} value={category.value}>
                 {category.label}
@@ -435,7 +445,9 @@ const AllPosts = () => {
             onChange={handleFilterChange}
             className="block rounded-sm px-2 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6 bg-white"
           >
-            <option value="">Status</option>
+            <option value="" selected disabled>
+              Status
+            </option>
             <option value="published">Published</option>
             <option value="draft">Draft</option>
           </select>
@@ -444,9 +456,12 @@ const AllPosts = () => {
             onChange={handleFilterChange}
             className="block rounded-sm px-2 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6 bg-white"
           >
+            <option value="" selected disabled>
+              Select Author
+            </option>
             {authors?.map((author, i) => (
-              <option key={i} value={author?.value}>
-                {author?.label}
+              <option key={i} value={author}>
+                {author}
               </option>
             ))}
           </select>
@@ -456,6 +471,21 @@ const AllPosts = () => {
               onClick={handleFilterSubmit}
             >
               Filter
+            </button>
+          </div>
+          <div>
+            <button
+              className="bg-blue-100 px-4 py-1 border border-blue-500 rounded-sm text-blue-500 hover:bg-gray-100 transition-all duration-300 ease-in-out flex flex-row items-center gap-1"
+              onClick={() =>
+                setFilters({
+                  date: "",
+                  category: "",
+                  status: "",
+                  author: "",
+                })
+              }
+            >
+              Reset
             </button>
           </div>
         </div>

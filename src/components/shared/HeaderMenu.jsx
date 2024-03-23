@@ -18,7 +18,7 @@ const HeaderLogo = () => {
   const selectedLogo = allLogos
     ? allLogos.find((logo) => logo.isSelected === true)
     : null;
-  // console.log(subCategoryItems);
+
   const handleNavItems = (value) => {
     setActiveCategory(value);
     singleCategory(value)
