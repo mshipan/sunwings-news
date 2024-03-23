@@ -19,11 +19,10 @@ import {
 } from "swiper/modules";
 import { useGetPostsQuery } from "../../redux/features/allApis/postApi/postApi";
 import CategoryTitle from "../shared/CategoryTitle";
-import { useState } from "react";
+// import { useState } from "react";
 const Gallery = () => {
   // const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const { data: posts } = useGetPostsQuery({});
-  console.log(posts);
   const newArray = posts?.slice(0, 5);
   return (
     <div>

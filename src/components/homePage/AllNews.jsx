@@ -2,15 +2,29 @@ import { useState } from "react";
 import { useGetPostsQuery } from "../../redux/features/allApis/postApi/postApi";
 import NewsCard from "./NewsCard";
 import { HiChevronDoubleRight } from "react-icons/hi2";
+import toast from "react-hot-toast";
 
-const AllNews = () => {
+const AllNews = ({ date }) => {
   const { data: posts, isLoading, isError } = useGetPostsQuery({});
   const [showCount, setShowCount] = useState(6); // Initial count to show
   const perPage = 6; // Number of posts to show per click
 
   // Calculate the number of posts to display based on showCount
-  const visiblePosts = posts ? posts.slice(0, showCount) : [];
+  // filter post by date
+  const filteredPosts = posts?.filter(
+    (post) => post.publishDate.split("T").slice(0, 1).join() === date
+  );
 
+  let visiblePosts =
+    filteredPosts?.length !== 0
+      ? filteredPosts?.slice(0, showCount)
+      : posts?.slice(0, showCount);
+
+  if (filteredPosts?.length === 0 && date) {
+    visiblePosts = [...posts];
+    toast.error("No news has been posted in this date");
+  }
+  // console.log("filteredPosts: ", filteredPosts);
   // Function to increment showCount by perPage
   const handleShowMore = () => {
     setShowCount(showCount + perPage);

@@ -14,8 +14,10 @@ import Gallery from "../../components/homePage/Gallery";
 import { Helmet } from "react-helmet-async";
 import { useGetPostsQuery } from "../../redux/features/allApis/postApi/postApi";
 import CategorizedNews from "../../components/homePage/CategorizedNews";
+import { useState } from "react";
 
 const Home = () => {
+  const [date, setDate] = useState("");
   const { data: allAds } = useGetAllAdvertisementQuery();
   const { data: nationalNews, isLoading: nationalLoading } = useGetPostsQuery({
     category: "সারাদেশ",
@@ -93,10 +95,10 @@ const Home = () => {
           {/* banner section */}
           <Banner />
           {/* all posts section  */}
-          <AllNews />
+          <AllNews date={date} />
         </div>
         {/* home right site */}
-        <Aside />
+        <Aside setDate={setDate} />
       </div>
       <div className="flex-col lg:flex-row flex items-center gap-4 py-4">
         <Advertisement selectedAd={adJatioCategoryTopLeft} />
