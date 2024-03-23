@@ -18,7 +18,7 @@ const AllPosts = () => {
     status: "",
     author: "",
   });
-  console.log(filters);
+  // console.log(filters);
   const [filteredRows, setFilteredRows] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
