@@ -195,7 +195,7 @@ const TermsAndCondition = () => {
           comments, pictures, videos). In posting content, users confirm that
           they are the owner or have consent from the owner to post the content
           and that the content is not obscene, harassing, deceptive,
-          threatening, libelous, invasive of another's privacy, offensive,
+          threatening, libelous, invasive of another&apos;s privacy, offensive,
           fraudulent, defamatory of any person or illegal.
         </p>
         <p className="text-base text-gray-700 my-2">
