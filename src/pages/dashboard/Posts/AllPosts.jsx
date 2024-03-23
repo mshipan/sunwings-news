@@ -328,37 +328,6 @@ const AllPosts = () => {
     });
   };
 
-  const months = [
-    { value: "", lable: "Month" },
-    { value: "1", lable: "Januray" },
-    { value: "2", lable: "February" },
-    { value: "3", lable: "March" },
-    { value: "4", lable: "April" },
-    { value: "5", lable: "May" },
-    { value: "6", lable: "June" },
-    { value: "7", lable: "July" },
-    { value: "8", lable: "August" },
-    { value: "9", lable: "September" },
-    { value: "10", lable: "October" },
-    { value: "11", lable: "November" },
-    { value: "12", lable: "December" },
-  ];
-
-  const years = [
-    { value: "", lable: "Year" },
-    { value: "2020", lable: "2020" },
-    { value: "2021", lable: "2021" },
-    { value: "2022", lable: "2022" },
-    { value: "2023", lable: "2023" },
-    { value: "2024", lable: "2024" },
-    { value: "2025", lable: "2025" },
-    { value: "2026", lable: "2026" },
-    { value: "2027", lable: "2027" },
-    { value: "2028", lable: "2028" },
-    { value: "2029", lable: "2029" },
-    { value: "2030", lable: "2030" },
-  ];
-
   const categories = [
     { label: "জাতীয়", value: "জাতীয়" },
     { label: "রাজনীতি", value: "রাজনীতি" },
