@@ -6,13 +6,25 @@ import toast from "react-hot-toast";
 
 const AllNews = ({ date }) => {
   const { data: posts, isLoading, isError } = useGetPostsQuery({});
+  const [searchTerm, setSearchTerm] = useState("");
   const [showCount, setShowCount] = useState(6); // Initial count to show
   const perPage = 6; // Number of posts to show per click
 
-  // Calculate the number of posts to display based on showCount
+  const handleChange = (event) => {
+    const { value } = event.target;
+    setSearchTerm(value);
+    // Reset showCount when new search term is entered
+    setShowCount(perPage);
+  };
+
   // filter post by date
   const filteredPosts = posts?.filter(
     (post) => post.publishDate.split("T").slice(0, 1).join() === date
+  );
+
+  // Filter posts based on search term
+  const filteredSearchPosts = posts?.filter((post) =>
+    post.postTitle.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   let visiblePosts =
@@ -24,11 +36,20 @@ const AllNews = ({ date }) => {
     visiblePosts = [...posts];
     toast.error("No news has been posted in this date");
   }
-  // console.log("filteredPosts: ", filteredPosts);
+
+  if (filteredSearchPosts?.length !== 0 && searchTerm) {
+    visiblePosts = [...filteredSearchPosts];
+  }
+
+  if (filteredSearchPosts?.length === 0 && searchTerm) {
+    visiblePosts = [];
+  }
+
   // Function to increment showCount by perPage
   const handleShowMore = () => {
     setShowCount(showCount + perPage);
   };
+
   if (isError) {
     return <div>Fetching error occurred.</div>;
   }
@@ -49,10 +70,32 @@ const AllNews = ({ date }) => {
 
   return (
     <div>
+      <div className="text-black md:text-2xl my-4">
+        <label htmlFor="search" className="p-2">
+          Search:
+        </label>
+        <input
+          type="text"
+          id="search"
+          value={searchTerm}
+          onChange={handleChange}
+          placeholder="Search news..."
+          className="text-lg border-2 border-orange-300 rounded-xl py-2 px-4 focus:border-orange-600"
+        />
+      </div>
       <div className="py-6 grid grid-cols-2 md:grid-cols-3 gap-6">
-        {visiblePosts.map((post, i) => (
-          <NewsCard key={i} post={post} isLoading={isLoading} error={isError} />
-        ))}
+        {visiblePosts.length !== 0 ? (
+          visiblePosts.map((post, i) => (
+            <NewsCard
+              key={i}
+              post={post}
+              isLoading={isLoading}
+              error={isError}
+            />
+          ))
+        ) : (
+          <div className="text-lg md:text-2xl">No News available</div>
+        )}
       </div>
       {/* Show More button */}
       {posts && showCount < posts.length && (

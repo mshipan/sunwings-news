@@ -1,4 +1,3 @@
-import { FaSearch } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
 import { TiHomeOutline } from "react-icons/ti";
 import { Link } from "react-router-dom";
@@ -249,9 +248,6 @@ const HeaderLogo = () => {
       <div className="container mx-auto">
         <div className="hidden md:flex justify-between items-center bg-black px-2">
           <ul className="flex flex-wrap cursor-pointer">{navItems}</ul>
-          <div className="">
-            <FaSearch className="text-white cursor-pointer" />
-          </div>
         </div>
         <div className="flex md:hidden items-center justify-between bg-black py-1 px-1">
           <div>
