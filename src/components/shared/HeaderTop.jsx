@@ -83,7 +83,7 @@ const HeaderTop = () => {
             </p>
           </div>
         </div>
-        <div className="flex items-center md:max-lg:mx-auto mt-4 lg:mt-0 gap-5">
+        <div className="flex items-center md:max-lg:mx-auto mt-4 md:mt-0 gap-5">
           <Link to={singleFacebook?.link} role="button" className="">
             <span className="[&>svg]:h-4 [&>svg]:w-4 [&>svg]:fill-[#1877f2]">
               <FaFacebookF />
