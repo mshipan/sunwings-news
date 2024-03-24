@@ -20,6 +20,8 @@ import PrivateRoute from "./PrivateRoute";
 import CategoryNewsPage from "../pages/homePage/CategoryNewsPage";
 import CustomizeFooter from "../pages/dashboard/themeSettings/footer/CustomizeFooter";
 import TermsAndCondition from "../pages/termsAndCondition/TermsAndCondition";
+import PhotoGallery from "../pages/dashboard/media/PhotoGallery";
+import VideoGallery from "../pages/dashboard/media/VideoGallery";
 
 const router = createBrowserRouter([
   {
@@ -79,6 +81,14 @@ const router = createBrowserRouter([
       {
         path: "advertisement",
         element: <Advertisment />,
+      },
+      {
+        path: "photo-gallery",
+        element: <PhotoGallery />,
+      },
+      {
+        path: "video-gallery",
+        element: <VideoGallery />,
       },
       {
         path: "social-profiles",
