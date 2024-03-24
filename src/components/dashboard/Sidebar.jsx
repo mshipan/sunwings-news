@@ -133,6 +133,22 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
                   Advertisement
                 </Link>
               </li>
+              <li className="mb-4">
+                <Link
+                  to="/dashboard/photo-gallery"
+                  className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
+                >
+                  Photo Gallery
+                </Link>
+              </li>
+              <li className="mb-4">
+                <Link
+                  to="/dashboard/video-gallery"
+                  className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
+                >
+                  Video Gallery
+                </Link>
+              </li>
             </ul>
           </li>
           <li className="mb-1 group">

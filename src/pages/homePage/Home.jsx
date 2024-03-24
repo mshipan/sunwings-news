@@ -137,11 +137,11 @@ const Home = () => {
         <Advertisement selectedAd={adVideoSectionBottomRight} />
       </div>
 
-      <div className="flex flex-row gap-3">
-        <div className="w-2/3">
+      <div className="flex flex-col md:flex-row gap-3">
+        <div className="w-full md:w-2/3">
           <Gallery />
         </div>
-        <div className="w-1/3">
+        <div className="w-full md:w-1/3">
           <CategorizedNews
             secTitle={"ভ্রমণ"}
             news={nationalNews}

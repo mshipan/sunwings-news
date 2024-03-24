@@ -11,6 +11,7 @@ const baseApi = createApi({
     "logos",
     "category",
     "advertisements",
+    "photoGallery",
     "facebook",
     "twitter",
     "instagram",
