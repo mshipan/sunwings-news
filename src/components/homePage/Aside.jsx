@@ -8,13 +8,21 @@ import { useGetAllTwitterQuery } from "../../redux/features/allApis/socialMediaA
 import { FacebookShareButton, TwitterShareButton } from "react-share";
 import { Link } from "react-router-dom";
 
-const Aside = () => {
+const Aside = ({ setDate }) => {
   const { data: allAds } = useGetAllAdvertisementQuery();
   const { data: allFacebook } = useGetAllFacebookQuery();
   const { data: allTwitter } = useGetAllTwitterQuery();
 
   const singleFacebook = allFacebook?.[0];
   const singleTwitter = allTwitter?.[0];
+
+  // filter posts by date function
+  const handleDateSubmit = (e) => {
+    e.preventDefault();
+    const date = e.target.date.value;
+    // console.log(date);
+    setDate(date);
+  };
 
   const adBesideTopLogo = allAds
     ? allAds.find(
@@ -71,14 +79,19 @@ const Aside = () => {
         <div className="col-span-2 md:col-span-1">
           <CategoryTitle title="পুরাতন সংবাদ" />
           <div className="">
-            <input
-              type="date"
-              placeholder="Type here"
-              className="bg-white input input-bordered w-full text-black p-2 border border-gray-500 my-4"
-            />
-            <button className="w-full bg-orange-500 p-2 text-center hover:bg-orange-400">
-              খুজুন
-            </button>
+            <form onSubmit={handleDateSubmit}>
+              <input
+                id="date"
+                type="date"
+                placeholder="Type here"
+                className="bg-white input input-bordered w-full text-black p-2 border border-gray-500 my-4"
+              />
+              <input
+                type="submit"
+                value="খুজুন"
+                className="w-full bg-orange-500 p-2 text-center hover:bg-orange-400"
+              />
+            </form>
           </div>
         </div>
       </div>
