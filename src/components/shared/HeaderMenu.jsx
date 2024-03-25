@@ -8,11 +8,13 @@ import Marquee from "react-fast-marquee";
 import { useGetAllLogoQuery } from "../../redux/features/allApis/logoApi/logoApi";
 import { MdMenu } from "react-icons/md";
 import { FaXmark } from "react-icons/fa6";
+import { RxCross2 } from "react-icons/rx";
 
 const HeaderLogo = () => {
   const [subCategoryItems, setSubcategoryItems] = useState([]);
   const [activeCategory, setActiveCategory] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchBarOpen, setSearchBarOpen] = useState(false);
   const { data: allLogos } = useGetAllLogoQuery();
 
   const selectedLogo = allLogos
@@ -260,14 +262,54 @@ const HeaderLogo = () => {
           )}
         </Link>
       </li>
+      <li>
+        <button
+          onClick={() => setSearchBarOpen(true)}
+          className="btn btn-ghost btn-circle text-white"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
+          </svg>
+        </button>
+      </li>
     </>
   );
   return (
     <div className="relative">
       <div className="container mx-auto">
-        <div className="hidden md:flex justify-between items-center bg-black px-2">
+        <div className="relative hidden md:flex justify-between items-center bg-black px-2">
           <ul className="flex flex-wrap cursor-pointer">{navItems}</ul>
+          <div
+            className={`form-control absolute transition-all duration-500 ease-in-out ${
+              searchBarOpen ? "right-0" : "-right-96"
+            }`}
+          >
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Search"
+                className={`input input-bordered w-24 md:w-auto text-white`}
+              />
+              <RxCross2
+                onClick={() => setSearchBarOpen(false)}
+                size={25}
+                className="text-white bg-slate-950 absolute top-0 right-0 rounded-full border-2 border-gray-400"
+              />
+            </div>
+          </div>
         </div>
+
         <div className="flex md:hidden items-center justify-between bg-black py-1 px-1">
           <div>
             <img src={selectedLogo?.logo} alt="logo" className="w-36 " />

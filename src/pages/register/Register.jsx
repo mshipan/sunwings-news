@@ -246,7 +246,10 @@ const Register = () => {
             />
             <span className="ml-3 text-gray-700">
               I Accept{" "}
-              <Link to="#" className="text-blue-300 underline">
+              <Link
+                to="/terms-and-condition"
+                className="text-blue-300 underline"
+              >
                 Terms & Conditions.
               </Link>
             </span>
