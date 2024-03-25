@@ -10,10 +10,10 @@ const DetailsCategoryNews = () => {
     const newArray = posts?.slice(1, 5);
 
     return (
-      <div className="md:w-3/4">
+      <div className="lg:w-3/4">
         <CategoryTitle title={"জাতীয়"} />
-        <div className="grow flex flex-col md:flex-row gap-3">
-          <div className="grow">
+        <div className=" flex flex-col md:flex-row gap-3">
+          <div className="md:w-2/3">
             <img className="w-full" src={posts[0].postThumbnail} alt="" />
             <Link to={`/posts/${posts[0]._id}`}>
               <h1 className=" text-black font-medium text-xl py-2 hover:text-blue-500">
@@ -21,7 +21,7 @@ const DetailsCategoryNews = () => {
               </h1>
             </Link>
           </div>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 md:w-1/3">
             {newArray?.map((post, i) => (
               <SmallNewsCard key={i} post={post} isLoading={isLoading} />
             ))}

@@ -30,12 +30,10 @@ const CategoryNewsPage = () => {
       {/* Render your component with data here */}
       <div className="grid md:grid-cols-3 grid-cols-2 grid-rows-4 gap-3 w-3/4">
         {posts?.map((post) => (
-          <div key={post?._id}>
-            <img className="" src={post?.postThumbnail} alt="" />
+          <div key={post?._id} className="min-h-[18rem] bg-gray-300">
+            <img className="min-h-[16rem]" src={post?.postThumbnail} alt="" />
             <Link to={`/posts/${post._id}`}>
-              <p className="bg-gray-300 px-2 py-1 pb-2 text-black">
-                {post?.postTitle}
-              </p>
+              <p className=" px-2 py-1 pb-2 text-black">{post?.postTitle}</p>
             </Link>
           </div>
         ))}
