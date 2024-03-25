@@ -25,11 +25,24 @@ const FooterArea = () => {
   const selectedLogo = allLogos
     ? allLogos.find((logo) => logo.isSelected === true)
     : null;
+  const dynamicBgColorStyle = singleFooter
+    ? { backgroundColor: singleFooter.bgColor }
+    : { backgroundColor: "#454444" };
+
+  const dynamicTextColorStyle = singleFooter
+    ? { color: singleFooter.textColor }
+    : { color: "#ffff" };
+  const dynamicIconColorStyle = singleFooter
+    ? { color: singleFooter.iconColor }
+    : { color: "#ffff" };
 
   return (
-    <footer className="container mx-auto py-4 px-2 bg-slate-700 text-center text-surface/75 dark:bg-neutral-700 text-white lg:text-left">
+    <footer
+      className="container mx-auto py-4 px-2  text-center text-surface/75 lg:text-left"
+      style={{ ...dynamicBgColorStyle, ...dynamicTextColorStyle }}
+    >
       <div className="flex items-center justify-center border-b-2 border-neutral-200 p-6 dark:border-white/10 lg:justify-between">
-        <div className="me-12 hidden lg:block text-white">
+        <div className="me-12 hidden lg:block">
           <span className="text-lg">
             Get connected with us on social networks:
           </span>
@@ -38,25 +51,29 @@ const FooterArea = () => {
         <div className="flex justify-center text-gray-300">
           <Link
             to={singleFacebook?.link}
-            className="me-6 h-4 w-4 hover:text-white"
+            className="me-6 h-4 w-4 "
+            style={{ ...dynamicIconColorStyle }}
           >
             <FaFacebookF />
           </Link>
           <Link
             to={singleTwitter?.link}
-            className="me-6 h-4 w-4 hover:text-white"
+            className="me-6 h-4 w-4 "
+            style={{ ...dynamicIconColorStyle }}
           >
             <FaTwitter />
           </Link>
           <Link
             to={singleYoutube?.channelLink}
-            className="me-6 h-4 w-4 hover:text-white"
+            className="me-6 h-4 w-4 "
+            style={{ ...dynamicIconColorStyle }}
           >
             <FaYoutube />
           </Link>
           <Link
             to={singleInstagram?.link}
-            className="me-6 h-4 w-4 hover:text-white"
+            className="me-6 h-4 w-4 "
+            style={{ ...dynamicIconColorStyle }}
           >
             <FaInstagram />
           </Link>
