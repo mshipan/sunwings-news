@@ -28,7 +28,11 @@ const NewsCard = ({ post }) => {
   };
   return (
     <div className="bg-slate-100">
-      <img src={post?.postThumbnail} alt="" className="h-48 w-full" />
+      <img
+        src={post?.postThumbnail}
+        alt=""
+        className="h-36 md:h-44 max-h-48 w-full"
+      />
       <div className="p-2">
         <Link to={`/posts/${post._id}`}>
           <p className="text-base font-medium text-black hover:text-blue-500">

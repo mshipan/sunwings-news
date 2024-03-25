@@ -44,120 +44,133 @@ const HeaderLogo = () => {
         onMouseLeave={() => setActiveCategory(null)}
         className="group relative"
       >
-        <div className="flex items-center py-3 px-4 text-gray-300 hover:bg-[#ffae00] hover:text-gray-100 dropdown-toggle">
-          <span className="text-base select-none mr-2">জাতীয়</span>
-          <IoIosArrowDown className="ml-auto" />
-        </div>
-        {activeCategory === "জাতীয়" && subCategoryItems.length > 0 && (
-          <ul className="absolute top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2 z-50">
-            {subCategoryItems?.map((item, i) => (
-              <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
-                {" "}
-                <li className="py-2 px-3">{item.subCategoryName}</li>
-              </Link>
-            ))}
-          </ul>
-        )}
+        <Link to={"/category/জাতীয়"}>
+          <div className="flex items-center py-3 px-4 text-gray-300 hover:bg-[#ffae00] hover:text-gray-100 dropdown-toggle">
+            <span className="text-base select-none mr-2">জাতীয়</span>
+            <IoIosArrowDown className="ml-auto" />
+          </div>
+          {activeCategory === "জাতীয়" && subCategoryItems.length > 0 && (
+            <ul className="absolute w-40 top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2 z-50">
+              {subCategoryItems?.map((item, i) => (
+                <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
+                  {" "}
+                  <li className="py-2 px-3">{item.subCategoryName}</li>
+                </Link>
+              ))}
+            </ul>
+          )}
+        </Link>
       </li>
       <li
         onMouseEnter={() => handleNavItems("রাজনীতি")}
         onMouseLeave={() => setActiveCategory(null)}
         className="group relative"
       >
-        <div className="flex items-center py-3 px-4 text-gray-300 hover:bg-[#ffae00] hover:text-gray-100 dropdown-toggle">
-          <span className="text-base select-none mr-2">রাজনীতি</span>
-          <IoIosArrowDown className="ml-auto" />
-        </div>
-        {activeCategory === "রাজনীতি" && subCategoryItems.length > 0 && (
-          <ul className="absolute top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2 z-50">
-            {subCategoryItems?.map((item, i) => (
-              <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
-                {" "}
-                <li className="py-2 px-3 z-10">{item.subCategoryName}</li>
-              </Link>
-            ))}
-          </ul>
-        )}
+        <Link to={"/category/রাজনীতি"}>
+          <div className="flex items-center py-3 px-4 text-gray-300 hover:bg-[#ffae00] hover:text-gray-100 dropdown-toggle">
+            <span className="text-base select-none mr-2">রাজনীতি</span>
+            <IoIosArrowDown className="ml-auto" />
+          </div>
+          {activeCategory === "রাজনীতি" && subCategoryItems.length > 0 && (
+            <ul className="absolute top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2 z-50">
+              {subCategoryItems?.map((item, i) => (
+                <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
+                  {" "}
+                  <li className="py-2 px-3 z-10">{item.subCategoryName}</li>
+                </Link>
+              ))}
+            </ul>
+          )}
+        </Link>
       </li>
       <li
         onMouseEnter={() => handleNavItems("আন্তর্জাতিক")}
         onMouseLeave={() => setActiveCategory(null)}
         className="group relative"
       >
-        <div className="flex items-center py-3 px-4 text-gray-300 hover:bg-[#ffae00] hover:text-gray-100 dropdown-toggle">
-          <span className="text-base select-none mr-2">আন্তর্জাতিক</span>
-          <IoIosArrowDown className="ml-auto" />
-        </div>
-        {activeCategory === "আন্তর্জাতিক" && subCategoryItems.length > 0 && (
-          <ul className="absolute top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2 z-50">
-            {subCategoryItems?.map((item, i) => (
-              <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
-                {" "}
-                <li className="py-2 px-3">{item.subCategoryName}</li>
-              </Link>
-            ))}
-          </ul>
-        )}
+        <Link to={"/category/আন্তর্জাতিক"}>
+          <div className="flex items-center py-3 px-4 text-gray-300 hover:bg-[#ffae00] hover:text-gray-100 dropdown-toggle">
+            <span className="text-base select-none mr-2">আন্তর্জাতিক</span>
+            <IoIosArrowDown className="ml-auto" />
+          </div>
+          {activeCategory === "আন্তর্জাতিক" && subCategoryItems.length > 0 && (
+            <ul className="absolute top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2 z-50">
+              {subCategoryItems?.map((item, i) => (
+                <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
+                  {" "}
+                  <li className="py-2 px-3">{item.subCategoryName}</li>
+                </Link>
+              ))}
+            </ul>
+          )}
+        </Link>
       </li>
       <li
         onMouseEnter={() => handleNavItems("খেলাধুলা")}
         onMouseLeave={() => setActiveCategory(null)}
         className="group relative"
       >
-        <div className="flex items-center py-3 px-4 text-gray-300 hover:bg-[#ffae00] hover:text-gray-100 dropdown-toggle">
-          <span className="text-base select-none mr-2">খেলাধুলা</span>
-          <IoIosArrowDown className="ml-auto" />
-        </div>
-        {activeCategory === "খেলাধুলা" && subCategoryItems.length > 0 && (
-          <ul className="absolute top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2 z-50">
-            {subCategoryItems?.map((item, i) => (
-              <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
-                {" "}
-                <li className="py-2 px-3">{item.subCategoryName}</li>
-              </Link>
-            ))}
-          </ul>
-        )}
+        <Link to={"/category/খেলাধুলা"}>
+          <div className="flex items-center py-3 px-4 text-gray-300 hover:bg-[#ffae00] hover:text-gray-100 dropdown-toggle">
+            <span className="text-base select-none mr-2">খেলাধুলা</span>
+            <IoIosArrowDown className="ml-auto" />
+          </div>
+          {activeCategory === "খেলাধুলা" && subCategoryItems.length > 0 && (
+            <ul className="absolute top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2 z-50">
+              {subCategoryItems?.map((item, i) => (
+                <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
+                  {" "}
+                  <li className="py-2 px-3">{item.subCategoryName}</li>
+                </Link>
+              ))}
+            </ul>
+          )}
+        </Link>
       </li>
       <li
         onMouseEnter={() => handleNavItems("বিনোদন")}
         onMouseLeave={() => setActiveCategory(null)}
         className="group relative"
       >
-        <div className="flex items-center py-3 px-4 text-gray-300 hover:bg-[#ffae00] hover:text-gray-100 dropdown-toggle">
-          <span className="text-base select-none mr-2">বিনোদন</span>
-          <IoIosArrowDown className="ml-auto" />
-        </div>
-        {activeCategory === "বিনোদন" && subCategoryItems.length > 0 && (
-          <ul className="absolute top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2 z-50">
-            {subCategoryItems?.map((item, i) => (
-              <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
-                {" "}
-                <li className="py-2 px-3">{item.subCategoryName}</li>
-              </Link>
-            ))}
-          </ul>
-        )}
+        <Link to={"/category/বিনোদন"}>
+          <div className="flex items-center py-3 px-4 text-gray-300 hover:bg-[#ffae00] hover:text-gray-100 dropdown-toggle">
+            <span className="text-base select-none mr-2">বিনোদন</span>
+            <IoIosArrowDown className="ml-auto" />
+          </div>
+          {activeCategory === "বিনোদন" && subCategoryItems.length > 0 && (
+            <ul className="absolute top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2 z-50">
+              {subCategoryItems?.map((item, i) => (
+                <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
+                  {" "}
+                  <li className="py-2 px-3">{item.subCategoryName}</li>
+                </Link>
+              ))}
+            </ul>
+          )}
+        </Link>
       </li>
       <li
         onMouseEnter={() => handleNavItems("তথ্যপ্রযুক্তি")}
         onMouseLeave={() => setActiveCategory(null)}
         className="group relative"
       >
-        <div className="flex items-center py-3 px-4 text-gray-300 hover:bg-[#ffae00] hover:text-gray-100 dropdown-toggle">
-          <span className="text-base select-none mr-2">তথ্যপ্রযুক্তি</span>
-          <IoIosArrowDown className="ml-auto" />
-        </div>
-        {activeCategory === "তথ্যপ্রযুক্তি" && subCategoryItems.length > 0 && (
-          <ul className="absolute top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2 z-50">
-            {subCategoryItems?.map((item, i) => (
-              <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
-                {" "}
-                <li className="py-2 px-3">{item.subCategoryName}</li>
-              </Link>
-            ))}
-          </ul>
-        )}
+        <Link to={"/category/তথ্যপ্রযুক্তি"}>
+          <div className="flex items-center py-3 px-4 text-gray-300 hover:bg-[#ffae00] hover:text-gray-100 dropdown-toggle">
+            <span className="text-base select-none mr-2">তথ্যপ্রযুক্তি</span>
+            <IoIosArrowDown className="ml-auto" />
+          </div>
+          {activeCategory === "তথ্যপ্রযুক্তি" &&
+            subCategoryItems.length > 0 && (
+              <ul className="absolute top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2 z-50">
+                {subCategoryItems?.map((item, i) => (
+                  <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
+                    {" "}
+                    <li className="py-2 px-3">{item.subCategoryName}</li>
+                  </Link>
+                ))}
+              </ul>
+            )}
+        </Link>
       </li>
       <li
         onMouseEnter={() => handleNavItems("সারাদেশ")}
@@ -186,60 +199,66 @@ const HeaderLogo = () => {
         onMouseLeave={() => setActiveCategory(null)}
         className="group relative"
       >
-        <div className="flex items-center py-3 px-4 text-gray-300 hover:bg-[#ffae00] hover:text-gray-100 dropdown-toggle">
-          <span className="text-base select-none mr-2">ক্যাম্পাস</span>
-          <IoIosArrowDown className="ml-auto" />
-        </div>
-        {activeCategory === "ক্যাম্পাস" && subCategoryItems.length > 0 && (
-          <ul className="absolute top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2 z-50">
-            {subCategoryItems?.map((item, i) => (
-              <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
-                {" "}
-                <li className="py-2 px-3">{item.subCategoryName}</li>
-              </Link>
-            ))}
-          </ul>
-        )}
+        <Link to={"/category/ক্যাম্পাস"}>
+          <div className="flex items-center py-3 px-4 text-gray-300 hover:bg-[#ffae00] hover:text-gray-100 dropdown-toggle">
+            <span className="text-base select-none mr-2">ক্যাম্পাস</span>
+            <IoIosArrowDown className="ml-auto" />
+          </div>
+          {activeCategory === "ক্যাম্পাস" && subCategoryItems.length > 0 && (
+            <ul className="absolute top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2 z-50">
+              {subCategoryItems?.map((item, i) => (
+                <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
+                  {" "}
+                  <li className="py-2 px-3">{item.subCategoryName}</li>
+                </Link>
+              ))}
+            </ul>
+          )}
+        </Link>
       </li>
       <li
         onMouseEnter={() => handleNavItems("গণমাধ্যম")}
         onMouseLeave={() => setActiveCategory(null)}
         className="group relative"
       >
-        <div className="flex items-center py-3 px-4 text-gray-300 hover:bg-[#ffae00] hover:text-gray-100 dropdown-toggle">
-          <span className="text-base select-none mr-2">গণমাধ্যম</span>
-          <IoIosArrowDown className="ml-auto" />
-        </div>
-        {activeCategory === "গণমাধ্যম" && subCategoryItems.length > 0 && (
-          <ul className="absolute top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2 z-50">
-            {subCategoryItems?.map((item, i) => (
-              <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
-                {" "}
-                <li className="py-2 px-3">{item.subCategoryName}</li>
-              </Link>
-            ))}
-          </ul>
-        )}
+        <Link to={"/category/গণমাধ্যম"}>
+          <div className="flex items-center py-3 px-4 text-gray-300 hover:bg-[#ffae00] hover:text-gray-100 dropdown-toggle">
+            <span className="text-base select-none mr-2">গণমাধ্যম</span>
+            <IoIosArrowDown className="ml-auto" />
+          </div>
+          {activeCategory === "গণমাধ্যম" && subCategoryItems.length > 0 && (
+            <ul className="absolute top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2 z-50">
+              {subCategoryItems?.map((item, i) => (
+                <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
+                  {" "}
+                  <li className="py-2 px-3">{item.subCategoryName}</li>
+                </Link>
+              ))}
+            </ul>
+          )}
+        </Link>
       </li>
       <li
         onMouseEnter={() => handleNavItems("আরো")}
         onMouseLeave={() => setActiveCategory(null)}
         className="group relative"
       >
-        <div className="flex items-center py-3 px-4 text-gray-300 hover:bg-[#ffae00] hover:text-gray-100 dropdown-toggle">
-          <span className="text-base select-none mr-2">আরো</span>
-          <IoIosArrowDown className="ml-auto" />
-        </div>
-        {activeCategory === "আরো" && subCategoryItems.length > 0 && (
-          <ul className="absolute top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2 z-50">
-            {subCategoryItems?.map((item, i) => (
-              <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
-                {" "}
-                <li className="py-2 px-3">{item.subCategoryName}</li>
-              </Link>
-            ))}
-          </ul>
-        )}
+        <Link to={"/category/আরো"}>
+          <div className="flex items-center py-3 px-4 text-gray-300 hover:bg-[#ffae00] hover:text-gray-100 dropdown-toggle">
+            <span className="text-base select-none mr-2">আরো</span>
+            <IoIosArrowDown className="ml-auto" />
+          </div>
+          {activeCategory === "আরো" && subCategoryItems.length > 0 && (
+            <ul className="absolute top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2 z-50">
+              {subCategoryItems?.map((item, i) => (
+                <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
+                  {" "}
+                  <li className="py-2 px-3">{item.subCategoryName}</li>
+                </Link>
+              ))}
+            </ul>
+          )}
+        </Link>
       </li>
     </>
   );
@@ -265,12 +284,12 @@ const HeaderLogo = () => {
             />
           )}
         </div>
-        <div className="flex py-5">
+        <div className="flex py-2">
           <div className="bg-orange-500 text-white w-1/4 md:w-2/12 flex justify-center items-center">
-            <h3 className="text-sm md:text-lg">সংবাদ শিরোনাম :</h3>
+            <h3 className="text-xs md:text-base">সংবাদ শিরোনাম :</h3>
           </div>
 
-          <div className="bg-gray-400 w-3/4 md:w-10/12 text-sm md:text-lg">
+          <div className="bg-gray-300 w-3/4 md:w-10/12 text-sm md:text-lg">
             <Marquee pauseOnHover={true} speed={110}>
               <Headline />
             </Marquee>

@@ -7,7 +7,7 @@ const FooterCopyright = () => {
 
   const currentYear = new Date().getFullYear();
   return (
-    <div className="container py-6 px-2 mx-auto bg-slate-800">
+    <div className="container py-6 px-2 mx-auto text-white bg-slate-800">
       <div className="text-center flex flex-row gap-1 justify-center">
         <span>© {currentYear} Copyright:</span>
         <Link className="font-semibold" to={singleFooter?.copyrightLink}>
