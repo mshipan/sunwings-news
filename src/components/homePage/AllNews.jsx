@@ -70,20 +70,20 @@ const AllNews = ({ date }) => {
 
   return (
     <div>
-      <div className="text-black md:text-2xl my-4">
+      <div className="text-black md:text-lg mt-2">
         <label htmlFor="search" className="p-2">
-          Search:
+          খুজুন:
         </label>
         <input
           type="text"
           id="search"
           value={searchTerm}
           onChange={handleChange}
-          placeholder="Search news..."
-          className="text-lg border-2 border-orange-300 rounded-xl py-2 px-4 focus:border-orange-600"
+          placeholder="খবর অনুসন্ধান করুন..."
+          className="text-lg border-2 border-orange-300 rounded-xl py-1 px-3 focus:border-orange-600 focus:border-none"
         />
       </div>
-      <div className="py-6 grid grid-cols-2 md:grid-cols-3 gap-6">
+      <div className="py-2 grid grid-cols-2 md:grid-cols-3 gap-6">
         {visiblePosts.length !== 0 ? (
           visiblePosts.map((post, i) => (
             <NewsCard

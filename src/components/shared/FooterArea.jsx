@@ -81,9 +81,9 @@ const FooterArea = () => {
       </div>
 
       <div className="mx-6 py-10 text-center md:text-left">
-        <div className="grid-1 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid-cols-1 justify-center items-start grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {/* <!-- TW Elements section --> */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-6 justify-center items-center">
             {selectedLogo ? (
               <img
                 src={selectedLogo?.logo}
@@ -93,7 +93,7 @@ const FooterArea = () => {
             ) : (
               <img src={footerLogo} alt="footer logo" className="w-56" />
             )}
-            <p>{singleFooter?.about}</p>
+            <p className="text-center">{singleFooter?.about}</p>
           </div>
 
           {/* সম্পাদকীয় section */}

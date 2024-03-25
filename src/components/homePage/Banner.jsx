@@ -21,7 +21,7 @@ const Banner = () => {
     { label: "আলোচিত সংবাদ", value: "" },
   ];
   return (
-    <div className="grow text-white flex flex-col md:flex-row gap-6 container mx-auto">
+    <div className="grow text-white flex flex-col md:flex-row gap-2 container mx-auto">
       <div className="md:w-2/3">
         {loading ? (
           <div className="skeleton w-full md:w-[30rem] lg:w-[41rem] xl:w-[38rem] 2xl:w-[54rem] h-full md:h-[30rem] lg:h-[41rem] xl:h-[38rem] 2xl:h-[54rem]"></div>
@@ -49,9 +49,9 @@ const Banner = () => {
                         className="w-full h-full"
                       />
                     </div>
-                    <div className="absolute bottom-0 bg-black  w-full py-4 px-2">
+                    <div className="absolute bottom-0 backdrop-blur-sm bg-black/30 w-full py-2 px-2">
                       <Link to={`/posts/${post?._id}`}>
-                        <h1 className="text-white text-xl hover:text-orange-300 hover:underline">
+                        <h1 className="text-white text-lg hover:text-blue-500 hover:underline">
                           {post?.postTitle}
                         </h1>
                       </Link>
@@ -75,12 +75,12 @@ const Banner = () => {
           >
             <TabList
               className={
-                "flex flex-row justify-center items-center text-[#022831] bg-[#ddd] text-[17px]"
+                "flex flex-row justify-center items-center text-[#022831] bg-[#ddd] md:text-[16px] "
               }
             >
               {tabList.map((tab, i) => (
                 <Tab
-                  className="p-[10px] w-full flex items-center justify-center border-t-[3px] border-solid border-[#022940] rounded-none cursor-pointer"
+                  className="p-[4px] w-full flex items-center justify-center border-t-[3px] border-solid border-[#022940] rounded-none cursor-pointer"
                   key={i}
                 >
                   {tab.label}
@@ -88,13 +88,13 @@ const Banner = () => {
               ))}
             </TabList>
 
-            <div className="max-h-[300px] md:max-h-[400px] lg:max-h-[430px] xl:max-h-[425px] 2xl:max-h-[420px] overflow-y-scroll">
-              <TabPanel className={"space-y-2"}>
+            <div className="max-h-[300px] md:max-h-[450px] lg:max-h-[430px] xl:max-h-[440px] 2xl:max-h-[420px] overflow-y-scroll  overflow-x-clip">
+              <TabPanel className={"space-y-2 my-2"}>
                 {posts?.map((post, i) => (
                   <SmallNewsCard post={post} key={i} />
                 ))}
               </TabPanel>
-              <TabPanel>
+              <TabPanel className={"space-y-2 my-2"}>
                 {popularNews?.map((post, i) => (
                   <SmallNewsCard post={post} key={i} />
                 ))}

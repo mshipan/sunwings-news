@@ -16,10 +16,14 @@ const SmallNewsCard = ({ post, isLoading }) => {
   const postThumbnail = post?.postThumbnail;
   return (
     <div>
-      <div className="flex-none md:w-80 w-full">
+      <div className="flex-none w-full">
         <div className="flex gap-2">
           <div className="w-1/3">
-            <img src={postThumbnail || homeSliderImg} alt="" />
+            <img
+              src={postThumbnail || homeSliderImg}
+              alt=""
+              className="max-h-24 md:max-h-16 w-full"
+            />
           </div>
           <Link to={`/posts/${post._id}`} className="text-base w-2/3">
             <p className="text-black font-medium hover:text-blue-500">
