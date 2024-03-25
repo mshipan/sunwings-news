@@ -60,7 +60,7 @@ const EntertainmentSection = () => {
         </div>
         {/* Render two more NewsCard components */}
         <div className="w-full md:w-2/6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4">
             {newArray?.map((post, i) => (
               <NewsCard key={i} post={post} />
             ))}

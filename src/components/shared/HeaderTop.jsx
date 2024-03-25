@@ -66,24 +66,25 @@ const HeaderTop = () => {
   return (
     <div className="container mx-auto py-4 px-2 border-b border-gray-200">
       <div className="flex flex-wrap flex-col md:flex-row justify-between items-center">
-        <div className="flex flex-wrap items-center justify-center gap-2">
-          <div className="flex items-center gap-1">
-            <CiLocationOn className="text-black" />
-            <p className="text-black">{cityName},</p>
+        <div className="flex flex-col md:flex-row items-center justify-center gap-2">
+          <div className="flex flex-row">
+            <div className="flex items-center gap-1">
+              <CiLocationOn className="text-black" />
+              <p className="text-black">{cityName},</p>
+            </div>
+            <div className="flex items-center gap-1">
+              <IoTimerOutline className="text-black" />
+              <p className="text-black">{currentTime},</p>
+            </div>
           </div>
-          <div className="flex items-center gap-1">
-            <IoTimerOutline className="text-black" />
-            <p className="text-black">{currentTime},</p>
-          </div>
-          <div className="text-center">
-            <p className="text-black flex items-center gap-1">
-              <SlCalender />
-              {currentDay} {currentFormattedDate} , <SlCalender />{" "}
-              {currentBnDate} বঙ্গাব্দ
-            </p>
+          <div className="text-black flex flex-row items-center justify-center gap-4">
+            <div className="flex flex-row gap-1">
+              {currentDay} {currentFormattedDate} ,
+            </div>{" "}
+            <div className="flex flex-row gap-1">{currentBnDate} বঙ্গাব্দ</div>
           </div>
         </div>
-        <div className="flex items-center md:max-lg:mx-auto mt-4 lg:mt-0 gap-5">
+        <div className="flex items-center md:max-lg:mx-auto mt-4 md:mt-0 gap-5">
           <Link to={singleFacebook?.link} role="button" className="">
             <span className="[&>svg]:h-4 [&>svg]:w-4 [&>svg]:fill-[#1877f2]">
               <FaFacebookF />

@@ -25,7 +25,7 @@ const SinglePage = () => {
           <SinglePageLeft />
         </div>
       </div>
-      <div className="md:w-4/6 space-y-2 order-1 md:order-2">
+      <div className="md:w-4/6 space-y-2 order-1 md:order-2 my-4">
         <h3 className="text-3xl text-black font-semibold">
           {singlePost?.postTitle}
         </h3>
