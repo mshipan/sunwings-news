@@ -20,7 +20,11 @@ const CategorizedNews = ({ secTitle, news, loading }) => {
     <div>
       <CategoryTitle title={secTitle} />
       <div className="bg-slate-100 mb-4">
-        <img src={news[0].postThumbnail || card} alt="post thumbnail" />
+        <img
+          src={news[0].postThumbnail || card}
+          alt="post thumbnail"
+          className="w-full"
+        />
         <Link to={`/posts/${news[0]._id}`}>
           <p className="text-black no-underline font-medium hover:text-blue-500 text-xl my-2">
             {news[0]?.postTitle}
