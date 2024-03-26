@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const TermsAndCondition = () => {
   return (
-    <div className="container mx-auto px-2 flex gap-10 flex-col md:flex-row">
+    <div className="container mx-auto px-4 my-4 flex gap-10 flex-col md:flex-row">
       <div className="w-full md:w-[50%]">
         <h2 className="text-4xl text-orange-500 border-b-2">Terms of Use</h2>
         <p className="text-base text-gray-700 my-6">
