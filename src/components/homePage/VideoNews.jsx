@@ -11,9 +11,9 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 import { Autoplay, FreeMode, Navigation, Pagination } from "swiper/modules";
-import { useGetAllVideoQuery } from "../../redux/features/allApis/videoGalleryApi/videoGalleryApi";
 import { FaCirclePlay } from "react-icons/fa6";
 import { useState } from "react";
+import { useGetAllVideoQuery } from "../../redux/features/allApis/videoGalleryApi/videoGalleryApi";
 
 const VideoNews = () => {
   const [clickedVideo, setClickedVideo] = useState(null);

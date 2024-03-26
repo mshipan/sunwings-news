@@ -9,6 +9,7 @@ import { useGetAllLogoQuery } from "../../redux/features/allApis/logoApi/logoApi
 import { MdMenu } from "react-icons/md";
 import { FaXmark } from "react-icons/fa6";
 import { RxCross2 } from "react-icons/rx";
+import { useNavigate } from "react-router-dom";
 
 const HeaderLogo = () => {
   const [subCategoryItems, setSubcategoryItems] = useState([]);
@@ -16,6 +17,7 @@ const HeaderLogo = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchBarOpen, setSearchBarOpen] = useState(false);
   const { data: allLogos } = useGetAllLogoQuery();
+  const navigate = useNavigate();
 
   const selectedLogo = allLogos
     ? allLogos.find((logo) => logo.isSelected === true)
@@ -28,6 +30,12 @@ const HeaderLogo = () => {
         setSubcategoryItems(data);
       })
       .catch();
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    localStorage.setItem("search", e.target.search.value);
+    navigate("/searched-page");
   };
 
   const navItems = (
@@ -264,7 +272,7 @@ const HeaderLogo = () => {
       </li>
       <li>
         <button
-          onClick={() => setSearchBarOpen(true)}
+          onClick={() => setSearchBarOpen(!searchBarOpen)}
           className="btn btn-ghost btn-circle text-white"
         >
           <svg
@@ -288,25 +296,32 @@ const HeaderLogo = () => {
   return (
     <div className="relative">
       <div className="container mx-auto">
-        <div className="relative hidden md:flex justify-between items-center bg-black px-2">
-          <ul className="flex flex-wrap cursor-pointer">{navItems}</ul>
+        <div className=" hidden md:flex justify-between items-center bg-black px-2">
+          <ul className="flex relative flex-wrap cursor-pointer">{navItems}</ul>
+          {/* Search form */}
           <div
-            className={`form-control absolute transition-all duration-500 ease-in-out ${
-              searchBarOpen ? "right-0" : "-right-96"
+            className={`form-control absolute w-72 transition-all duration-500 ease-in-out ${
+              searchBarOpen ? "right-2 top-0" : "-right-96 hidden"
             }`}
           >
-            <div className="relative">
+            <form onSubmit={handleSearchSubmit} action="">
               <input
                 type="text"
+                name="search"
                 placeholder="Search"
-                className={`input input-bordered w-24 md:w-auto text-white`}
+                className="input relative input-bordered  md:w-auto text-black"
+              />
+              <input
+                className="absolute top-0 right-4 btn btn-success"
+                type="submit"
+                value="Search"
               />
               <RxCross2
                 onClick={() => setSearchBarOpen(false)}
                 size={25}
-                className="text-white bg-slate-950 absolute top-0 right-0 rounded-full border-2 border-gray-400"
+                className="text-white bg-slate-950 absolute -top-2 -right-2 rounded-full border-2 border-gray-400"
               />
-            </div>
+            </form>
           </div>
         </div>
 
