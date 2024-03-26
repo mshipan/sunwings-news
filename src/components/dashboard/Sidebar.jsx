@@ -1,5 +1,4 @@
 import { useContext, useState } from "react";
-import { CiSettings } from "react-icons/ci";
 import { FaUserTie } from "react-icons/fa";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { LiaCommentSolid } from "react-icons/lia";
@@ -7,7 +6,6 @@ import {
   MdCompost,
   MdOutlineCamera,
   MdOutlineKeyboardArrowRight,
-  MdRestorePage,
 } from "react-icons/md";
 import { TiHomeOutline } from "react-icons/ti";
 import { VscFileMedia } from "react-icons/vsc";
