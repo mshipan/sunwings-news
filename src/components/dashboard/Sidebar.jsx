@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { CiSettings } from "react-icons/ci";
 import { FaUserTie } from "react-icons/fa";
 import { IoIosCloseCircleOutline } from "react-icons/io";
@@ -12,8 +12,14 @@ import {
 import { TiHomeOutline } from "react-icons/ti";
 import { VscFileMedia } from "react-icons/vsc";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../providers/AuthProvider";
+import { useGetUserByUidQuery } from "../../redux/features/allApis/usersApi/usersApi";
 
 const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
+  const { user } = useContext(AuthContext);
+  const { data: loggedUser } = useGetUserByUidQuery(user.uid);
+  console.log(loggedUser);
+
   const [collapsed, setCollapsed] = useState({
     post: true,
     media: true,
@@ -65,121 +71,138 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
               <span className="text-sm select-none">Dashboard</span>
             </Link>
           </li>
-          <li className="mb-1 group">
-            <div
-              className="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md    dropdown-toggle"
-              onClick={() => toggleCollapse("post")}
-            >
-              <MdCompost className="mr-3 text-lg" />
-              <span className="text-sm select-none ">Posts</span>
-              <MdOutlineKeyboardArrowRight className=" ml-auto" />
-            </div>
-            <ul
-              className={`pl-7 mt-2 ${
-                collapsed.post
-                  ? "hidden"
-                  : "block transition-all ease-in duration-500"
-              }`}
-            >
-              <li className="mb-4">
-                <Link
-                  to="/dashboard/all-posts"
-                  className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
+          {loggedUser?.role ===
+            ("administrator" || "journalist" || "editor") && (
+            <li className="mb-1 group">
+              <div
+                className="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md    dropdown-toggle"
+                onClick={() => toggleCollapse("post")}
+              >
+                <MdCompost className="mr-3 text-lg" />
+                <span className="text-sm select-none ">Posts</span>
+                <MdOutlineKeyboardArrowRight className=" ml-auto" />
+              </div>
+              <ul
+                className={`pl-7 mt-2 ${
+                  collapsed.post
+                    ? "hidden"
+                    : "block transition-all ease-in duration-500"
+                }`}
+              >
+                <li className="mb-4">
+                  <Link
+                    to="/dashboard/all-posts"
+                    className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
+                  >
+                    All Posts
+                  </Link>
+                </li>
+                <li className="mb-4">
+                  <Link
+                    to="/dashboard/add-new-post"
+                    className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
+                  >
+                    Add New Post
+                  </Link>
+                </li>
+                <li className="mb-4">
+                  <Link
+                    to="/dashboard/categories"
+                    className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
+                  >
+                    Categories
+                  </Link>
+                </li>
+              </ul>
+            </li>
+          )}
+          {loggedUser &&
+            (loggedUser.role === "administrator" || "moderator") && (
+              <li className="mb-1 group">
+                <div
+                  className="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md    sidebar-dropdown-toggle"
+                  onClick={() => toggleCollapse("media")}
                 >
-                  All Posts
-                </Link>
-              </li>
-              <li className="mb-4">
-                <Link
-                  to="/dashboard/add-new-post"
-                  className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
+                  <VscFileMedia className="ri-instance-line mr-3 text-lg" />
+                  <span className="text-sm select-none">Media</span>
+                  <MdOutlineKeyboardArrowRight className=" ml-auto " />
+                </div>
+                <ul
+                  className={`pl-7 mt-2 ${
+                    collapsed.media ? "hidden" : "block"
+                  }`}
                 >
-                  Add New Post
-                </Link>
+                  <li className="mb-4">
+                    <Link
+                      to="/dashboard/logo"
+                      className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
+                    >
+                      Logo
+                    </Link>
+                  </li>
+                  <li className="mb-4">
+                    <Link
+                      to="/dashboard/advertisement"
+                      className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
+                    >
+                      Advertisement
+                    </Link>
+                  </li>
+                  <li className="mb-4">
+                    <Link
+                      to="/dashboard/photo-gallery"
+                      className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
+                    >
+                      Photo Gallery
+                    </Link>
+                  </li>
+                  <li className="mb-4">
+                    <Link
+                      to="/dashboard/video-gallery"
+                      className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
+                    >
+                      Video Gallery
+                    </Link>
+                  </li>
+                </ul>
               </li>
-              <li className="mb-4">
-                <Link
-                  to="/dashboard/categories"
-                  className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
+            )}
+          {loggedUser &&
+            (loggedUser.role === "administrator" || "moderator") && (
+              <li className="mb-1 group">
+                <div
+                  className="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md   "
+                  onClick={() => toggleCollapse("theme")}
                 >
-                  Categories
-                </Link>
-              </li>
-            </ul>
-          </li>
-          <li className="mb-1 group">
-            <div
-              className="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md    sidebar-dropdown-toggle"
-              onClick={() => toggleCollapse("media")}
-            >
-              <VscFileMedia className="ri-instance-line mr-3 text-lg" />
-              <span className="text-sm select-none">Media</span>
-              <MdOutlineKeyboardArrowRight className=" ml-auto " />
-            </div>
-            <ul className={`pl-7 mt-2 ${collapsed.media ? "hidden" : "block"}`}>
-              <li className="mb-4">
-                <Link
-                  to="/dashboard/logo"
-                  className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
+                  <MdOutlineCamera className="ri-instance-line mr-3 text-lg" />
+                  <span className="text-sm select-none">Theme Settings</span>
+                  <MdOutlineKeyboardArrowRight className=" ml-auto " />
+                </div>
+                <ul
+                  className={`pl-7 mt-2 ${
+                    collapsed.theme ? "hidden" : "block"
+                  }`}
                 >
-                  Logo
-                </Link>
+                  <li className="mb-4">
+                    <Link
+                      to="/dashboard/social-profiles"
+                      className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
+                    >
+                      Social Profiles
+                    </Link>
+                  </li>
+                  <li className="mb-4">
+                    <Link
+                      to="/dashboard/footer-customize"
+                      className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
+                    >
+                      Footer
+                    </Link>
+                  </li>
+                </ul>
               </li>
-              <li className="mb-4">
-                <Link
-                  to="/dashboard/advertisement"
-                  className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
-                >
-                  Advertisement
-                </Link>
-              </li>
-              <li className="mb-4">
-                <Link
-                  to="/dashboard/photo-gallery"
-                  className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
-                >
-                  Photo Gallery
-                </Link>
-              </li>
-              <li className="mb-4">
-                <Link
-                  to="/dashboard/video-gallery"
-                  className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
-                >
-                  Video Gallery
-                </Link>
-              </li>
-            </ul>
-          </li>
-          <li className="mb-1 group">
-            <div
-              className="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md   "
-              onClick={() => toggleCollapse("theme")}
-            >
-              <MdOutlineCamera className="ri-instance-line mr-3 text-lg" />
-              <span className="text-sm select-none">Theme Settings</span>
-              <MdOutlineKeyboardArrowRight className=" ml-auto " />
-            </div>
-            <ul className={`pl-7 mt-2 ${collapsed.theme ? "hidden" : "block"}`}>
-              <li className="mb-4">
-                <Link
-                  to="/dashboard/social-profiles"
-                  className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
-                >
-                  Social Profiles
-                </Link>
-              </li>
-              <li className="mb-4">
-                <Link
-                  to="/dashboard/footer-customize"
-                  className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
-                >
-                  Footer
-                </Link>
-              </li>
-            </ul>
-          </li>
-          <li className="mb-1 group">
+            )}
+          {/* <li className="mb-1 group">
             <div
               className="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md    sidebar-dropdown-toggle"
               onClick={() => toggleCollapse("page")}
@@ -206,7 +229,7 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
                 </Link>
               </li>
             </ul>
-          </li>
+          </li> */}
           <li className="mb-1 group">
             <Link
               to=""
@@ -216,43 +239,47 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
               <span className="text-sm select-none">Comments</span>
             </Link>
           </li>
-          <li className="mb-1 group">
-            <div
-              className="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md    sidebar-dropdown-toggle"
-              onClick={() => toggleCollapse("user")}
-            >
-              <FaUserTie className="ri-instance-line mr-3 text-lg" />
-              <span className="text-sm select-none">Users</span>
-              <MdOutlineKeyboardArrowRight className=" ml-auto " />
-            </div>
-            <ul className={`pl-7 mt-2 ${collapsed.user ? "hidden" : "block"}`}>
-              <li className="mb-4">
-                <Link
-                  to="/dashboard/all-users"
-                  className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
-                >
-                  All User
-                </Link>
-              </li>
-              <li className="mb-4">
-                <Link
-                  to="/sign-up"
-                  className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
-                >
-                  Add New User
-                </Link>
-              </li>
-              <li className="mb-4">
-                <Link
-                  to="#"
-                  className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
-                >
-                  Profile
-                </Link>
-              </li>
-            </ul>
-          </li>
-          <li className="mb-1 group">
+          {loggedUser && loggedUser.role === "administrator" && (
+            <li className="mb-1 group">
+              <div
+                className="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md    sidebar-dropdown-toggle"
+                onClick={() => toggleCollapse("user")}
+              >
+                <FaUserTie className="ri-instance-line mr-3 text-lg" />
+                <span className="text-sm select-none">Users</span>
+                <MdOutlineKeyboardArrowRight className=" ml-auto " />
+              </div>
+              <ul
+                className={`pl-7 mt-2 ${collapsed.user ? "hidden" : "block"}`}
+              >
+                <li className="mb-4">
+                  <Link
+                    to="/dashboard/all-users"
+                    className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
+                  >
+                    All User
+                  </Link>
+                </li>
+                <li className="mb-4">
+                  <Link
+                    to="/sign-up"
+                    className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
+                  >
+                    Add New User
+                  </Link>
+                </li>
+                <li className="mb-4">
+                  <Link
+                    to="#"
+                    className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
+                  >
+                    Profile
+                  </Link>
+                </li>
+              </ul>
+            </li>
+          )}
+          {/* <li className="mb-1 group">
             <div
               className="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md    sidebar-dropdown-toggle"
               onClick={() => toggleCollapse("setting")}
@@ -261,7 +288,7 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
               <span className="text-sm select-none">Settings</span>
               <MdOutlineKeyboardArrowRight className=" ml-auto " />
             </div>
-            {/* <ul
+            <ul
               className={`pl-7 mt-2 ${collapsed.setting ? "hidden" : "block"}`}
             >
               <li className="mb-4">
@@ -288,8 +315,8 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
                   Profile
                 </Link>
               </li>
-            </ul> */}
-          </li>
+            </ul>
+          </li> */}
         </ul>
       </div>
       <div className="fixed top-0 left-0 w-full h-full bg-black/50 z-40 md:hidden sidebar-overlay"></div>
