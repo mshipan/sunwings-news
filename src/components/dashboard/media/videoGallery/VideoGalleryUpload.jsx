@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useUploadAVideoMutation } from "../../../../redux/features/allApis/videoGalleryApi/videoGalleryApi";
+
 import { imageUpload } from "../../../../api/utils";
 import toast from "react-hot-toast";
+import { useUploadAVideoMutation } from "../../../../redux/features/allApis/videoGalleryApi/videoGalleryApi";
 
 const VideoGalleryUpload = () => {
   const [loading, setLoading] = useState(false);

@@ -6,25 +6,12 @@ import toast from "react-hot-toast";
 
 const AllNews = ({ date }) => {
   const { data: posts, isLoading, isError } = useGetPostsQuery({});
-  const [searchTerm, setSearchTerm] = useState("");
   const [showCount, setShowCount] = useState(6); // Initial count to show
   const perPage = 6; // Number of posts to show per click
-
-  const handleChange = (event) => {
-    const { value } = event.target;
-    setSearchTerm(value);
-    // Reset showCount when new search term is entered
-    setShowCount(perPage);
-  };
 
   // filter post by date
   const filteredPosts = posts?.filter(
     (post) => post.publishDate.split("T").slice(0, 1).join() === date
-  );
-
-  // Filter posts based on search term
-  const filteredSearchPosts = posts?.filter((post) =>
-    post.postTitle.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   let visiblePosts =
@@ -35,14 +22,6 @@ const AllNews = ({ date }) => {
   if (filteredPosts?.length === 0 && date) {
     visiblePosts = [...posts];
     toast.error("No news has been posted in this date");
-  }
-
-  if (filteredSearchPosts?.length !== 0 && searchTerm) {
-    visiblePosts = [...filteredSearchPosts];
-  }
-
-  if (filteredSearchPosts?.length === 0 && searchTerm) {
-    visiblePosts = [];
   }
 
   // Function to increment showCount by perPage
@@ -70,19 +49,6 @@ const AllNews = ({ date }) => {
 
   return (
     <div>
-      <div className="text-black md:text-lg mt-2">
-        <label htmlFor="search" className="p-2">
-          খুজুন:
-        </label>
-        <input
-          type="text"
-          id="search"
-          value={searchTerm}
-          onChange={handleChange}
-          placeholder="খবর অনুসন্ধান করুন..."
-          className="text-lg border-2 border-orange-300 rounded-xl py-1 px-3 focus:border-orange-600 focus:border-none"
-        />
-      </div>
       <div className="py-2 grid grid-cols-2 md:grid-cols-3 gap-6">
         {visiblePosts.length !== 0 ? (
           visiblePosts.map((post, i) => (

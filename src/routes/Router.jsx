@@ -22,6 +22,7 @@ import CustomizeFooter from "../pages/dashboard/themeSettings/footer/CustomizeFo
 import TermsAndCondition from "../pages/termsAndCondition/TermsAndCondition";
 import PhotoGallery from "../pages/dashboard/media/PhotoGallery";
 import VideoGallery from "../pages/dashboard/media/VideoGallery";
+import SearchedNewspage from "../pages/homePage/SearchedNewspage";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
       {
         path: "/terms-and-condition",
         element: <TermsAndCondition />,
+      },
+      {
+        path: "/searched-page",
+        element: <SearchedNewspage />,
       },
     ],
   },
