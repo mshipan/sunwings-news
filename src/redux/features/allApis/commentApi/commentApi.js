@@ -13,8 +13,8 @@ const commentApi = baseApi.injectEndpoints({
 
     getCommentById: builder.query({
       query: (id) => `/comments/${id}`,
+      providesTags: ["comments"],
     }),
-    providesTags: ["comments"],
   }),
 });
 
