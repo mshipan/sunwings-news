@@ -292,7 +292,7 @@ const HeaderLogo = () => {
           <ul className="flex flex-wrap cursor-pointer">{navItems}</ul>
           <div
             className={`form-control absolute transition-all duration-500 ease-in-out ${
-              searchBarOpen ? "right-0" : "-right-96"
+              searchBarOpen ? "right-0" : "-right-96 hidden"
             }`}
           >
             <div className="relative">
