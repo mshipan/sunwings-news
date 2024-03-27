@@ -167,13 +167,13 @@ const AllUsers = () => {
     });
   };
 
-  const handleEdit = (id) => {
-    // Handle edit action
-  };
+  // const handleEdit = (id) => {
+  //   // Handle edit action
+  // };
 
-  const handleView = (id) => {
-    // Handle view action
-  };
+  // const handleView = (id) => {
+  //   // Handle view action
+  // };
 
   const handleDelete = (uid) => {
     // Handle delete action
