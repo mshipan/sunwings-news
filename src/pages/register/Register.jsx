@@ -36,7 +36,7 @@ const Register = () => {
     imageUpload(image).then((imageData) => {
       const imageUrl = imageData?.data?.display_url;
       createUser(data.email, data.password)
-        .then(() => {
+        .then((result) => {
           updateUserProfile(data.name, imageUrl).then(() => {
             setUser({
               ...user,
@@ -44,7 +44,7 @@ const Register = () => {
               photoUrl: imageUrl,
             });
             const userInfo = {
-              uid: user?.uid,
+              uid: result.user?.uid,
               name: data.name,
               image: imageUrl,
               email: data.email,
@@ -56,7 +56,7 @@ const Register = () => {
                 if (result.data) {
                   setLoading(false);
                   console.log(data);
-                  toast.success("Registration Successfull!");
+                  toast.success("Registration Successful!");
                   reset();
                 }
               })
