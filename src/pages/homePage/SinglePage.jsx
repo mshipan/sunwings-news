@@ -6,6 +6,7 @@ import { useGetPostByIdQuery } from "../../redux/features/allApis/postApi/postAp
 import SinglePageLeft from "../../components/homePage/SinglePageLeft";
 import moment from "moment/moment";
 import { Helmet } from "react-helmet-async";
+import CommentSection from "./CommentSection";
 
 const SinglePage = () => {
   const { id } = useParams();
@@ -40,6 +41,7 @@ const SinglePage = () => {
           dangerouslySetInnerHTML={{ __html: singlePost?.quill }}
           className="text-black"
         ></p>
+        <CommentSection newsId={singlePost._id} />
       </div>
       <div className="md:w-1/6 order-3">
         <CategoryTitle title={"আলোচিত সংবাদ"} />
