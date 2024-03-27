@@ -48,15 +48,10 @@ const AllUsers = () => {
     // Handle search submission
   };
 
-  const ActionButtons = ({ uid }) => {
+  const ActionButtons = () => {
+    // console.log("uid...", uid);
     return (
       <div className="flex justify-center items-center gap-2">
-        {/* <button className="text-blue-500" onClick={() => handleEdit(id)}>
-          Edit
-        </button>
-        <button className="text-green-500" onClick={() => handleView(id)}>
-          View
-        </button> */}
         <button className="text-red-500" onClick={() => handleDelete(uid)}>
           Delete
         </button>
@@ -75,23 +70,23 @@ const AllUsers = () => {
       </span>
     );
   };
-  const handleRoleSubmit = (e) => {
-    e.preventDefault();
-    const role = e.target.role.value;
-    // console.log(uid, role);
-    addRoleToUser({ uid, role })
-      .then((result) => {
-        if (result.data.modifiedCount > 0) {
-          toast.success("Role added");
-        }
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
-  };
 
-  const SetRole = ({ uid }) => {
-    setUid(uid);
+  const SetRole = () => {
+    // console.log("uid...", uid);
+    const handleRoleSubmit = (e) => {
+      e.preventDefault();
+      const role = e.target.role.value;
+      // console.log('uid role',uid, role);
+      addRoleToUser({ uid, role })
+        .then((result) => {
+          if (result.data.modifiedCount > 0) {
+            toast.success("Role added");
+          }
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    };
     return (
       <div>
         <form onSubmit={handleRoleSubmit} action="" className="flex flex-row">
@@ -114,26 +109,6 @@ const AllUsers = () => {
       </div>
     );
   };
-
-  // const formatDate = (dateString) => {
-  //   const date = new Date(dateString);
-  //   const options = { day: "numeric", month: "long", year: "numeric" };
-  //   const formattedDate = new Intl.DateTimeFormat("en-US", options).format(
-  //     date
-  //   );
-  //   const day = date.getDate();
-  //   let suffix;
-  //   if (day === 1 || day === 21 || day === 31) {
-  //     suffix = "st";
-  //   } else if (day === 2 || day === 22) {
-  //     suffix = "nd";
-  //   } else if (day === 3 || day === 23) {
-  //     suffix = "rd";
-  //   } else {
-  //     suffix = "th";
-  //   }
-  //   return `${day}${suffix} ${formattedDate}`;
-  // };
 
   const columns = [
     { field: "id", headerName: "Sl No", width: 80 },
@@ -159,12 +134,12 @@ const AllUsers = () => {
       field: "giveRole",
       headerName: "Give Role",
       width: 240,
-      renderCell: (params) => <SetRole uid={params.row.uid} />,
+      renderCell: () => <SetRole />,
     },
     {
       field: "action",
       headerName: "Action",
-      renderCell: (params) => <ActionButtons uid={params.row.uid} />,
+      renderCell: () => <ActionButtons />,
       width: 150,
     },
   ];
@@ -175,7 +150,7 @@ const AllUsers = () => {
         name: user.name,
         email: user?.email,
         role: user.role,
-        uid: user?.uid,
+        uid: user.uid,
       }))
     : [];
 
@@ -192,13 +167,13 @@ const AllUsers = () => {
     });
   };
 
-  const handleEdit = (id) => {
-    // Handle edit action
-  };
+  // const handleEdit = (id) => {
+  //   // Handle edit action
+  // };
 
-  const handleView = (id) => {
-    // Handle view action
-  };
+  // const handleView = (id) => {
+  //   // Handle view action
+  // };
 
   const handleDelete = (uid) => {
     // Handle delete action
@@ -406,7 +381,9 @@ const AllUsers = () => {
             },
           }}
           pageSizeOptions={[10, 15]}
-          checkboxSelection
+          onRowClick={(params) => {
+            setUid(params.row.uid);
+          }}
         />
       </div>
     </div>

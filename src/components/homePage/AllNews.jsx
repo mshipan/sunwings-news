@@ -6,16 +6,8 @@ import toast from "react-hot-toast";
 
 const AllNews = ({ date }) => {
   const { data: posts, isLoading, isError } = useGetPostsQuery({});
-  const [searchTerm, setSearchTerm] = useState("");
   const [showCount, setShowCount] = useState(6); // Initial count to show
   const perPage = 6; // Number of posts to show per click
-
-  const handleChange = (event) => {
-    const { value } = event.target;
-    setSearchTerm(value);
-    // Reset showCount when new search term is entered
-    setShowCount(perPage);
-  };
 
   // filter post by date
   const filteredPosts = posts?.filter(

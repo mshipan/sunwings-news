@@ -270,51 +270,55 @@ const HeaderLogo = () => {
           )}
         </Link>
       </li>
-      <li>
-        <button
-          onClick={() => setSearchBarOpen(!searchBarOpen)}
-          className="btn btn-ghost btn-circle text-white"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            />
-          </svg>
-        </button>
-      </li>
     </>
   );
   return (
     <div className="relative">
       <div className="container mx-auto">
-        <div className=" hidden md:flex justify-between items-center bg-black px-2">
-          <ul className="flex relative flex-wrap cursor-pointer">{navItems}</ul>
+        <div className="flex flex-row justify-between items-center bg-black px-2">
+          <div className=" hidden md:flex justify-between items-center">
+            <ul className="flex flex-row items-center justify-center relative flex-wrap cursor-pointer">
+              {navItems}
+            </ul>
+          </div>
+          <button
+            onClick={() => setSearchBarOpen(true)}
+            className="btn btn-ghost btn-circle text-white hidden md:block"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
+            </svg>
+          </button>
           {/* Search form */}
           <div
             className={`form-control absolute w-72 transition-all duration-500 ease-in-out ${
-              searchBarOpen ? "right-2 top-0" : "-right-96 hidden"
+              searchBarOpen
+                ? "right-1 top-[100px] md:right-2 md:top-0 z-50"
+                : "-right-96 hidden"
             }`}
           >
             <form onSubmit={handleSearchSubmit} action="">
               <input
                 type="text"
                 name="search"
-                placeholder="Search"
+                placeholder="খুজুন..."
                 className="input relative input-bordered  md:w-auto text-black"
               />
               <input
-                className="absolute top-0 right-4 btn btn-success"
+                className="absolute top-0 right-4 btn bg-orange-500 hover:bg-orange-600"
                 type="submit"
-                value="Search"
+                value="খুজুন"
               />
               <RxCross2
                 onClick={() => setSearchBarOpen(false)}
@@ -326,20 +330,39 @@ const HeaderLogo = () => {
         </div>
 
         <div className="flex md:hidden items-center justify-between bg-black py-1 px-1">
-          <div>
-            <img src={selectedLogo?.logo} alt="logo" className="w-36 " />
+          <img src={selectedLogo?.logo} alt="logo" className="w-36 " />
+          <div className="flex flex-row gap-1 justify-center items-center">
+            <button
+              onClick={() => setSearchBarOpen(!searchBarOpen)}
+              className="btn btn-ghost btn-circle text-white"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            </button>
+            {isMenuOpen ? (
+              <FaXmark
+                className="text-white text-4xl cursor-pointer"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+              />
+            ) : (
+              <MdMenu
+                className="text-white text-4xl cursor-pointer"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+              />
+            )}
           </div>
-          {isMenuOpen ? (
-            <FaXmark
-              className="text-white text-4xl cursor-pointer"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            />
-          ) : (
-            <MdMenu
-              className="text-white text-4xl cursor-pointer"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            />
-          )}
         </div>
         <div className="flex py-2">
           <div className="bg-orange-500 text-white w-1/4 md:w-2/12 flex justify-center items-center">
