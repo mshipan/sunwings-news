@@ -18,6 +18,7 @@ const baseApi = createApi({
     "instagram",
     "youtube",
     "footer",
+    "bodyTheme",
   ],
   endpoints: () => ({}),
 });
