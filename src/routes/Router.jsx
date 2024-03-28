@@ -22,6 +22,7 @@ import CustomizeFooter from "../pages/dashboard/themeSettings/footer/CustomizeFo
 import TermsAndCondition from "../pages/termsAndCondition/TermsAndCondition";
 import PhotoGallery from "../pages/dashboard/media/PhotoGallery";
 import VideoGallery from "../pages/dashboard/media/VideoGallery";
+import BodyStyles from "../pages/dashboard/themeSettings/bodyStyles/BodyStyles";
 import SearchedNewspage from "../pages/homePage/SearchedNewspage";
 
 const router = createBrowserRouter([
@@ -100,9 +101,14 @@ const router = createBrowserRouter([
         element: <SocialProfiles />,
       },
       {
+        path: "body-styles",
+        element: <BodyStyles />,
+      },
+      {
         path: "footer-customize",
         element: <CustomizeFooter />,
       },
+
       {
         path: "all-page",
         element: <AllPage />,
