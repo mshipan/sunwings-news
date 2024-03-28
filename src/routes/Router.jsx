@@ -23,6 +23,7 @@ import TermsAndCondition from "../pages/termsAndCondition/TermsAndCondition";
 import PhotoGallery from "../pages/dashboard/media/PhotoGallery";
 import VideoGallery from "../pages/dashboard/media/VideoGallery";
 import SearchedNewspage from "../pages/homePage/SearchedNewspage";
+import Comments from "../pages/dashboard/comments/Comments";
 
 const router = createBrowserRouter([
   {
@@ -114,6 +115,10 @@ const router = createBrowserRouter([
       {
         path: "all-users",
         element: <AllUsers />,
+      },
+      {
+        path: "comments",
+        element: <Comments />,
       },
     ],
   },

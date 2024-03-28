@@ -39,7 +39,7 @@ const SinglePage = () => {
         </p>
         <p
           dangerouslySetInnerHTML={{ __html: singlePost?.quill }}
-          className="text-black"
+          className="text-black text-base md:text-lg"
         ></p>
         <CommentSection newsId={singlePost._id} />
       </div>

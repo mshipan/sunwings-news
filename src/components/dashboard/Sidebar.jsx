@@ -230,7 +230,7 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
           </li> */}
           <li className="mb-1 group">
             <Link
-              to=""
+              to="/dashboard/comments"
               className="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md    sidebar-dropdown-toggle"
             >
               <LiaCommentSolid className="ri-instance-line mr-3 text-lg" />
