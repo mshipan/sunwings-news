@@ -1,8 +1,13 @@
 import moment from "moment";
 import { MdAccessTime } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { useGetBodyThemeQuery } from "../../redux/features/allApis/bodyThemeApi/bodyThemeApi";
+import { useState } from "react";
 
 const NewsCard = ({ post }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const { data: bodyThemes } = useGetBodyThemeQuery();
+  const singleTheme = bodyThemes?.[0];
   const timeAgo = (timestamp) => {
     const currentTime = moment();
     const postTime = moment(timestamp);
@@ -26,6 +31,20 @@ const NewsCard = ({ post }) => {
       return Math.floor(duration.asYears()) + " years ago";
     }
   };
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
+  const textStyle = {
+    fontSize: `${singleTheme?.newscardTitleFontSize}px`,
+    color: isHovered ? "#0077cc" : singleTheme?.newscardTitleFontColor,
+    transition: "color 0.3s", // Add transition for smooth color change
+  };
   return (
     <div className="bg-slate-100">
       <img
@@ -35,7 +54,12 @@ const NewsCard = ({ post }) => {
       />
       <div className="p-2">
         <Link to={`/posts/${post._id}`}>
-          <p className="text-base font-medium text-black hover:text-blue-500">
+          <p
+            className="text-base font-medium"
+            style={textStyle}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
             {post?.postTitle}
           </p>
         </Link>

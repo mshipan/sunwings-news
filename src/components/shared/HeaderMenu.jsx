@@ -10,12 +10,15 @@ import { MdMenu } from "react-icons/md";
 import { FaXmark } from "react-icons/fa6";
 import { RxCross2 } from "react-icons/rx";
 import { useNavigate } from "react-router-dom";
+import { useGetBodyThemeQuery } from "../../redux/features/allApis/bodyThemeApi/bodyThemeApi";
 
 const HeaderLogo = () => {
   const [subCategoryItems, setSubcategoryItems] = useState([]);
   const [activeCategory, setActiveCategory] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchBarOpen, setSearchBarOpen] = useState(false);
+  const { data: bodyThemes } = useGetBodyThemeQuery();
+  const singleTheme = bodyThemes?.[0];
   const { data: allLogos } = useGetAllLogoQuery();
   const navigate = useNavigate();
 
@@ -41,12 +44,9 @@ const HeaderLogo = () => {
   const navItems = (
     <>
       <li className="group active">
-        <Link
-          to="/"
-          className="flex items-center py-3 px-4 text-gray-300 hover:bg-[#ffae00] hover:text-gray-100"
-        >
-          <TiHomeOutline className="mr-2 text-lg" />
-          <span className="text-base select-none">প্রচ্ছদ</span>
+        <Link to="/" className="flex items-center py-3 px-4 hover:bg-[#ffae00]">
+          <TiHomeOutline className="mr-2 " />
+          <span className=" select-none">প্রচ্ছদ</span>
         </Link>
       </li>
       <li
@@ -55,12 +55,12 @@ const HeaderLogo = () => {
         className="group relative"
       >
         <Link to={"/category/জাতীয়"}>
-          <div className="flex items-center py-3 px-4 text-gray-300 hover:bg-[#ffae00] hover:text-gray-100 dropdown-toggle">
-            <span className="text-base select-none mr-2">জাতীয়</span>
+          <div className="flex items-center py-3 px-4 hover:bg-[#ffae00]  dropdown-toggle">
+            <span className=" select-none mr-2">জাতীয়</span>
             <IoIosArrowDown className="ml-auto" />
           </div>
           {activeCategory === "জাতীয়" && subCategoryItems.length > 0 && (
-            <ul className="absolute w-40 top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2 z-50">
+            <ul className="absolute w-40 top-full left-0 bg-gray-800  rounded-sm py-1 px-2 z-50">
               {subCategoryItems?.map((item, i) => (
                 <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
                   {" "}
@@ -77,12 +77,12 @@ const HeaderLogo = () => {
         className="group relative"
       >
         <Link to={"/category/রাজনীতি"}>
-          <div className="flex items-center py-3 px-4 text-gray-300 hover:bg-[#ffae00] hover:text-gray-100 dropdown-toggle">
-            <span className="text-base select-none mr-2">রাজনীতি</span>
+          <div className="flex items-center py-3 px-4  hover:bg-[#ffae00]  dropdown-toggle">
+            <span className=" select-none mr-2">রাজনীতি</span>
             <IoIosArrowDown className="ml-auto" />
           </div>
           {activeCategory === "রাজনীতি" && subCategoryItems.length > 0 && (
-            <ul className="absolute top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2 z-50">
+            <ul className="absolute top-full left-0 bg-gray-800  rounded-sm py-1 px-2 z-50">
               {subCategoryItems?.map((item, i) => (
                 <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
                   {" "}
@@ -99,12 +99,12 @@ const HeaderLogo = () => {
         className="group relative"
       >
         <Link to={"/category/আন্তর্জাতিক"}>
-          <div className="flex items-center py-3 px-4 text-gray-300 hover:bg-[#ffae00] hover:text-gray-100 dropdown-toggle">
-            <span className="text-base select-none mr-2">আন্তর্জাতিক</span>
+          <div className="flex items-center py-3 px-4  hover:bg-[#ffae00]  dropdown-toggle">
+            <span className=" select-none mr-2">আন্তর্জাতিক</span>
             <IoIosArrowDown className="ml-auto" />
           </div>
           {activeCategory === "আন্তর্জাতিক" && subCategoryItems.length > 0 && (
-            <ul className="absolute top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2 z-50">
+            <ul className="absolute top-full left-0 bg-gray-800  rounded-sm py-1 px-2 z-50">
               {subCategoryItems?.map((item, i) => (
                 <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
                   {" "}
@@ -121,12 +121,12 @@ const HeaderLogo = () => {
         className="group relative"
       >
         <Link to={"/category/খেলাধুলা"}>
-          <div className="flex items-center py-3 px-4 text-gray-300 hover:bg-[#ffae00] hover:text-gray-100 dropdown-toggle">
-            <span className="text-base select-none mr-2">খেলাধুলা</span>
+          <div className="flex items-center py-3 px-4  hover:bg-[#ffae00]  dropdown-toggle">
+            <span className=" select-none mr-2">খেলাধুলা</span>
             <IoIosArrowDown className="ml-auto" />
           </div>
           {activeCategory === "খেলাধুলা" && subCategoryItems.length > 0 && (
-            <ul className="absolute top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2 z-50">
+            <ul className="absolute top-full left-0 bg-gray-800  rounded-sm py-1 px-2 z-50">
               {subCategoryItems?.map((item, i) => (
                 <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
                   {" "}
@@ -143,12 +143,12 @@ const HeaderLogo = () => {
         className="group relative"
       >
         <Link to={"/category/বিনোদন"}>
-          <div className="flex items-center py-3 px-4 text-gray-300 hover:bg-[#ffae00] hover:text-gray-100 dropdown-toggle">
-            <span className="text-base select-none mr-2">বিনোদন</span>
+          <div className="flex items-center py-3 px-4  hover:bg-[#ffae00]  dropdown-toggle">
+            <span className=" select-none mr-2">বিনোদন</span>
             <IoIosArrowDown className="ml-auto" />
           </div>
           {activeCategory === "বিনোদন" && subCategoryItems.length > 0 && (
-            <ul className="absolute top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2 z-50">
+            <ul className="absolute top-full left-0 bg-gray-800  rounded-sm py-1 px-2 z-50">
               {subCategoryItems?.map((item, i) => (
                 <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
                   {" "}
@@ -165,13 +165,13 @@ const HeaderLogo = () => {
         className="group relative"
       >
         <Link to={"/category/তথ্যপ্রযুক্তি"}>
-          <div className="flex items-center py-3 px-4 text-gray-300 hover:bg-[#ffae00] hover:text-gray-100 dropdown-toggle">
-            <span className="text-base select-none mr-2">তথ্যপ্রযুক্তি</span>
+          <div className="flex items-center py-3 px-4  hover:bg-[#ffae00]  dropdown-toggle">
+            <span className=" select-none mr-2">তথ্যপ্রযুক্তি</span>
             <IoIosArrowDown className="ml-auto" />
           </div>
           {activeCategory === "তথ্যপ্রযুক্তি" &&
             subCategoryItems.length > 0 && (
-              <ul className="absolute top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2 z-50">
+              <ul className="absolute top-full left-0 bg-gray-800  rounded-sm py-1 px-2 z-50">
                 {subCategoryItems?.map((item, i) => (
                   <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
                     {" "}
@@ -188,12 +188,12 @@ const HeaderLogo = () => {
         className="group relative"
       >
         <Link to="/category/সারাদেশ">
-          <div className="flex items-center py-3 px-4 text-gray-300 hover:bg-[#ffae00] hover:text-gray-100 dropdown-toggle">
-            <span className="text-base select-none mr-2">সারাদেশ</span>
+          <div className="flex items-center py-3 px-4  hover:bg-[#ffae00]  dropdown-toggle">
+            <span className=" select-none mr-2">সারাদেশ</span>
             <IoIosArrowDown className="ml-auto" />
           </div>
           {activeCategory === "সারাদেশ" && subCategoryItems.length > 0 && (
-            <ul className="absolute top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2 z-50">
+            <ul className="absolute top-full left-0 bg-gray-800  rounded-sm py-1 px-2 z-50">
               {subCategoryItems?.map((item, i) => (
                 <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
                   {" "}
@@ -210,12 +210,12 @@ const HeaderLogo = () => {
         className="group relative"
       >
         <Link to={"/category/ক্যাম্পাস"}>
-          <div className="flex items-center py-3 px-4 text-gray-300 hover:bg-[#ffae00] hover:text-gray-100 dropdown-toggle">
-            <span className="text-base select-none mr-2">ক্যাম্পাস</span>
+          <div className="flex items-center py-3 px-4  hover:bg-[#ffae00]  dropdown-toggle">
+            <span className=" select-none mr-2">ক্যাম্পাস</span>
             <IoIosArrowDown className="ml-auto" />
           </div>
           {activeCategory === "ক্যাম্পাস" && subCategoryItems.length > 0 && (
-            <ul className="absolute top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2 z-50">
+            <ul className="absolute top-full left-0 bg-gray-800  rounded-sm py-1 px-2 z-50">
               {subCategoryItems?.map((item, i) => (
                 <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
                   {" "}
@@ -232,12 +232,12 @@ const HeaderLogo = () => {
         className="group relative"
       >
         <Link to={"/category/গণমাধ্যম"}>
-          <div className="flex items-center py-3 px-4 text-gray-300 hover:bg-[#ffae00] hover:text-gray-100 dropdown-toggle">
-            <span className="text-base select-none mr-2">গণমাধ্যম</span>
+          <div className="flex items-center py-3 px-4  hover:bg-[#ffae00]  dropdown-toggle">
+            <span className=" select-none mr-2">গণমাধ্যম</span>
             <IoIosArrowDown className="ml-auto" />
           </div>
           {activeCategory === "গণমাধ্যম" && subCategoryItems.length > 0 && (
-            <ul className="absolute top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2 z-50">
+            <ul className="absolute top-full left-0 bg-gray-800  rounded-sm py-1 px-2 z-50">
               {subCategoryItems?.map((item, i) => (
                 <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
                   {" "}
@@ -254,12 +254,12 @@ const HeaderLogo = () => {
         className="group relative"
       >
         <Link to={"/category/আরো"}>
-          <div className="flex items-center py-3 px-4 text-gray-300 hover:bg-[#ffae00] hover:text-gray-100 dropdown-toggle">
-            <span className="text-base select-none mr-2">আরো</span>
+          <div className="flex items-center py-3 px-4  hover:bg-[#ffae00] dropdown-toggle">
+            <span className=" select-none mr-2">আরো</span>
             <IoIosArrowDown className="ml-auto" />
           </div>
           {activeCategory === "আরো" && subCategoryItems.length > 0 && (
-            <ul className="absolute top-full left-0 bg-gray-800 text-gray-300 rounded-sm py-1 px-2 z-50">
+            <ul className="absolute top-full left-0 bg-gray-800  rounded-sm py-1 px-2 z-50">
               {subCategoryItems?.map((item, i) => (
                 <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
                   {" "}
@@ -275,9 +275,18 @@ const HeaderLogo = () => {
   return (
     <div className="relative">
       <div className="container mx-auto">
-        <div className="flex flex-row justify-between items-center bg-black px-2">
+        <div
+          className="flex flex-row justify-between items-center px-2"
+          style={{ backgroundColor: singleTheme?.menuBg }}
+        >
           <div className=" hidden md:flex justify-between items-center">
-            <ul className="flex flex-row items-center justify-center relative flex-wrap cursor-pointer">
+            <ul
+              className="flex flex-row items-center justify-center relative flex-wrap cursor-pointer"
+              style={{
+                fontSize: `${singleTheme?.menuTitleFontSize}px`,
+                color: singleTheme?.menuTitleFontColor,
+              }}
+            >
               {navItems}
             </ul>
           </div>
@@ -366,10 +375,13 @@ const HeaderLogo = () => {
         </div>
         <div className="flex py-2">
           <div className="bg-orange-500 text-white w-1/4 md:w-2/12 flex justify-center items-center">
-            <h3 className="text-xs md:text-base">সংবাদ শিরোনাম :</h3>
+            <h3 className="text-xs md:">সংবাদ শিরোনাম :</h3>
           </div>
 
-          <div className="bg-gray-300 w-3/4 md:w-10/12 text-sm md:text-lg">
+          <div
+            className=" w-3/4 md:w-10/12 text-sm md:text-lg"
+            style={{ backgroundColor: singleTheme?.marqueBg }}
+          >
             <Marquee pauseOnHover={true} speed={110}>
               <Headline />
             </Marquee>

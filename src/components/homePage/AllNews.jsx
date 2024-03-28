@@ -3,8 +3,11 @@ import { useGetPostsQuery } from "../../redux/features/allApis/postApi/postApi";
 import NewsCard from "./NewsCard";
 import { HiChevronDoubleRight } from "react-icons/hi2";
 import toast from "react-hot-toast";
+import { useGetBodyThemeQuery } from "../../redux/features/allApis/bodyThemeApi/bodyThemeApi";
 
 const AllNews = ({ date }) => {
+  const { data: bodyThemes } = useGetBodyThemeQuery();
+  const singleTheme = bodyThemes?.[0];
   const { data: posts, isLoading, isError } = useGetPostsQuery({});
   const [showCount, setShowCount] = useState(6); // Initial count to show
   const perPage = 6; // Number of posts to show per click
@@ -68,6 +71,10 @@ const AllNews = ({ date }) => {
         <button
           onClick={handleShowMore}
           className="flex mx-auto justify-center items-center gap-1  text-black cursor-pointer underline hover:text-blue-600 py-2 px-4 rounded mt-4"
+          style={{
+            fontSize: `${singleTheme?.moreNewsTitleFontSize}px`,
+            color: singleTheme?.moreNewsTitleFontColor,
+          }}
         >
           আরো খবর
           <HiChevronDoubleRight />
