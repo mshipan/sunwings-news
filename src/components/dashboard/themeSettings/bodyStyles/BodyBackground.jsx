@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useGetBodyThemeQuery } from "../../../../redux/features/allApis/bodyThemeApi/bodyThemeApi";
 
 const BodyBackground = ({
   onSubmit,
@@ -13,13 +14,45 @@ const BodyBackground = ({
   TextFontColorLabel,
   loading,
 }) => {
-  const [bgColorValue, setBgColorValue] = useState("");
+  const [bgColor, setBgColor] = useState("");
   const [textColorValue, setTextColorValue] = useState("");
+  const [fontSizeValue, setFontSizeValue] = useState("");
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm();
+
+  const { data: bodyThemes } = useGetBodyThemeQuery();
+
+  useEffect(() => {
+    if (bodyThemes) {
+      // Set default background color
+      setBgColor(bodyThemes[0]?.[BgColor] || "");
+
+      // Set default text color
+      setTextColorValue(bodyThemes[0]?.[TextFontColor] || "");
+
+      // Set default font size
+      setFontSizeValue(bodyThemes[0]?.[TextFontSize] || "");
+    }
+  }, [bodyThemes, BgColor, TextFontColor, TextFontSize]);
+
+  const handleBgColorChange = (color) => {
+    setValue(BgColor, color);
+    setBgColor(color);
+  };
+
+  const handleTextColorChange = (color) => {
+    setValue(TextFontColor, color);
+    setTextColorValue(color);
+  };
+
+  const handleFontSizeChange = (e) => {
+    setValue(TextFontSize, e.target.value);
+    setFontSizeValue(e.target.value);
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
@@ -30,7 +63,7 @@ const BodyBackground = ({
         </label>
 
         <div className="flex flex-col gap-1">
-          {errors[BgColor] && (
+          {errors.BgColor && (
             <p className="text-red-600 text-sm italic">
               <span className="font-semibold">BgColor</span> is Required **
             </p>
@@ -40,7 +73,7 @@ const BodyBackground = ({
               <span className="font-semibold">Font Size</span> is Required **
             </p>
           )}
-          {errors[TextFontColor] && (
+          {errors.TextFontColor && (
             <p className="text-red-600 text-sm italic">
               <span className="font-semibold">Font Color</span> is Required **
             </p>
@@ -60,7 +93,8 @@ const BodyBackground = ({
                   {...register(BgColor, {
                     required: true,
                   })}
-                  defaultValue={bgColorValue}
+                  defaultValue={bgColor}
+                  onChange={handleFontSizeChange}
                   placeholder="Ex. #ffff"
                   className="px-2 py-1 bg-white border border-orange-600 w-full"
                 />
@@ -68,7 +102,9 @@ const BodyBackground = ({
               <input
                 type="color"
                 name="color"
-                onChange={(e) => setBgColorValue(e.target.value)}
+                {...register("takenBgColor")}
+                // onChange={(e) => setBgColorValue(e.target.value)}
+                onChange={(e) => handleBgColorChange(e.target.value)}
                 className="h-8 "
               />
             </div>
@@ -83,6 +119,7 @@ const BodyBackground = ({
                   type="number"
                   name={TextFontSize}
                   {...register(TextFontSize, { required: true })}
+                  defaultValue={fontSizeValue}
                   placeholder="Only Number"
                   className="px-2 py-1 bg-white border border-orange-600 w-full"
                 />
@@ -106,7 +143,8 @@ const BodyBackground = ({
               </div>
               <input
                 type="color"
-                onChange={(e) => setTextColorValue(e.target.value)}
+                {...register("takenTextColor")}
+                onChange={(e) => handleTextColorChange(e.target.value)}
                 className="h-8"
               />
             </div>
