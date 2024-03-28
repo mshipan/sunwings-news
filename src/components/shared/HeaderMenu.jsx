@@ -313,7 +313,7 @@ const HeaderLogo = () => {
                 type="text"
                 name="search"
                 placeholder="খুজুন..."
-                className="input relative input-bordered  md:w-auto text-black"
+                className="input relative input-bordered  md:w-auto text-black bg-white"
               />
               <input
                 className="absolute top-0 right-4 btn bg-orange-500 hover:bg-orange-600"
