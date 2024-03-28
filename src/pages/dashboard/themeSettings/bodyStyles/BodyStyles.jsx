@@ -27,8 +27,10 @@ const BodyStyles = () => {
   const [updateMoreNews] = useUpdateMoreNewsMutation();
   const id = bodyThemes?.[0]._id;
   const singleTheme = bodyThemes?.[0];
-  console.log(singleTheme);
+
   const handleBodyBgSubmit = async (data) => {
+    delete data.sampleColor;
+
     try {
       setLoading(true);
 
@@ -68,6 +70,8 @@ const BodyStyles = () => {
     }
   };
   const handleNewsCardSubmit = async (data) => {
+    delete data.sampleColor;
+    delete data.takenTextColor;
     try {
       setLoadingNews(true);
 
@@ -106,6 +110,8 @@ const BodyStyles = () => {
     }
   };
   const handleMarqueSubmit = async (data) => {
+    delete data.sampleColor;
+    delete data.takenTextColor;
     try {
       setLoadingMarque(true);
 
@@ -144,6 +150,8 @@ const BodyStyles = () => {
     }
   };
   const handleMenuSubmit = async (data) => {
+    delete data.sampleColor;
+    delete data.takenTextColor;
     try {
       setLoadingMenu(true);
 
@@ -182,6 +190,8 @@ const BodyStyles = () => {
     }
   };
   const handleMoreNewsSubmit = async (data) => {
+    delete data.sampleColor;
+    delete data.takenTextColor;
     try {
       setLoadingMoreNews(true);
 
