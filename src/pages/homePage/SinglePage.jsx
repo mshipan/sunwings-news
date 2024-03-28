@@ -39,9 +39,9 @@ const SinglePage = () => {
         </p>
         <p
           dangerouslySetInnerHTML={{ __html: singlePost?.quill }}
-          className="text-black"
+          className="text-black text-base md:text-lg"
         ></p>
-        <CommentSection newsId={singlePost._id} />
+        <CommentSection newsId={singlePost?._id} />
       </div>
       <div className="md:w-1/6 order-3">
         <CategoryTitle title={"আলোচিত সংবাদ"} />

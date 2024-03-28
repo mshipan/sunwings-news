@@ -24,7 +24,9 @@ import PhotoGallery from "../pages/dashboard/media/PhotoGallery";
 import VideoGallery from "../pages/dashboard/media/VideoGallery";
 import BodyStyles from "../pages/dashboard/themeSettings/bodyStyles/BodyStyles";
 import SearchedNewspage from "../pages/homePage/SearchedNewspage";
+import CommentPage from "../pages/dashboard/CommentPage/CommentPage";
 import SinglePostStyles from "../pages/dashboard/themeSettings/singlePostStyles/SinglePostStyles";
+
 
 const router = createBrowserRouter([
   {
@@ -125,6 +127,10 @@ const router = createBrowserRouter([
       {
         path: "all-users",
         element: <AllUsers />,
+      },
+      {
+        path: "comments",
+        element: <CommentPage />,
       },
     ],
   },
