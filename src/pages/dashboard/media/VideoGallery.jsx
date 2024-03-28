@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import VideoGalleryUpload from "../../../components/dashboard/media/videoGallery/VideoGalleryUpload";
-import VideoGalleryCollection from "../../../components/dashboard/media/videoGallery/VideoGalleryCollection";
 import { useGetAllVideoQuery } from "../../../redux/features/allApis/videoGalleryApi/videoGalleryApi";
+import VideoGalleryCollection from "../../../components/dashboard/media/videoGallery/VideoGalleryCollection";
 
 const VideoGallery = () => {
   const { data: allVideos } = useGetAllVideoQuery();
