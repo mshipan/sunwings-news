@@ -4,10 +4,13 @@ import HeaderMenu from "../components/shared/HeaderMenu";
 import FooterArea from "../components/shared/FooterArea";
 import FooterCopyright from "../components/shared/FooterCopyright";
 import { Outlet } from "react-router-dom";
+import { useGetBodyThemeQuery } from "../redux/features/allApis/bodyThemeApi/bodyThemeApi";
 
 const MainLayout = () => {
+  const { data: bodyThemes } = useGetBodyThemeQuery();
+  const singleTheme = bodyThemes?.[0];
   return (
-    <div className="bg-white">
+    <div style={{ background: singleTheme?.bodyBg }}>
       {/* header top */}
       <HeaderTop />
       {/* header logo */}
