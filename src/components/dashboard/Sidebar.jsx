@@ -199,6 +199,14 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
                   </li>
                   <li className="mb-4">
                     <Link
+                      to="/dashboard/single-post-styles"
+                      className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
+                    >
+                      Single Post Styles
+                    </Link>
+                  </li>
+                  <li className="mb-4">
+                    <Link
                       to="/dashboard/footer-customize"
                       className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
                     >
@@ -238,7 +246,7 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
           </li> */}
           <li className="mb-1 group">
             <Link
-              to=""
+              to="/dashboard/comments"
               className="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md    sidebar-dropdown-toggle"
             >
               <LiaCommentSolid className="ri-instance-line mr-3 text-lg" />
