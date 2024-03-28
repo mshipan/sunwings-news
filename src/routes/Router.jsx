@@ -22,6 +22,7 @@ import CustomizeFooter from "../pages/dashboard/themeSettings/footer/CustomizeFo
 import TermsAndCondition from "../pages/termsAndCondition/TermsAndCondition";
 import PhotoGallery from "../pages/dashboard/media/PhotoGallery";
 import VideoGallery from "../pages/dashboard/media/VideoGallery";
+import BodyStyles from "../pages/dashboard/themeSettings/bodyStyles/BodyStyles";
 
 const router = createBrowserRouter([
   {
@@ -97,6 +98,10 @@ const router = createBrowserRouter([
       {
         path: "footer-customize",
         element: <CustomizeFooter />,
+      },
+      {
+        path: "body-styles",
+        element: <BodyStyles />,
       },
       {
         path: "all-page",
