@@ -19,6 +19,7 @@ const baseApi = createApi({
     "youtube",
     "footer",
     "bodyTheme",
+    "comments",
   ],
   endpoints: () => ({}),
 });

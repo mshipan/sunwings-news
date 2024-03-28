@@ -11,6 +11,11 @@ const commentApi = baseApi.injectEndpoints({
       invalidatesTags: ["comments"],
     }),
 
+    getAllComments: builder.query({
+      query: () => "/comments/all-comments",
+      providesTags: ["comments"],
+    }),
+
     getCommentById: builder.query({
       query: (id) => `/comments/${id}`,
       providesTags: ["comments"],
@@ -18,4 +23,8 @@ const commentApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetCommentByIdQuery, useAddCommentMutation } = commentApi;
+export const {
+  useGetAllCommentsQuery,
+  useGetCommentByIdQuery,
+  useAddCommentMutation,
+} = commentApi;

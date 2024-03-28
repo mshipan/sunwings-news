@@ -24,7 +24,7 @@ import PhotoGallery from "../pages/dashboard/media/PhotoGallery";
 import VideoGallery from "../pages/dashboard/media/VideoGallery";
 import BodyStyles from "../pages/dashboard/themeSettings/bodyStyles/BodyStyles";
 import SearchedNewspage from "../pages/homePage/SearchedNewspage";
-import Comments from "../pages/dashboard/comments/Comments";
+import CommentPage from "../pages/dashboard/CommentPage/CommentPage";
 
 const router = createBrowserRouter([
   {
@@ -124,7 +124,7 @@ const router = createBrowserRouter([
       },
       {
         path: "comments",
-        element: <Comments />,
+        element: <CommentPage />,
       },
     ],
   },
