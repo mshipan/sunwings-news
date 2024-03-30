@@ -27,7 +27,7 @@ const SearchedNewspage = () => {
 
   return (
     <div>
-      <div className="py-2 grid grid-cols-2 md:grid-cols-3 gap-6">
+      <div className={`py-2 ${filteredSearchPosts.length !==0?'grid grid-cols-2 md:grid-cols-3 gap-6':''}`}>
         {filteredSearchPosts.length !== 0 ? (
           filteredSearchPosts.map((post, i) => (
             <NewsCard
@@ -38,7 +38,7 @@ const SearchedNewspage = () => {
             />
           ))
         ) : (
-          <div className="text-lg md:text-2xl">No News available</div>
+          <div className="text-lg font-medium md:text-2xl flex justify-center items-center min-h-96">No News available</div>
         )}
       </div>
     </div>

@@ -8,7 +8,8 @@ import {
   useUpdateFacebookMutation,
 } from "../../../../redux/features/allApis/socialMediaApi/facebookApi";
 import { Link } from "react-router-dom";
-
+import img1 from "../../../../assets/1.png"
+import logo from "../../../../assets/user-square.png"
 const Facebook = () => {
   const [loading, setLoading] = useState(false);
   const { register, handleSubmit, watch, reset } = useForm();
@@ -125,7 +126,15 @@ const Facebook = () => {
             )}
           </button>
         </form>
-        {singleFacebook && (
+        <div className="bg-gray-200 w-full md:w-[50%] xl:w-[40%]">
+          <div className="relative pb-14">
+            <img className="w-full h-52" src={img1} alt="" />
+            <img className="w-32 absolute top-1/1 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50" src={logo} alt="" />
+          </div>
+          <h1 className="text-3xl mt-4 px-6">Vismo Dev</h1>
+          <h2 className="text-2xl px-6">Vismo Dev</h2>
+        </div>
+        {/* {singleFacebook && (
           <div className="md:w-1/2 h-fit flex flex-col gap-3 border border-gray-500">
             <div className="relative">
               <div>
@@ -153,9 +162,10 @@ const Facebook = () => {
               </div>
             </div>
           </div>
-        )}
+        )} */}
       </div>
     </div>
+   
   );
 };
 
