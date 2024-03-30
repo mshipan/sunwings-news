@@ -7,16 +7,34 @@ import SinglePageLeft from "../../components/homePage/SinglePageLeft";
 import moment from "moment/moment";
 import { Helmet } from "react-helmet-async";
 import CommentSection from "./CommentSection";
+import { useGetBodyThemeQuery } from "../../redux/features/allApis/bodyThemeApi/bodyThemeApi";
 
 const SinglePage = () => {
   const { id } = useParams();
   const { data: singlePost, isLoading } = useGetPostByIdQuery({ id });
+  const { data: bodyThemes } = useGetBodyThemeQuery();
+  const singleTheme = bodyThemes?.[0];
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
+
+  const renderContent =
+    singlePost?.quill &&
+    singlePost?.quill
+      .split(" ")
+      .slice(0, 150)
+      .join(" ")
+      .replace(
+        /<p/g,
+        '<p style="max-width:100%;width:100%;height:auto;display:inline;"'
+      );
+  const styledRenderContent = `<div style="color: ${singleTheme?.singlePostQuillFontColor}; font-size: ${singleTheme?.singlePostQuillFontSize}px;">${renderContent}</div>`;
   return (
-    <div className="flex flex-col md:flex-row m-auto container px-2 bg-white gap-4">
+    <div
+      className="flex flex-col md:flex-row m-auto container px-2 gap-4"
+      style={{ backgroundColor: singleTheme?.singlePostBg }}
+    >
       <Helmet>
         <title>Sunwings | News Details</title>
       </Helmet>
@@ -27,20 +45,42 @@ const SinglePage = () => {
         </div>
       </div>
       <div className="md:w-4/6 space-y-2 order-1 md:order-2 my-4">
-        <h3 className="text-3xl text-black font-semibold">
+        <h3
+          className="font-semibold"
+          style={{
+            fontSize: singleTheme?.singlePostTitleFontSize,
+            color: singleTheme?.singlePostTitleFontColor,
+          }}
+        >
           {singlePost?.postTitle}
         </h3>
         <div className="flex flex-row gap-2 items-center">
-          <img src={singlePost?.authorImage} className="rounded-full w-16" />
-          <p className="text-lg text-[#2A388F]">{singlePost?.author}</p>
+          <img
+            src={singlePost?.authorImage}
+            className="rounded-full"
+            style={{
+              width: `${singleTheme?.singlePostAuthorImageSize}px`,
+              height: `${singleTheme?.singlePostAuthorImageSize}px`,
+            }}
+          />
+          <p
+            style={{
+              fontSize: singleTheme?.singlePostAuthorFontSize,
+              color: singleTheme?.singlePostAuthorFontColor,
+            }}
+          >
+            {singlePost?.author}
+          </p>
         </div>
-        <p className="text-md">
+        <p
+          style={{
+            fontSize: `${singlePost?.singlePostPublishDateFontSize}px`,
+            color: singlePost?.singlePostPublishDateFontColor,
+          }}
+        >
           {moment(singlePost?.publishDate).format("MMMM Do YYYY, h:mm a ")}
         </p>
-        <p
-          dangerouslySetInnerHTML={{ __html: singlePost?.quill }}
-          className="text-black text-base md:text-lg"
-        ></p>
+        <p dangerouslySetInnerHTML={{ __html: styledRenderContent }}></p>
         <CommentSection newsId={singlePost?._id} />
       </div>
       <div className="md:w-1/6 order-3">

@@ -12,11 +12,14 @@ const BodyBackground = ({
   TextFontColor,
   TextFontSizeLabel,
   TextFontColorLabel,
+  ImageSizeLabel,
+  ImageSize,
   loading,
 }) => {
   const [bgColor, setBgColor] = useState("");
   const [textColorValue, setTextColorValue] = useState("");
   const [fontSizeValue, setFontSizeValue] = useState("");
+  const [imageSizeValue, setImageSizeValue] = useState("");
   const {
     register,
     handleSubmit,
@@ -36,8 +39,11 @@ const BodyBackground = ({
 
       // Set default font size
       setFontSizeValue(bodyThemes[0]?.[TextFontSize] || "");
+
+      // Set default Image size
+      setImageSizeValue(bodyThemes[0]?.[ImageSize] || "");
     }
-  }, [bodyThemes, BgColor, TextFontColor, TextFontSize]);
+  }, [bodyThemes, BgColor, TextFontColor, TextFontSize, ImageSize]);
 
   const handleBgColorChange = (color) => {
     setValue(BgColor, color);
@@ -54,12 +60,17 @@ const BodyBackground = ({
     setFontSizeValue(e.target.value);
   };
 
+  const handleImageSizeChange = (e) => {
+    setValue(ImageSize, e.target.value);
+    setImageSizeValue(e.target.value);
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
       <div className="flex flex-col gap-1 w-full md:w-full lg:w-full xl:w-5/6">
         <label htmlFor="" className="flex flex-col items-start ">
           <span className="text-xl leading-3">{labelH1}:</span>
-          <span className="text-lg text-orange-600 italic ">{subLabel}</span>
+          <span className="text-sm text-orange-600 italic ">{subLabel}</span>
         </label>
 
         <div className="flex flex-col gap-1">
@@ -76,6 +87,11 @@ const BodyBackground = ({
           {errors.TextFontColor && (
             <p className="text-red-600 text-sm italic">
               <span className="font-semibold">Font Color</span> is Required **
+            </p>
+          )}
+          {errors.ImageSize && (
+            <p className="text-red-600 text-sm italic">
+              <span className="font-semibold">Image Size</span> is Required **
             </p>
           )}
         </div>
@@ -103,7 +119,6 @@ const BodyBackground = ({
                 type="color"
                 name="color"
                 {...register("takenBgColor")}
-                // onChange={(e) => setBgColorValue(e.target.value)}
                 onChange={(e) => handleBgColorChange(e.target.value)}
                 className="h-8 "
               />
@@ -147,6 +162,25 @@ const BodyBackground = ({
                 onChange={(e) => handleTextColorChange(e.target.value)}
                 className="h-8"
               />
+            </div>
+          )}
+
+          {ImageSize && (
+            <div className="flex flex-row md:flex-row lg:flex-row xl:flex-row items-end gap-3 w-full md:w-full lg:w-4/12 xl:w-56">
+              <div className="form-control w-full">
+                <label htmlFor={ImageSize} className="text-lg">
+                  {ImageSizeLabel}:
+                </label>
+                <input
+                  type="number"
+                  name={ImageSize}
+                  {...register(ImageSize, { required: true })}
+                  defaultValue={imageSizeValue}
+                  onChange={handleImageSizeChange}
+                  placeholder="Only Number"
+                  className="px-2 py-1 bg-white border border-orange-600 w-full"
+                />
+              </div>
             </div>
           )}
 
