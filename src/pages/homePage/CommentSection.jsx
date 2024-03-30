@@ -7,7 +7,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import moment from "moment";
 
-const CommentSection = ({ newsId }) => {
+const CommentSection = ({ newsId, newsTitle }) => {
   const { user } = useContext(AuthContext);
   const [addComment] = useAddCommentMutation();
   const { data: comments } = useGetCommentByIdQuery(newsId);
@@ -35,6 +35,7 @@ const CommentSection = ({ newsId }) => {
     const comment = e.target.comment.value;
     const commentInfo = {
       newsId: newsId,
+      newsTitle: newsTitle,
       name: user?.displayName || "anonymous",
       image: user?.photoURL || "",
       email: user?.email || "",

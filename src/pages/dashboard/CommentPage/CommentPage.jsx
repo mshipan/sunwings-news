@@ -59,7 +59,7 @@ const CommentPage = () => {
       <table className="table-auto w-full bg-white border-collapse">
         <thead>
           <tr>
-            <th className="px-4 py-2 text-gray-800">News ID</th>
+            <th className="px-4 py-2 text-gray-800">News</th>
             <th className="px-4 py-2 text-gray-800">Name</th>
             <th className="px-4 py-2 text-gray-800">Email</th>
             <th className="px-4 py-2 text-gray-800">Date</th>
@@ -78,7 +78,7 @@ const CommentPage = () => {
               <tr key={index}>
                 <Link to={`/posts/${item.newsId}`} className="text-center">
                   <td className="px-4 py-2 underline text-blue-400 hover:text-blue-500">
-                    {item.newsId}
+                    {item.newsTitle}
                   </td>
                 </Link>
 
