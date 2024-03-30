@@ -13,11 +13,9 @@ import { Helmet } from "react-helmet-async";
 const AllUsers = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [uid, setUid] = useState("");
-
   // get all users
   const { data: users } = useGetAllUsersQuery();
   const [filteredRows, setFilteredRows] = useState([]);
-  // delete a single user mutation
   const [deleteSingleUser] = useDeleteSingleUserMutation();
   const [addRoleToUser] = useAddRoleToUserMutation();
   // table data

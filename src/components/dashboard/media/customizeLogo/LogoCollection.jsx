@@ -39,7 +39,11 @@ const LogoCollection = () => {
             <img
               src={logo.logo}
               alt="logo"
-              className="w-56 border border-gray-500"
+              className={`w-56 border ${
+                logo.isSelected === true
+                  ? "border-green-900 border-2"
+                  : "border-gray-400"
+              }`}
               onClick={() => handleLogoClick(logo._id)}
             />
           </div>
