@@ -13,19 +13,14 @@ import { Helmet } from "react-helmet-async";
 const AllUsers = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [uid, setUid] = useState("");
-
   // get all users
   const { data: users } = useGetAllUsersQuery();
-  // delete a single user mutation
+  const [filteredRows, setFilteredRows] = useState([]);
   const [deleteSingleUser] = useDeleteSingleUserMutation();
   const [addRoleToUser] = useAddRoleToUserMutation();
   // table data
   const [filters, setFilters] = useState({
-    month: "",
-    year: "",
-    categories: "",
-    status: "",
-    author: "",
+    role: "",
   });
 
   const handleFilterChange = (event) => {
@@ -38,6 +33,14 @@ const AllUsers = () => {
 
   const handleFilterSubmit = () => {
     // Handle filter submission, you can apply your filtering logic here
+    let filteredRows = users;
+    if (filters.role) {
+      filteredRows = filteredRows.filter((row) => row.role === filters.role);
+      setFilteredRows(filteredRows);
+      if (!filteredRows) {
+        setFilteredRows([]);
+      }
+    }
   };
 
   const handleSearchInputChange = (event) => {
@@ -46,6 +49,11 @@ const AllUsers = () => {
 
   const handleSearchSubmit = () => {
     // Handle search submission
+    let filteredRows = users;
+    if (searchQuery) {
+      filteredRows = users.filter((user) => user.name.includes(searchQuery));
+      setFilteredRows(filteredRows);
+    }
   };
 
   const ActionButtons = () => {
@@ -144,7 +152,7 @@ const AllUsers = () => {
     },
   ];
 
-  const rows = users
+  let rows = users
     ? users.map((user, i) => ({
         id: i + 1,
         name: user.name,
@@ -153,6 +161,22 @@ const AllUsers = () => {
         uid: user.uid,
       }))
     : [];
+
+  if (filteredRows.length === 0 && filters.role) {
+    rows = [];
+  }
+
+  if (filteredRows.length) {
+    rows = filteredRows
+      ? filteredRows?.map((user, i) => ({
+          id: i + 1,
+          name: user.name,
+          email: user?.email,
+          role: user.role,
+          uid: user.uid,
+        }))
+      : [];
+  }
 
   const filterRows = () => {
     if (!searchQuery) {
@@ -166,14 +190,6 @@ const AllUsers = () => {
       );
     });
   };
-
-  // const handleEdit = (id) => {
-  //   // Handle edit action
-  // };
-
-  // const handleView = (id) => {
-  //   // Handle view action
-  // };
 
   const handleDelete = (uid) => {
     // Handle delete action
@@ -209,66 +225,6 @@ const AllUsers = () => {
       }
     });
   };
-
-  const months = [
-    { value: "", lable: "Month" },
-    { value: "1", lable: "Januray" },
-    { value: "2", lable: "February" },
-    { value: "3", lable: "March" },
-    { value: "4", lable: "April" },
-    { value: "5", lable: "May" },
-    { value: "6", lable: "June" },
-    { value: "7", lable: "July" },
-    { value: "8", lable: "August" },
-    { value: "9", lable: "September" },
-    { value: "10", lable: "October" },
-    { value: "11", lable: "November" },
-    { value: "12", lable: "December" },
-  ];
-
-  const years = [
-    { value: "", lable: "Year" },
-    { value: "2020", lable: "2020" },
-    { value: "2021", lable: "2021" },
-    { value: "2022", lable: "2022" },
-    { value: "2023", lable: "2023" },
-    { value: "2024", lable: "2024" },
-    { value: "2025", lable: "2025" },
-    { value: "2026", lable: "2026" },
-    { value: "2027", lable: "2027" },
-    { value: "2028", lable: "2028" },
-    { value: "2029", lable: "2029" },
-    { value: "2030", lable: "2030" },
-  ];
-
-  const categories = [
-    { value: "allCategory", label: "All Category" },
-    { value: "politics", label: "Politics" },
-    { value: "business", label: "Business" },
-    { value: "technology", label: "Technology" },
-    { value: "sports", label: "Sports" },
-    { value: "entertainment", label: "Entertainment" },
-    { value: "health", label: "Health" },
-    { value: "science", label: "Science" },
-    { value: "education", label: "Education" },
-    { value: "environment", label: "Environment" },
-    { value: "travel", label: "Travel" },
-  ];
-
-  const authors = [
-    { value: "", label: "Author" },
-    { value: "john_doe", label: "John Doe" },
-    { value: "jane_smith", label: "Jane Smith" },
-    { value: "alex_jones", label: "Alex Jones" },
-    { value: "emily_wilson", label: "Emily Wilson" },
-    { value: "michael_brown", label: "Michael Brown" },
-    { value: "sarah_adams", label: "Sarah Adams" },
-    { value: "david_clark", label: "David Clark" },
-    { value: "lisa_jackson", label: "Lisa Jackson" },
-    { value: "ryan_roberts", label: "Ryan Roberts" },
-    { value: "amy_carter", label: "Amy Carter" },
-  ];
-
   return (
     <div className="flex flex-col gap-3">
       <Helmet>
@@ -283,64 +239,25 @@ const AllUsers = () => {
         </Link> */}
       </div>
       <div className="mt-5 flex items-center gap-1 text-xs">
-        <p className="text-xs">All (344) </p>|
-        <p className="text-xs">Published (300)</p>|
-        <p className="text-xs"> Draft (44)</p>
+        <p className="text-xs">All ({users?.length}) </p>
+        {/* <p className="text-xs">Published (300)</p>|
+        <p className="text-xs"> Draft (44)</p> */}
       </div>
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 md:gap-0">
         <div className="flex flex-col md:flex-row md:items-center gap-3">
           <select
-            name="month"
-            onChange={handleFilterChange}
-            className="block rounded-sm px-2 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6 bg-white "
-          >
-            {months?.map((month, i) => (
-              <option key={i} value={month?.value}>
-                {month?.lable}
-              </option>
-            ))}
-          </select>
-          <select
-            name="year"
+            name="role"
             onChange={handleFilterChange}
             className="block rounded-sm px-2 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6 bg-white"
           >
-            {years?.map((year, i) => (
-              <option key={i} value={year?.value}>
-                {year?.lable}
-              </option>
-            ))}
-          </select>
-          <select
-            name="categories"
-            onChange={handleFilterChange}
-            className="block rounded-sm px-2 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6 bg-white"
-          >
-            {categories?.map((category, i) => (
-              <option key={i} value={category?.value}>
-                {category?.label}
-              </option>
-            ))}
-          </select>
-          <select
-            name="status"
-            onChange={handleFilterChange}
-            className="block rounded-sm px-2 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6 bg-white"
-          >
-            <option value="">Status</option>
-            <option value="published">Published</option>
-            <option value="draft">Draft</option>
-          </select>
-          <select
-            name="author"
-            onChange={handleFilterChange}
-            className="block rounded-sm px-2 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6 bg-white"
-          >
-            {authors?.map((author, i) => (
-              <option key={i} value={author?.value}>
-                {author?.label}
-              </option>
-            ))}
+            <option value="" disabled selected>
+              Select
+            </option>
+            <option value="journalist">Journalist/Reporter</option>
+            <option value="editor">Editor</option>
+            <option value="administrator">Administrator</option>
+            <option value="advertiser">Advertiser</option>
+            <option value="moderator">Moderator</option>
           </select>
           <div>
             <button

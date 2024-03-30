@@ -14,11 +14,27 @@ const bodyThemeApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["bodyTheme"],
     }),
+    updateSinglePostBg: builder.mutation({
+      query: ({ id, singlePostBg }) => ({
+        url: `/body-theme/${id}`,
+        method: "PUT",
+        body: { singlePostBg },
+      }),
+      invalidatesTags: ["bodyTheme"],
+    }),
     updateNewsCard: builder.mutation({
       query: ({ id, newscardTitleFontSize, newscardTitleFontColor }) => ({
         url: `/body-theme/${id}`,
         method: "PUT",
         body: { newscardTitleFontSize, newscardTitleFontColor },
+      }),
+      invalidatesTags: ["bodyTheme"],
+    }),
+    updateSinglePostTitle: builder.mutation({
+      query: ({ id, singlePostTitleFontColor, singlePostTitleFontSize }) => ({
+        url: `/body-theme/${id}`,
+        method: "PUT",
+        body: { singlePostTitleFontColor, singlePostTitleFontSize },
       }),
       invalidatesTags: ["bodyTheme"],
     }),
@@ -30,11 +46,82 @@ const bodyThemeApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["bodyTheme"],
     }),
+    updateSinglePostAuthor: builder.mutation({
+      query: ({
+        id,
+        singlePostAuthorFontColor,
+        singlePostAuthorFontSize,
+        singlePostAuthorImageSize,
+      }) => ({
+        url: `/body-theme/${id}`,
+        method: "PUT",
+        body: {
+          singlePostAuthorFontColor,
+          singlePostAuthorFontSize,
+          singlePostAuthorImageSize,
+        },
+      }),
+      invalidatesTags: ["bodyTheme"],
+    }),
     updateMenu: builder.mutation({
       query: ({ id, menuTitleFontSize, menuTitleFontColor, menuBg }) => ({
         url: `/body-theme/${id}`,
         method: "PUT",
         body: { menuTitleFontSize, menuTitleFontColor, menuBg },
+      }),
+      invalidatesTags: ["bodyTheme"],
+    }),
+    updateSinglePostPublishDate: builder.mutation({
+      query: ({
+        id,
+        singlePostPublishDateFontColor,
+        singlePostPublishDateFontSize,
+      }) => ({
+        url: `/body-theme/${id}`,
+        method: "PUT",
+        body: { singlePostPublishDateFontColor, singlePostPublishDateFontSize },
+      }),
+      invalidatesTags: ["bodyTheme"],
+    }),
+    updateSinglePostQilll: builder.mutation({
+      query: ({ id, singlePostQuillFontColor, singlePostQuillFontSize }) => ({
+        url: `/body-theme/${id}`,
+        method: "PUT",
+        body: { singlePostQuillFontColor, singlePostQuillFontSize },
+      }),
+      invalidatesTags: ["bodyTheme"],
+    }),
+    updateSinglePostLatestNewsCard: builder.mutation({
+      query: ({
+        id,
+        latestNewsCardBg,
+        latestNewsCardFontColor,
+        latestNewsCardFontSize,
+      }) => ({
+        url: `/body-theme/${id}`,
+        method: "PUT",
+        body: {
+          latestNewsCardBg,
+          latestNewsCardFontColor,
+          latestNewsCardFontSize,
+        },
+      }),
+      invalidatesTags: ["bodyTheme"],
+    }),
+    updateSinglePostPopularNewsCard: builder.mutation({
+      query: ({
+        id,
+        popularNewsCardBg,
+        popularNewsCardFontColor,
+        popularNewsCardFontSize,
+      }) => ({
+        url: `/body-theme/${id}`,
+        method: "PUT",
+        body: {
+          popularNewsCardBg,
+          popularNewsCardFontColor,
+          popularNewsCardFontSize,
+        },
       }),
       invalidatesTags: ["bodyTheme"],
     }),
@@ -51,8 +138,15 @@ const bodyThemeApi = baseApi.injectEndpoints({
 export const {
   useGetBodyThemeQuery,
   useUpdateBodyBgMutation,
+  useUpdateSinglePostBgMutation,
   useUpdateNewsCardMutation,
+  useUpdateSinglePostTitleMutation,
   useUpdateMarqueMutation,
+  useUpdateSinglePostAuthorMutation,
   useUpdateMenuMutation,
+  useUpdateSinglePostPublishDateMutation,
+  useUpdateSinglePostQilllMutation,
+  useUpdateSinglePostLatestNewsCardMutation,
+  useUpdateSinglePostPopularNewsCardMutation,
   useUpdateMoreNewsMutation,
 } = bodyThemeApi;

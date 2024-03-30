@@ -7,6 +7,8 @@ import {
   useGetAllInstagramQuery,
   useUpdateInstagramMutation,
 } from "../../../../redux/features/allApis/socialMediaApi/instagramApi";
+import img1 from "../../../../assets/1.png";
+import logo from "../../../../assets/user-square.png";
 
 const Instagram = () => {
   const [loading, setLoading] = useState(false);
@@ -123,32 +125,31 @@ const Instagram = () => {
           </button>
         </form>
         {singleInstagram && (
-          <div className="md:w-1/2 h-fit flex flex-col gap-3 border border-gray-500">
-            <div className="relative">
-              <div>
-                <img
-                  src={singleInstagram?.coverPhoto}
-                  alt=""
-                  className="w-full"
-                />
-              </div>
-              <div className="absolute bottom-0 md:-bottom-7 left-4">
-                <img
-                  src={singleInstagram?.profilePhoto}
-                  alt=""
-                  className="md:size-48 size-32 rounded-full border border-gray-500"
-                />
-              </div>
-              <div className="flex flex-col gap-1 p-4 absolute bottom-2 md:bottom-6 left-28 md:left-48 ">
-                <h1 className=" text-xl md:text-4xl text-white font-medium leading-none">
-                  <Link to={singleInstagram?.link}>
-                    <span className="ml-5 hover:underline">
-                      {singleInstagram?.title}
-                    </span>
-                  </Link>
-                </h1>
-              </div>
+          <div className="bg-gray-200 w-full md:w-[50%] xl:w-[40%]">
+            <div className="relative pb-14">
+              <img
+                className="w-full h-52"
+                src={
+                  singleInstagram?.coverPhoto
+                    ? singleInstagram?.coverPhoto
+                    : img1
+                }
+                alt="Cover Photo"
+              />
+              <img
+                className="w-32 absolute top-1/1 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 rounded-full"
+                src={
+                  singleInstagram?.profilePhoto
+                    ? singleInstagram?.profilePhoto
+                    : logo
+                }
+                alt="Profile Photo"
+              />
             </div>
+            <h1 className="text-xl mt-4 px-6">{singleInstagram?.title}</h1>
+            <Link to={singleInstagram?.link} className="text-blue-600">
+              <h2 className="text-base px-6">{singleInstagram?.link}</h2>
+            </Link>
           </div>
         )}
       </div>
