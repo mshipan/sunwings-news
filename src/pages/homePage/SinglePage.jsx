@@ -80,6 +80,7 @@ const SinglePage = () => {
         >
           {moment(singlePost?.publishDate).format("MMMM Do YYYY, h:mm a ")}
         </p>
+
         <p dangerouslySetInnerHTML={{ __html: styledRenderContent }}></p>
         <CommentSection newsId={singlePost?._id} />
       </div>
