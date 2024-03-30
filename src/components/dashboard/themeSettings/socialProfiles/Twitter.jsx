@@ -7,6 +7,8 @@ import {
   useGetAllTwitterQuery,
   useUpdateTwitterMutation,
 } from "../../../../redux/features/allApis/socialMediaApi/twitterApi";
+import img1 from "../../../../assets/1.png";
+import logo from "../../../../assets/user-square.png";
 const Twitter = () => {
   const [loading, setLoading] = useState(false);
   const { register, handleSubmit, watch, reset } = useForm();
@@ -122,32 +124,29 @@ const Twitter = () => {
           </button>
         </form>
         {singleTwitter && (
-          <div className="md:w-1/2 h-fit flex flex-col gap-3 border border-gray-500">
-            <div className="relative">
-              <div>
-                <img
-                  src={singleTwitter?.coverPhoto}
-                  alt=""
-                  className="w-full"
-                />
-              </div>
-              <div className="absolute bottom-0 md:-bottom-7 left-4">
-                <img
-                  src={singleTwitter?.profilePhoto}
-                  alt=""
-                  className="md:size-48 size-32 rounded-full border border-gray-500"
-                />
-              </div>
-              <div className="flex flex-col gap-1 p-4 absolute bottom-2 md:bottom-6 left-28 md:left-48 ">
-                <h1 className=" text-xl md:text-4xl text-white font-medium leading-none">
-                  <Link to={singleTwitter?.link}>
-                    <span className="ml-5 hover:underline">
-                      {singleTwitter?.title}
-                    </span>
-                  </Link>
-                </h1>
-              </div>
+          <div className="bg-gray-200 w-full md:w-[50%] xl:w-[40%]">
+            <div className="relative pb-14">
+              <img
+                className="w-full h-52"
+                src={
+                  singleTwitter?.coverPhoto ? singleTwitter?.coverPhoto : img1
+                }
+                alt="Cover Photo"
+              />
+              <img
+                className="w-32 absolute top-1/1 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 rounded-full"
+                src={
+                  singleTwitter?.profilePhoto
+                    ? singleTwitter?.profilePhoto
+                    : logo
+                }
+                alt="Profile Photo"
+              />
             </div>
+            <h1 className="text-xl mt-4 px-6">{singleTwitter?.title}</h1>
+            <Link to={singleTwitter?.link} className="text-blue-600">
+              <h2 className="text-base px-6">{singleTwitter?.link}</h2>
+            </Link>
           </div>
         )}
       </div>

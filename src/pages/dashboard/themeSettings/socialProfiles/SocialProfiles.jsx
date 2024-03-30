@@ -3,8 +3,6 @@ import Instagram from "../../../../components/dashboard/themeSettings/socialProf
 import Twitter from "../../../../components/dashboard/themeSettings/socialProfiles/Twitter";
 import Youtube from "../../../../components/dashboard/themeSettings/socialProfiles/Youtube";
 import { Helmet } from "react-helmet-async";
-import img1 from "../../../../assets/HomeBanner1.png"
-import logo from "../../../../assets/user-square.png"
 const SocialProfiles = () => {
   return (
     <div className="flex flex-col gap-3">
