@@ -41,7 +41,7 @@ const SinglePage = () => {
           dangerouslySetInnerHTML={{ __html: singlePost?.quill }}
           className="text-black text-base md:text-lg"
         ></p>
-        <CommentSection newsId={singlePost?._id} />
+        <CommentSection newsId={singlePost?._id} newsTitle={singlePost?.postTitle}/>
       </div>
       <div className="md:w-1/6 order-3">
         <CategoryTitle title={"আলোচিত সংবাদ"} />
