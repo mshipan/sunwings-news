@@ -14,7 +14,7 @@ const SinglePage = () => {
   const { data: singlePost, isLoading } = useGetPostByIdQuery({ id });
   const { data: bodyThemes } = useGetBodyThemeQuery();
   const singleTheme = bodyThemes?.[0];
-
+  console.log(singleTheme);
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -48,7 +48,7 @@ const SinglePage = () => {
         <h3
           className="font-semibold"
           style={{
-            fontSize: singleTheme?.singlePostTitleFontSize,
+            fontSize: `${singleTheme?.singlePostTitleFontSize}px`,
             color: singleTheme?.singlePostTitleFontColor,
           }}
         >
