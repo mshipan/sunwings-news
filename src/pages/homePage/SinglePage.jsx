@@ -82,7 +82,10 @@ const SinglePage = () => {
         </p>
 
         <p dangerouslySetInnerHTML={{ __html: styledRenderContent }}></p>
-        <CommentSection newsId={singlePost?._id} />
+        <CommentSection
+          newsId={singlePost?._id}
+          newsTitle={singlePost?.newsTitle}
+        />
       </div>
       <div className="md:w-1/6 order-3">
         <CategoryTitle title={"আলোচিত সংবাদ"} />

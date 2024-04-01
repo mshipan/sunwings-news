@@ -78,7 +78,7 @@ const CommentPage = () => {
               <tr key={index}>
                 <Link to={`/posts/${item.newsId}`} className="text-center">
                   <td className="px-4 py-2 underline text-blue-400 hover:text-blue-500">
-                    {item.newsTitle}
+                    {item.newsTitle.slice(0, 10)}...
                   </td>
                 </Link>
 

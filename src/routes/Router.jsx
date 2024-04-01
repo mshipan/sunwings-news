@@ -26,7 +26,7 @@ import BodyStyles from "../pages/dashboard/themeSettings/bodyStyles/BodyStyles";
 import SearchedNewspage from "../pages/homePage/SearchedNewspage";
 import CommentPage from "../pages/dashboard/CommentPage/CommentPage";
 import SinglePostStyles from "../pages/dashboard/themeSettings/singlePostStyles/SinglePostStyles";
-
+import DashboardHome from "../pages/dashboard/dashboardHome/DashboardHome";
 
 const router = createBrowserRouter([
   {
@@ -67,6 +67,10 @@ const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
+      {
+        path: "",
+        element: <DashboardHome />,
+      },
       {
         path: "all-posts",
         element: <AllPosts />,
