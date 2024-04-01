@@ -389,7 +389,14 @@ const HeaderLogo = () => {
         </div>
       </div>
       {isMenuOpen && (
-        <div className="block md:hidden absolute top-0 bg-black h-fit w-1/2 z-30 transition-all ease-in-out duration-500">
+        <div
+          className="block md:hidden absolute top-0 h-fit w-1/2 z-30 transition-all ease-in-out duration-500"
+          style={{
+            backgroundColor: singleTheme?.menuBg,
+            fontSize: `${singleTheme?.menuTitleFontSize}px`,
+            color: singleTheme?.menuTitleFontColor,
+          }}
+        >
           <div className="p-1">
             <div>
               <img src={selectedLogo?.logo} alt="logo" className="w-36 " />
