@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { IoMdListBox } from "react-icons/io";
 import "./DashboardHome.css";
 import watchBg from "../../../assets/watchBg.jpg";
 import moment from "moment";
+import Calendar from "react-calendar";
+
+import "react-calendar/dist/Calendar.css";
+import TopCards from "../../../components/dashboard/dashboardHome/TopCards";
+import TodaysHeadline from "../../../components/dashboard/dashboardHome/TodaysHeadline";
+import FeaturedNews from "../../../components/dashboard/dashboardHome/FeaturedNews";
 
 const DashboardHome = () => {
   // State to hold current time
@@ -38,6 +43,23 @@ const DashboardHome = () => {
     (time.getHours() % 12) * 30 +
     time.getMinutes() / 2 +
     time.getSeconds() / 120;
+
+  const tileClassName = ({ date }) => {
+    // Check if the day is Friday (5 is the index for Friday)
+    if (date.getDay() === 5) {
+      return "friday-tile"; // Apply a custom CSS class for Fridays
+    }
+
+    if (date.getDay() === 6) {
+      return "saturday-tile";
+    }
+
+    if (date.getDay() === 0) {
+      return "sunday-tile";
+    }
+    return null;
+  };
+
   return (
     <div>
       <Helmet>
@@ -47,33 +69,11 @@ const DashboardHome = () => {
         <h1 className="text-black text-lg md:text-xl">Dashboard Home</h1>
         <h1 className="text-black text-base md:text-lg ">Welcome Back!</h1>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mb-10">
-        <div className="flex flex-row items-center justify-between border border-orange-600 p-4 ">
-          <div>
-            <h1 className="text-2xl">0</h1>
-            <p className="text-base">All Posts</p>
-          </div>
-          <IoMdListBox className="text-4xl" />
-        </div>
-
-        <div className="flex flex-row items-center justify-between border border-orange-600 p-4 ">
-          <div>
-            <h1 className="text-2xl">0</h1>
-            <p className="text-base">All Comments</p>
-          </div>
-          <IoMdListBox className="text-4xl" />
-        </div>
-
-        <div className="flex flex-row items-center justify-between border border-orange-600 p-4 ">
-          <div>
-            <h1 className="text-2xl">0</h1>
-            <p className="text-base">All Categories</p>
-          </div>
-          <IoMdListBox className="text-4xl" />
-        </div>
-      </div>
-      <div>
-        <div className="bg-black p-3 w-full md:w-2/5 h-56">
+      {/* Top cards section */}
+      <TopCards />
+      {/* Watch & Calender Section */}
+      <div className="flex flex-col md:flex-row gap-8 w-full">
+        <div className="bg-black p-3 w-full md:w-1/2 lg:w-1/2 xl:w-1/2 2xl:w-1/3">
           <div className="relative border-2 border-gray-300 w-full h-full flex items-center justify-center">
             <img
               src={watchBg}
@@ -136,8 +136,18 @@ const DashboardHome = () => {
             </div>
           </div>
         </div>
-        <div></div>
+        <div className="w-full md:w-1/2 lg:w-1/2 xl:w-1/2 2xl:w-1/3 h-full">
+          <Calendar
+            tileClassName={tileClassName}
+            className="text-black w-full"
+            calendarType="islamic"
+          />
+        </div>
       </div>
+      {/* Today's Headline */}
+      <TodaysHeadline />
+      {/* Featured News */}
+      <FeaturedNews />
     </div>
   );
 };
