@@ -11,8 +11,8 @@ import { Link } from "react-router-dom";
 import SmallNewsCard from "../shared/SmallNewsCard";
 
 const Banner = () => {
-  const { data: posts, isLoading: loading } = useGetPostsQuery({});
-
+  const { data, isLoading: loading } = useGetPostsQuery({});
+  const posts = data?.filter((post) => post.status === "published");
   const lastFiveNews = posts?.slice(0, 5);
   const popularNews = posts?.filter((post) => post.isPopular === true);
 

@@ -8,8 +8,7 @@ const ShortCategoryNews = () => {
   const { data, isLoading, isError } = useGetPostsQuery({
     category: "রাজনীতি",
   });
-
-  const posts = data?.slice(0, 4);
+  const posts = data?.filter((post) => post.status === "published").slice(0, 4);
   // Handling loading state
   if (isLoading) {
     return <div>Loading...</div>;

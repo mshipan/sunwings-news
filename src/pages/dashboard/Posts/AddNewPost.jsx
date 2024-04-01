@@ -306,10 +306,10 @@ const AddNewPost = () => {
 
                     <button
                       type="button"
-                      onClick={() => onSubmit({}, "published")}
+                      onClick={() => onSubmit({}, "pending")}
                       className="px-4 py-1 border border-blue-600 bg-transparent hover:bg-blue-600 text-blue-600 hover:text-white font-medium"
                     >
-                      {loading ? "Publishing..." : "Publish"}
+                      {loading ? "Posting..." : "Add post"}
                     </button>
 
                     {/* <button className="px-4 py-1 border border-red-600 bg-transparent hover:bg-red-600 text-red-600 hover:text-white font-medium">

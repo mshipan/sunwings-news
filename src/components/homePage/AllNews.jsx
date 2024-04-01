@@ -8,10 +8,11 @@ import { useGetBodyThemeQuery } from "../../redux/features/allApis/bodyThemeApi/
 const AllNews = ({ date }) => {
   const { data: bodyThemes } = useGetBodyThemeQuery();
   const singleTheme = bodyThemes?.[0];
-  const { data: posts, isLoading, isError } = useGetPostsQuery({});
+  const { data, isLoading, isError } = useGetPostsQuery({});
   const [showCount, setShowCount] = useState(6); // Initial count to show
   const perPage = 6; // Number of posts to show per click
 
+  const posts = data?.filter((post) => post?.status === "published");
   // filter post by date
   const filteredPosts = posts?.filter(
     (post) => post.publishDate.split("T").slice(0, 1).join() === date

@@ -40,6 +40,14 @@ const postApi = baseApi.injectEndpoints({
       invalidatesTags: ["posts"],
     }),
 
+    updateStatus: builder.mutation({
+      query: ({ id }) => ({
+        url: `/posts/status/${id}`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["posts"],
+    }),
+
     deletePost: builder.mutation({
       query: ({ id }) => ({
         url: `/posts/${id}`,
@@ -57,4 +65,5 @@ export const {
   useUpdatePostMutation,
   useDeletePostMutation,
   useUpdatePopularMutation,
+  useUpdateStatusMutation,
 } = postApi;

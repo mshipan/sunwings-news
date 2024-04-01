@@ -7,6 +7,7 @@ import {
   useDeletePostMutation,
   useGetPostsQuery,
   useUpdatePopularMutation,
+  useUpdateStatusMutation,
 } from "../../../redux/features/allApis/postApi/postApi";
 import { useGetAllUsersQuery } from "../../../redux/features/allApis/usersApi/usersApi";
 import Swal from "sweetalert2";
@@ -21,13 +22,14 @@ const AllPosts = () => {
   // console.log(filters);
   const [filteredRows, setFilteredRows] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-
+  const [selectedId, setSelectedId] = useState("");
   const { data: allPosts } = useGetPostsQuery({
     category: "",
     subCategory: "",
   });
   const { data: allUsers } = useGetAllUsersQuery();
   const [deletePost] = useDeletePostMutation();
+  const [updateStatus] = useUpdateStatusMutation();
   const [updatePopularPost] = useUpdatePopularMutation();
 
   const handleFilterChange = (event) => {
@@ -84,6 +86,40 @@ const AllPosts = () => {
     }
   };
 
+  const handleStatus = () => {
+    console.log(selectedId);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, approve it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        updateStatus({ id: selectedId })
+          .then((result) => {
+            if (result.data.modifiedCount > 0) {
+              Swal.fire({
+                title: "Updated!",
+                text: "This status has been updated.",
+                icon: "success",
+              });
+            }
+          })
+          .catch((error) => {
+            Swal.fire({
+              title: "Failed to update status",
+              text: error,
+              icon: "error",
+              confirmButtonText: "OK",
+            });
+          });
+      }
+    });
+  };
+
   const ActionButtons = ({ id }) => {
     return (
       <div className="flex justify-center items-center gap-2">
@@ -124,13 +160,31 @@ const AllPosts = () => {
 
   const StatusBadge = ({ status }) => {
     return (
-      <span
-        className={`inline-block px-2 py-1 rounded-full text-xs ${
-          status === "published" && "bg-green-500 text-white"
-        } ${status === "draft" && "bg-red-500 text-white"}`}
-      >
-        {status}
-      </span>
+      (status === "published" && (
+        <button className="inline-block px-2 py-1 rounded-md text-xs bg-green-500 text-white">
+          {status}
+        </button>
+      )) ||
+      (status === "pending" && (
+        <button
+          className="inline-block px-2 py-1 rounded-md text-xs bg-red-500 text-white"
+          onClick={handleStatus}
+        >
+          {status}
+        </button>
+      )) ||
+      (status === "draft" && (
+        <button className="inline-block px-2 py-1 rounded-md text-xs bg-yellow-500 text-white">
+          {status}
+        </button>
+      ))
+      // <span
+      //   className={`inline-block px-2 py-1 rounded-full text-xs ${
+      //     status === "published" && "bg-green-500 text-white"
+      //   } ${status === "draft" && "bg-red-500 text-white"}`}
+      // >
+      //   {status}
+      // </span>
     );
   };
 
@@ -225,6 +279,7 @@ const AllPosts = () => {
 
   let rows = allPosts
     ? allPosts?.map((post, i) => ({
+        _id: post?._id,
         id: i + 1,
         author: post.author,
         title: post?.postTitle,
@@ -240,13 +295,14 @@ const AllPosts = () => {
   if (filteredRows.length) {
     rows = filteredRows
       ? filteredRows?.map((post, i) => ({
+          _id: post?._id,
           id: i + 1,
           author: post.author,
           title: post?.postTitle,
           category: post?.category,
           subCategory: post?.subCategory,
           publishDate: formatDate(post?.publishDate),
-          status: post.status,
+          status: post?.status,
           action: post._id,
           popular: { id: post._id, isPopular: post.isPopular },
         }))
@@ -348,7 +404,7 @@ const AllPosts = () => {
     : 0;
 
   const authors = allUsers?.map((post) => post?.name);
-  console.log(authors);
+  // console.log(authors);
 
   return (
     <div className="flex flex-col gap-3">
@@ -488,6 +544,9 @@ const AllPosts = () => {
             },
           }}
           pageSizeOptions={[10, 15]}
+          onRowClick={(params) => {
+            setSelectedId(params.row._id);
+          }}
         />
       </div>
     </div>

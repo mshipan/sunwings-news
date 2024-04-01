@@ -87,14 +87,16 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
                     : "block transition-all ease-in duration-500"
                 }`}
               >
-                <li className="mb-4">
-                  <Link
-                    to="/dashboard/all-posts"
-                    className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
-                  >
-                    All Posts
-                  </Link>
-                </li>
+                {(loggedUser?.role === "administrator" || "editor") && (
+                  <li className="mb-4">
+                    <Link
+                      to="/dashboard/all-posts"
+                      className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
+                    >
+                      All Posts
+                    </Link>
+                  </li>
+                )}
                 <li className="mb-4">
                   <Link
                     to="/dashboard/add-new-post"
@@ -157,65 +159,62 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
                 </ul>
               </li>
             )}
-          {loggedUser &&
-            (loggedUser.role === "administrator" || "moderator") && (
-              <li className="mb-1 group">
-                <div
-                  className="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md   "
-                  onClick={() => toggleCollapse("theme")}
-                >
-                  <MdOutlineCamera className="ri-instance-line mr-3 text-lg" />
-                  <span className="text-sm select-none">Theme Settings</span>
-                  <MdOutlineKeyboardArrowRight className=" ml-auto " />
-                </div>
-                <ul
-                  className={`pl-7 mt-2 ${
-                    collapsed.theme ? "hidden" : "block"
-                  }`}
-                >
-                  <li className="mb-4">
-                    <Link
-                      to="/dashboard/logo"
-                      className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
-                    >
-                      Logo
-                    </Link>
-                  </li>
-                  <li className="mb-4">
-                    <Link
-                      to="/dashboard/social-profiles"
-                      className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
-                    >
-                      Social Profiles
-                    </Link>
-                  </li>
-                  <li className="mb-4">
-                    <Link
-                      to="/dashboard/body-styles"
-                      className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
-                    >
-                      Body Styles
-                    </Link>
-                  </li>
-                  <li className="mb-4">
-                    <Link
-                      to="/dashboard/single-post-styles"
-                      className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
-                    >
-                      Single Post Styles
-                    </Link>
-                  </li>
-                  <li className="mb-4">
-                    <Link
-                      to="/dashboard/footer-customize"
-                      className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
-                    >
-                      Footer
-                    </Link>
-                  </li>
-                </ul>
-              </li>
-            )}
+          {loggedUser && loggedUser.role === "administrator" && (
+            <li className="mb-1 group">
+              <div
+                className="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md   "
+                onClick={() => toggleCollapse("theme")}
+              >
+                <MdOutlineCamera className="ri-instance-line mr-3 text-lg" />
+                <span className="text-sm select-none">Theme Settings</span>
+                <MdOutlineKeyboardArrowRight className=" ml-auto " />
+              </div>
+              <ul
+                className={`pl-7 mt-2 ${collapsed.theme ? "hidden" : "block"}`}
+              >
+                <li className="mb-4">
+                  <Link
+                    to="/dashboard/logo"
+                    className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
+                  >
+                    Logo
+                  </Link>
+                </li>
+                <li className="mb-4">
+                  <Link
+                    to="/dashboard/social-profiles"
+                    className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
+                  >
+                    Social Profiles
+                  </Link>
+                </li>
+                <li className="mb-4">
+                  <Link
+                    to="/dashboard/body-styles"
+                    className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
+                  >
+                    Body Styles
+                  </Link>
+                </li>
+                <li className="mb-4">
+                  <Link
+                    to="/dashboard/single-post-styles"
+                    className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
+                  >
+                    Single Post Styles
+                  </Link>
+                </li>
+                <li className="mb-4">
+                  <Link
+                    to="/dashboard/footer-customize"
+                    className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
+                  >
+                    Footer
+                  </Link>
+                </li>
+              </ul>
+            </li>
+          )}
           {/* <li className="mb-1 group">
             <div
               className="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md    sidebar-dropdown-toggle"

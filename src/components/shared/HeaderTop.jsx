@@ -108,6 +108,11 @@ const HeaderTop = () => {
               <FaXTwitter />
             </span>
           </Link>
+          {user && (
+            <Link to="/dashboard">
+              <button className="btn btn-outline btn-success">Dashboard</button>
+            </Link>
+          )}
           {user ? (
             <IoLogOutOutline onClick={handleLogout} />
           ) : (

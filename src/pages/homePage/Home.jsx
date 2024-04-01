@@ -20,7 +20,9 @@ const Home = () => {
   const { data: nationalNews, isLoading: nationalLoading } = useGetPostsQuery({
     category: "সারাদেশ",
   });
-
+  const publishedNationalNews = nationalNews?.filter(
+    (news) => news.status === "published"
+  );
   const adCenterOfHomePage = allAds
     ? allAds.find(
         (ad) => ad.isSelected === true && ad.position === "center_home_page"
@@ -146,7 +148,7 @@ const Home = () => {
         <div className="w-full md:w-full lg:w-1/3">
           <CategorizedNews
             secTitle={"ভ্রমণ"}
-            news={nationalNews}
+            news={publishedNationalNews}
             loading={nationalLoading}
           />
         </div>

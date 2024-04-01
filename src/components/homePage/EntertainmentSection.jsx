@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 import { HiChevronDoubleRight } from "react-icons/hi2";
 
 const EntertainmentSection = () => {
-  const { data: posts, isLoading } = useGetPostsQuery({ category: "বিনোদন" });
+  const { data, isLoading } = useGetPostsQuery({ category: "বিনোদন" });
   const [showFullContent, setShowFullContent] = useState(false);
-
+  const posts = data?.filter((post) => post.status === "published");
   if (isLoading) {
     return <div>Loading...</div>;
   }
