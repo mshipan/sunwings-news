@@ -14,7 +14,6 @@ const SinglePage = () => {
   const { data: singlePost, isLoading } = useGetPostByIdQuery({ id });
   const { data: bodyThemes } = useGetBodyThemeQuery();
   const singleTheme = bodyThemes?.[0];
-  console.log(singleTheme);
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -84,7 +83,7 @@ const SinglePage = () => {
         <p dangerouslySetInnerHTML={{ __html: styledRenderContent }}></p>
         <CommentSection
           newsId={singlePost?._id}
-          newsTitle={singlePost?.newsTitle}
+          newsTitle={singlePost?.postTitle}
         />
       </div>
       <div className="md:w-1/6 order-3">
