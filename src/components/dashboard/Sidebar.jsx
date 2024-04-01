@@ -62,7 +62,7 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
         <ul className="mt-4">
           <li className="mb-1 group active">
             <Link
-              to="#"
+              to="/dashboard"
               className="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md "
             >
               <TiHomeOutline className="mr-3 text-lg" />
