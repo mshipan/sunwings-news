@@ -5,7 +5,8 @@ import { useGetBodyThemeQuery } from "../../redux/features/allApis/bodyThemeApi/
 const Headline = () => {
   const { data: bodyThemes } = useGetBodyThemeQuery();
   const singleTheme = bodyThemes?.[0];
-  const { data: posts, isLoading } = useGetPostsQuery({});
+  const { data, isLoading } = useGetPostsQuery({});
+  const posts = data?.filter((post) => post.status === "published");
   if (!isLoading) {
     const slicedPosts = posts?.slice(0, 4);
     return (

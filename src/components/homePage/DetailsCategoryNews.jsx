@@ -5,7 +5,9 @@ import SmallNewsCard from "../shared/SmallNewsCard";
 import { HiChevronDoubleRight } from "react-icons/hi2";
 
 const DetailsCategoryNews = () => {
-  const { data: posts, isLoading } = useGetPostsQuery({ category: "জাতীয়" });
+  const { data, isLoading } = useGetPostsQuery({ category: "জাতীয়" });
+  const posts = data?.filter((post) => post.status === "published");
+  // console.log(posts);
   if (!isLoading) {
     const newArray = posts?.slice(1, 5);
 

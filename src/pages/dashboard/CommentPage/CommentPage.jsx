@@ -76,18 +76,18 @@ const CommentPage = () => {
           ) : (
             comments.map((item, index) => (
               <tr key={index}>
-                <Link to={`/posts/${item.newsId}`} className="text-center">
+                <Link to={`/posts/${item?.newsId}`} className="text-center">
                   <td className="px-4 py-2 underline text-blue-400 hover:text-blue-500">
-                    {item.newsTitle.slice(0, 10)}...
+                    {item?.newsTitle?.slice(0, 10)}...
                   </td>
                 </Link>
 
-                <td className="border px-4 py-2 capitalize">{item.name}</td>
-                <td className="border px-4 py-2">{item.email || "---"}</td>
+                <td className="border px-4 py-2 capitalize">{item?.name}</td>
+                <td className="border px-4 py-2">{item?.email || "---"}</td>
                 <td className="border px-4 py-2">
-                  {moment(item.date).format("MMMM Do YYYY, h:mm a")}
+                  {moment(item?.date).format("MMMM Do YYYY, h:mm a")}
                 </td>
-                <td className="border px-4 py-2">{item.comment}</td>
+                <td className="border px-4 py-2">{item?.comment}</td>
               </tr>
             ))
           )}
