@@ -1,11 +1,7 @@
 import { CiLocationOn } from "react-icons/ci";
-import { SlCalender } from "react-icons/sl";
 import { Link } from "react-router-dom";
-import {
-  IoLogInOutline,
-  IoLogOutOutline,
-  IoTimerOutline,
-} from "react-icons/io5";
+import { IoTimerOutline } from "react-icons/io5";
+import { MdDashboard, MdLogin } from "react-icons/md";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import toast from "react-hot-toast";
@@ -64,7 +60,7 @@ const HeaderTop = () => {
   const currentBnDate = cal.format("dddd D MMMM, Y ");
 
   return (
-    <div className="container mx-auto py-4 px-2 border-b border-gray-200">
+    <div className="container mx-auto py-2 px-2 border-b border-gray-200">
       <div className="flex flex-wrap flex-col md:flex-row justify-between items-center">
         <div className="flex flex-col md:flex-row items-center justify-center gap-2">
           <div className="flex flex-row">
@@ -109,15 +105,26 @@ const HeaderTop = () => {
             </span>
           </Link>
           {user && (
-            <Link to="/dashboard">
-              <button className="btn btn-outline btn-success">Dashboard</button>
-            </Link>
+            <>
+              <div className="border-l border-gray-300 h-5"></div>
+              <Link to="/dashboard" title="Dashboard">
+                <MdDashboard size={18} />
+              </Link>
+            </>
           )}
+          <div className="border-l border-gray-300 h-5"></div>
           {user ? (
-            <IoLogOutOutline onClick={handleLogout} />
+            <MdLogin
+              onClick={handleLogout}
+              size={20}
+              className="text-orange-500 bg-gray-200 cursor-pointer"
+            />
           ) : (
-            <Link to="/login">
-              <IoLogInOutline />
+            <Link
+              to="/login"
+              className=" text-orange-500 bg-gray-200 rotate-180"
+            >
+              <MdLogin size={20} />
             </Link>
           )}
         </div>

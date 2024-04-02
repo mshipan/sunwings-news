@@ -292,7 +292,7 @@ const HeaderLogo = () => {
           </div>
           <button
             onClick={() => setSearchBarOpen(true)}
-            className="btn btn-ghost btn-circle text-white hidden md:block"
+            className="btn btn-ghost md:flex items-center justify-center btn-circle text-white hidden "
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -313,7 +313,7 @@ const HeaderLogo = () => {
           <div
             className={`form-control absolute w-72 transition-all duration-500 ease-in-out ${
               searchBarOpen
-                ? "right-1 top-[100px] md:right-2 md:top-0 z-50"
+                ? "right-1 top-1 md:right-2 md:top-0 z-50"
                 : "-right-96 hidden"
             }`}
           >
@@ -373,9 +373,9 @@ const HeaderLogo = () => {
             )}
           </div>
         </div>
-        <div className="flex py-2">
-          <div className="bg-orange-500 text-white w-1/4 md:w-2/12 flex justify-center items-center">
-            <h3 className="text-xs md:">সংবাদ শিরোনাম :</h3>
+        <div className="flex py-2 mb-4">
+          <div className="bg-[#ff5900] text-white w-1/4 md:w-2/12 flex justify-center items-center">
+            <h3 className="text-xs md:text-base">সংবাদ শিরোনাম :</h3>
           </div>
 
           <div

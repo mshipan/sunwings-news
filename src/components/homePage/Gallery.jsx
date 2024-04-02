@@ -38,7 +38,7 @@ const Gallery = () => {
           disableOnInteraction: false,
         }}
         modules={[FreeMode, Thumbs, Autoplay, Pagination, Navigation]}
-        className="mySwiper w-full mx-auto my-2 h-fit lg:h-[37rem] xl:h-[43rem] 2xl:h-[49rem]"
+        className="mySwiper w-full mx-auto my-2 h-fit lg:h-[30rem]"
       >
         {newPhotos?.map((item, i) => (
           <SwiperSlide key={i}>
