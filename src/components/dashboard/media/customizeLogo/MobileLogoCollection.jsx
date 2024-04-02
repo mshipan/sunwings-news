@@ -1,12 +1,12 @@
-import { FaXmark } from "react-icons/fa6";
+import Swal from "sweetalert2";
 import {
   useDeleteALogoMutation,
   useUpdateLogoSelectionMutation,
 } from "../../../../redux/features/allApis/logoApi/logoApi";
 import toast from "react-hot-toast";
-import Swal from "sweetalert2";
+import { FaXmark } from "react-icons/fa6";
 
-const LogoCollection = ({ data }) => {
+const MobileLogoCollection = ({ data }) => {
   const [updateLogoSelection] = useUpdateLogoSelectionMutation();
   const [deleteLogo] = useDeleteALogoMutation();
 
@@ -20,7 +20,7 @@ const LogoCollection = ({ data }) => {
 
       // Update isSelected status for all other logos filtered by position desktop_logo
       for (const logo of data) {
-        if (logo.position === "desktop_logo" && logo._id !== logoId) {
+        if (logo.position === "mobile_logo" && logo._id !== logoId) {
           await updateLogoSelection({ id: logo._id, isSelected: false });
         }
       }
@@ -72,22 +72,24 @@ const LogoCollection = ({ data }) => {
             <input
               type="checkbox"
               checked={logo.isSelected}
-              onChange={(e) => handleLogoClick(logo._id, e.target.checked)}
+              onChange={() => handleLogoClick(logo._id)}
               className="checkbox-md absolute top-1 left-1"
             />
-
             <button
               onClick={() => handleDelete(logo?._id)}
               className="absolute -top-4 -right-4 bg-white hover:bg-orange-600 size-10 border border-orange-600 text-black hover:text-white flex items-center justify-center rounded-full transition-all duration-500 ease-in-out"
             >
               <FaXmark className="text-2xl" />
             </button>
-
             <img
               src={logo.logo}
-              alt="advertisement"
-              className="w-56 border border-gray-500"
-              onClick={() => handleLogoClick(logo._id, !logo.isSelected)}
+              alt="logo"
+              className={`w-56 border ${
+                logo.isSelected === true
+                  ? "border-green-900 border-2"
+                  : "border-gray-400"
+              }`}
+              onClick={() => handleLogoClick(logo._id)}
             />
           </div>
         ))}
@@ -96,4 +98,4 @@ const LogoCollection = ({ data }) => {
   );
 };
 
-export default LogoCollection;
+export default MobileLogoCollection;

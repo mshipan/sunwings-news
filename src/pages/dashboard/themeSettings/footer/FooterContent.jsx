@@ -5,6 +5,7 @@ import {
   useUpdateFooterMutation,
 } from "../../../../redux/features/allApis/footerApi/footerApi";
 import Swal from "sweetalert2";
+import { imageUpload } from "../../../../api/utils";
 
 const FooterContent = () => {
   const [loading, setLoading] = useState(false);
@@ -21,8 +22,14 @@ const FooterContent = () => {
   const singleFooter = allFooters?.[0];
 
   const onSubmit = async (data) => {
+    const footerImage = data?.footerLogo;
+
     try {
       setLoading(true);
+
+      const imageData = await imageUpload(footerImage[0]);
+      console.log(imageData);
+      data.footerLogo = imageData.data.display_url;
 
       const result = await updateFooter({
         id: id,
@@ -56,6 +63,24 @@ const FooterContent = () => {
       </div>
       <div className="flex flex-col gap-4">
         <div className="form-control text-black flex flex-col ">
+          <label htmlFor="footerLogo" className="text-lg">
+            Footer Logo :{" "}
+            {errors.footerLogo && (
+              <span className="text-red-600">
+                ** ঘরটি অবশ্যই পূরণ করতে হবে **
+              </span>
+            )}
+          </label>
+          <input
+            type="file"
+            name="footerLogo"
+            {...register("footerLogo", { required: true })}
+            // defaultValue={singleFooter?.about}
+            className="bg-white border border-gray-400 p-1"
+          />
+        </div>
+
+        <div className="form-control text-black flex flex-col ">
           <label htmlFor="about" className="text-lg">
             Footer about :{" "}
             {errors.about && (
@@ -74,6 +99,7 @@ const FooterContent = () => {
             className="bg-white border border-gray-400 p-1"
           ></textarea>
         </div>
+
         <div className="form-control text-black flex flex-col gap-2 ">
           <label
             htmlFor="sompadok"
@@ -243,6 +269,7 @@ const FooterContent = () => {
             placeholder="www.example.com"
           />
         </div>
+
         <button
           type="submit"
           className="py-1 bg-blue-600 text-white font-semibold "

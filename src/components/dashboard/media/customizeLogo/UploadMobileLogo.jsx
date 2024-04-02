@@ -4,7 +4,7 @@ import { useUploadALogoMutation } from "../../../../redux/features/allApis/logoA
 import { imageUpload } from "../../../../api/utils";
 import toast from "react-hot-toast";
 
-const UploadLogo = () => {
+const UploadMobileLogo = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState(null);
@@ -41,7 +41,7 @@ const UploadLogo = () => {
         setLoading(true);
         const imageData = await imageUpload(image);
         data.logo = imageData.data.display_url;
-        data.position = "desktop_logo";
+        data.position = "mobile_logo";
         data.createdAt = now;
         const response = await uploadLogo(data);
 
@@ -113,4 +113,4 @@ const UploadLogo = () => {
   );
 };
 
-export default UploadLogo;
+export default UploadMobileLogo;
