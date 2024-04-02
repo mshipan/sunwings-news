@@ -8,8 +8,12 @@ const LogoSection = () => {
   const { data: allLogos } = useGetAllLogoQuery();
   const { data: allAds } = useGetAllAdvertisementQuery();
 
-  const selectedLogo = allLogos
-    ? allLogos.find((logo) => logo.isSelected === true)
+  const desktopLogos = allLogos
+    ? allLogos.filter((logo) => logo.position === "desktop_logo")
+    : [];
+
+  const selectedDesktopLogo = desktopLogos
+    ? desktopLogos.find((logo) => logo.isSelected === true)
     : null;
 
   const adBesideTopLogo = allAds
@@ -22,8 +26,12 @@ const LogoSection = () => {
     <div className="container mx-auto py-4">
       <div className="flex justify-between gap-3">
         <div className="w-4/12 rounded hidden md:block">
-          {selectedLogo ? (
-            <img src={selectedLogo.logo} alt="Logo" className="w-full h-28" />
+          {selectedDesktopLogo ? (
+            <img
+              src={selectedDesktopLogo.logo}
+              alt="Logo"
+              className="w-full h-28"
+            />
           ) : (
             <img src={HomeLogo1} alt="" className="w-full h-28" />
           )}
