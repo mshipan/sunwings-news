@@ -22,6 +22,13 @@ const logoApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["logos"],
     }),
+    deleteALogo: builder.mutation({
+      query: ({ id }) => ({
+        url: `/logos/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["logos"],
+    }),
   }),
 });
 
@@ -29,4 +36,5 @@ export const {
   useGetAllLogoQuery,
   useUploadALogoMutation,
   useUpdateLogoSelectionMutation,
+  useDeleteALogoMutation,
 } = logoApi;

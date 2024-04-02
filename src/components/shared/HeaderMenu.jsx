@@ -22,8 +22,12 @@ const HeaderLogo = () => {
   const { data: allLogos } = useGetAllLogoQuery();
   const navigate = useNavigate();
 
-  const selectedLogo = allLogos
-    ? allLogos.find((logo) => logo.isSelected === true)
+  const mobileLogos = allLogos
+    ? allLogos.filter((logo) => logo.position === "mobile_logo")
+    : [];
+
+  const selectedMobileLogo = mobileLogos
+    ? mobileLogos.find((logo) => logo.isSelected === true)
     : null;
 
   const handleNavItems = (value) => {
@@ -339,7 +343,7 @@ const HeaderLogo = () => {
         </div>
 
         <div className="flex md:hidden items-center justify-between bg-black py-1 px-1">
-          <img src={selectedLogo?.logo} alt="logo" className="w-36 " />
+          <img src={selectedMobileLogo?.logo} alt="logo" className="w-36 " />
           <div className="flex flex-row gap-1 justify-center items-center">
             <button
               onClick={() => setSearchBarOpen(!searchBarOpen)}
@@ -399,7 +403,11 @@ const HeaderLogo = () => {
         >
           <div className="p-1">
             <div>
-              <img src={selectedLogo?.logo} alt="logo" className="w-36 " />
+              <img
+                src={selectedMobileLogo?.logo}
+                alt="logo"
+                className="w-36 "
+              />
             </div>
           </div>
           <ul className="flex flex-col">{navItems}</ul>
