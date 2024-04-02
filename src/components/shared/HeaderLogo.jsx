@@ -23,7 +23,7 @@ const LogoSection = () => {
     : null;
 
   return (
-    <div className="container mx-auto py-4">
+    <div className="container mx-auto py-5">
       <div className="flex justify-between gap-3">
         <div className="w-4/12 rounded hidden md:block">
           {selectedDesktopLogo ? (
