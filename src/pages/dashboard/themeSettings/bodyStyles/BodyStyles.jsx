@@ -3,6 +3,7 @@ import BodyBackground from "../../../../components/dashboard/themeSettings/bodyS
 import {
   useGetBodyThemeQuery,
   useUpdateBodyBgMutation,
+  useUpdateCategoryTitleMutation,
   useUpdateMarqueMutation,
   useUpdateMenuMutation,
   useUpdateMoreNewsMutation,
@@ -18,6 +19,7 @@ const BodyStyles = () => {
   const [loadingMarque, setLoadingMarque] = useState(false);
   const [loadingMenu, setLoadingMenu] = useState(false);
   const [loadingMoreNews, setLoadingMoreNews] = useState(false);
+  const [loadingCategoryTitle, setLoadingCategoryTitle] = useState(false);
   const { reset } = useForm();
   const { data: bodyThemes } = useGetBodyThemeQuery();
   const [updateBodyBg] = useUpdateBodyBgMutation();
@@ -25,6 +27,7 @@ const BodyStyles = () => {
   const [updateMarque] = useUpdateMarqueMutation();
   const [updateMenu] = useUpdateMenuMutation();
   const [updateMoreNews] = useUpdateMoreNewsMutation();
+  const [updateCategoryTitle] = useUpdateCategoryTitleMutation();
   const id = bodyThemes?.[0]._id;
   const singleTheme = bodyThemes?.[0];
 
@@ -189,6 +192,49 @@ const BodyStyles = () => {
       });
     }
   };
+  const handleCategorySubmit = async (data) => {
+    delete data.sampleColor;
+    delete data.takenTextColor;
+    try {
+      setLoadingCategoryTitle(true);
+
+      const result = await updateCategoryTitle({
+        id: id,
+        newscardTitleFontSize: singleTheme.newscardTitleFontSize,
+        newscardTitleFontColor: singleTheme.newscardTitleFontColor,
+        marqueBg: singleTheme.marqueBg,
+        marqueTitleFontColor: singleTheme.marqueTitleFontColor,
+        marqueTitleFontSize: singleTheme.marqueTitleFontSize,
+        menuBg: singleTheme.menuBg,
+        menuTitleFontColor: singleTheme.menuTitleFontColor,
+        menuTitleFontSize: singleTheme.menuTitleFontSize,
+        categoryTitleFontSize: data.categoryTitleFontSize,
+        categoryTitleFontColor: data.categoryTitleFontColor,
+        categoryBg: data.categoryBg,
+        moreNewsTitleFontColor: singleTheme.moreNewsTitleFontColor,
+        moreNewsTitleFontSize: singleTheme.moreNewsTitleFontSize,
+      });
+      if (result.data.modifiedCount > 0) {
+        setLoadingCategoryTitle(false);
+        reset();
+        Swal.fire({
+          title: "Menu content Updated Successfully!",
+          text: "Press OK to continue",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+      }
+    } catch (error) {
+      setLoadingCategoryTitle(false);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: `Error Updating Menu content: ${error}`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  };
   const handleMoreNewsSubmit = async (data) => {
     delete data.sampleColor;
     delete data.takenTextColor;
@@ -279,6 +325,18 @@ const BodyStyles = () => {
             BgColor="menuBg"
             Bglabel="BgColor"
             loading={loadingMenu}
+          />
+          <BodyBackground
+            onSubmit={handleCategorySubmit}
+            labelH1="Category Title"
+            subLabel="Please Set Font Size & Pick Colors for Font Color and BgColor for CAtegory Title."
+            TextFontSize="categoryTitleFontSize"
+            TextFontSizeLabel="Font Size"
+            TextFontColor="categoryTitleFontColor"
+            TextFontColorLabel="Font Color"
+            BgColor="categoryBg"
+            Bglabel="BgColor"
+            loading={loadingCategoryTitle}
           />
           <BodyBackground
             onSubmit={handleMoreNewsSubmit}
