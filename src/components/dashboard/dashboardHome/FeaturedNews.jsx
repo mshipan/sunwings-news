@@ -4,7 +4,6 @@ const FeaturedNews = () => {
   const { data: posts, isLoading: loading } = useGetPostsQuery({});
 
   const popularNews = posts?.filter((post) => post.isPopular === true);
-  console.log(popularNews);
   return (
     <div className="mt-8 flex flex-col">
       <h1 className="font-serif text-xl mb-4">Featured News</h1>

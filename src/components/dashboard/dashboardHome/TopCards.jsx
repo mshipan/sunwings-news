@@ -5,9 +5,14 @@ import { useContext } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
 import { useGetAllCommentsQuery } from "../../../redux/features/allApis/commentApi/commentApi";
 import { useGetCategoriesQuery } from "../../../redux/features/allApis/categoryApi/categoryApi";
+import { AiOutlineSend } from "react-icons/ai";
+import { useAddNoticeMutation } from "../../../redux/features/allApis/noticeApi/noticeApi";
+import toast from "react-hot-toast";
+import { FcAdvertising } from "react-icons/fc";
 
 const TopCards = () => {
   const { user } = useContext(AuthContext);
+  const [addNotice] = useAddNoticeMutation();
   const { data: allPosts, isLoading: postLoading } = useGetPostsQuery({});
   const { data: allComments, isLoading: commentLoading } =
     useGetAllCommentsQuery();
@@ -21,6 +26,27 @@ const TopCards = () => {
   );
 
   const yourValue = 1;
+
+  const handleSubmitNotice = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const subject = form.subject.value;
+    const details = form.details.value;
+    const createdAt = new Date();
+    const notice = { subject, details, createdAt };
+    if (notice) {
+      addNotice(notice)
+        .then((result) => {
+          if (result.data.insertedId) {
+            toast.success("Notice sent successfully");
+            form.subject.value = "";
+            form.details.value = "";
+            document.getElementById("my_modal_3").close();
+          }
+        })
+        .catch((error) => toast.error(error.message));
+    }
+  };
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mb-10">
@@ -96,8 +122,34 @@ const TopCards = () => {
               </button>
             </form>
             {/* modal contents */}
-            <div>
-              <h3 className="font-bold text-lg">Hello!</h3>
+            <div className="px-3 py-4">
+              <form onSubmit={handleSubmitNotice}>
+                <label className="input input-bordered flex items-center gap-2">
+                  <FcAdvertising />
+                  <input
+                    type="text"
+                    name="subject"
+                    className="grow"
+                    placeholder="Subject"
+                    required
+                  />
+                </label>
+
+                <textarea
+                  name="details"
+                  className="textarea textarea-bordered w-full my-2"
+                  placeholder="Details"
+                ></textarea>
+                <div className="items-end">
+                  <button
+                    type="submit"
+                    className="btn btn-info text-white font-normal w-full flex flex-row"
+                  >
+                    <span>Send</span>
+                    <AiOutlineSend size={20} />
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </dialog>

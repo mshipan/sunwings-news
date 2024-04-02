@@ -105,8 +105,6 @@ const AllUsers = () => {
             <option value="journalist">Journalist/Reporter</option>
             <option value="editor">Editor</option>
             <option value="administrator">Administrator</option>
-            <option value="advertiser">Advertiser</option>
-            <option value="moderator">Moderator</option>
           </select>
           <input
             className="px-2 py-1 bg-green-700 text-white"

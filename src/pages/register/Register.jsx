@@ -161,8 +161,6 @@ const Register = () => {
               <option value="journalist">Journalist/Reporter</option>
               <option value="editor">Editor</option>
               <option value="administrator">Administrator</option>
-              <option value="advertiser">Advertiser</option>
-              <option value="moderator">Moderator</option>
             </select>
           </div>
           <div className="form-control">
