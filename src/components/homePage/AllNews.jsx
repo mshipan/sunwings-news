@@ -53,7 +53,7 @@ const AllNews = ({ date }) => {
 
   return (
     <div>
-      <div className="py-2 grid grid-cols-2 md:grid-cols-3 gap-6">
+      <div className="py-6 grid grid-cols-2 md:grid-cols-3 gap-6">
         {visiblePosts.length !== 0 ? (
           visiblePosts.map((post, i) => (
             <NewsCard

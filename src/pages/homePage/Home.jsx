@@ -141,7 +141,7 @@ const Home = () => {
         <Advertisement selectedAd={adVideoSectionBottomRight} />
       </div>
 
-      <div className="flex flex-col md:flex-row gap-3 mb-4">
+      <div className="flex flex-col md:flex-row gap-3 mb-8">
         <div className="w-full md:w-2/3">
           <Gallery />
         </div>
