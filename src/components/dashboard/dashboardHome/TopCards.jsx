@@ -32,16 +32,28 @@ const TopCards = () => {
     (post) => post?.author === authorName
   );
 
-  const yourValue = 1;
+  const isOpenedEmail =
+    lastNotice && lastNotice.length > 0
+      ? lastNotice[0]?.isOpened.filter((item) => item === user.email)
+      : [];
 
-  const handleModalClicked = () => {
+  let yourValue = 0;
+  if (isOpenedEmail?.length === 0) {
+    yourValue = 1;
+  }
+
+  const handleModalClicked = async () => {
     document.getElementById("my_modal_3").showModal();
     // handle open
-    addIsOpened(user?.email)
-      .then((result) => console.log(result))
-      .catch((error) => console.log(error.message));
+    try {
+      const result = await addIsOpened(user?.email);
+      console.log(result.data);
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
+// handle notice submit
   const handleSubmitNotice = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -119,18 +131,24 @@ const TopCards = () => {
         onClick={handleModalClicked}
         className="relative flex flex-row items-center justify-between border border-orange-600 p-4 cursor-pointer"
       >
-        <div
-          className={`absolute -top-2 -right-2 size-5 bg-red-600 rounded-full ${
-            yourValue > 0 ? "animate-ping" : ""
-          }`}
-        ></div>
-        <div
-          className={`absolute -top-2 -right-2 size-5 bg-orange-600 rounded-full flex items-center justify-center `}
-        >
-          <p className="text-base text-white">{yourValue}</p>
-        </div>
+        {yourValue == 1 && loggedUser?.role!== 'administrator' &&(
+          <div
+            className={`absolute -top-2 -right-2 size-5 bg-red-600 rounded-full ${
+              yourValue > 0 ? "animate-ping" : ""
+            }`}
+          >
+            <p className="text-center text-white">
+              {yourValue == 1 ? "1" : ""}
+            </p>
+          </div>
+        )}
+
         <div>
-          <p className="text-lg font-semibold">Admin Notice</p>
+          <p className="text-lg font-semibold">
+            {loggedUser?.role === "administrator"
+              ? "Create A Notice"
+              : "Admin Notice"}
+          </p>
         </div>
         <IoMdListBox className="text-4xl" />
 
@@ -146,12 +164,12 @@ const TopCards = () => {
             <div className="px-3 py-4">
               {loggedUser?.role === "administrator" ? (
                 <form onSubmit={handleSubmitNotice}>
-                  <label className="input input-bordered flex items-center gap-2">
+                  <label className="input input-bordered flex items-center gap-2 bg-white border-orange-600">
                     <FcAdvertising />
                     <input
                       type="text"
                       name="subject"
-                      className="grow"
+                      className="grow bg-white"
                       placeholder="Subject"
                       required
                     />
@@ -159,7 +177,7 @@ const TopCards = () => {
 
                   <textarea
                     name="details"
-                    className="textarea textarea-bordered w-full my-2"
+                    className="textarea textarea-bordered w-full my-2 bg-white border-orange-600"
                     placeholder="Details"
                   ></textarea>
                   <div className="items-end">
