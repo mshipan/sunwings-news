@@ -53,7 +53,7 @@ const TopCards = () => {
     }
   };
 
-// handle notice submit
+  // handle notice submit
   const handleSubmitNotice = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -131,14 +131,14 @@ const TopCards = () => {
         onClick={handleModalClicked}
         className="relative flex flex-row items-center justify-between border border-orange-600 p-4 cursor-pointer"
       >
-        {yourValue == 1 && loggedUser?.role!== 'administrator' &&(
+        {yourValue == 1 && loggedUser?.role !== "administrator" && (
           <div
             className={`absolute -top-2 -right-2 size-5 bg-red-600 rounded-full ${
               yourValue > 0 ? "animate-ping" : ""
             }`}
           >
             <p className="text-center text-white">
-              {yourValue == 1 ? "1" : ""}
+              {yourValue == 1 ? "!!!" : ""}
             </p>
           </div>
         )}

@@ -8,6 +8,7 @@ import {
   MdOutlineKeyboardArrowRight,
 } from "react-icons/md";
 import { TiHomeOutline } from "react-icons/ti";
+import { GoAlertFill } from "react-icons/go";
 import { VscFileMedia } from "react-icons/vsc";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
@@ -138,7 +139,7 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
                     </Link>
                   </li>
                 )}
-                {loggedUser?.role !== "administrator"  && (
+                {loggedUser?.role !== "administrator" && (
                   <li className="mb-4">
                     <Link
                       to="/dashboard/my-all-posts"
@@ -266,34 +267,7 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
               </ul>
             </li>
           )}
-          {/* <li className="mb-1 group">
-            <div
-              className="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md    sidebar-dropdown-toggle"
-              onClick={() => toggleCollapse("page")}
-            >
-              <MdRestorePage className="ri-instance-line mr-3 text-lg" />
-              <span className="text-sm select-none">Pages</span>
-              <MdOutlineKeyboardArrowRight className=" ml-auto " />
-            </div>
-            <ul className={`pl-7 mt-2 ${collapsed.page ? "hidden" : "block"}`}>
-              <li className="mb-4">
-                <Link
-                  to="#"
-                  className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
-                >
-                  All Page
-                </Link>
-              </li>
-              <li className="mb-4">
-                <Link
-                  to="#"
-                  className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
-                >
-                  Add New Page
-                </Link>
-              </li>
-            </ul>
-          </li> */}
+
           <li className="mb-1 group">
             <Link
               to="/dashboard/comments"
@@ -343,44 +317,17 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
               </ul>
             </li>
           )}
-          {/* <li className="mb-1 group">
-            <div
-              className="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md    sidebar-dropdown-toggle"
-              onClick={() => toggleCollapse("setting")}
-            >
-              <CiSettings className="ri-instance-line mr-3 text-lg" />
-              <span className="text-sm select-none">Settings</span>
-              <MdOutlineKeyboardArrowRight className=" ml-auto " />
-            </div>
-            <ul
-              className={`pl-7 mt-2 ${collapsed.setting ? "hidden" : "block"}`}
-            >
-              <li className="mb-4">
-                <Link
-                  to="#"
-                  className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
-                >
-                  All User
-                </Link>
-              </li>
-              <li className="mb-4">
-                <Link
-                  to="#"
-                  className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
-                >
-                  Add New User
-                </Link>
-              </li>
-              <li className="mb-4">
-                <Link
-                  to="#"
-                  className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
-                >
-                  Profile
-                </Link>
-              </li>
-            </ul>
-          </li> */}
+          {loggedUser?.role === "administrator" && (
+            <li className="mb-1 group">
+              <Link
+                to="/dashboard/notices"
+                className="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md    sidebar-dropdown-toggle"
+              >
+                <GoAlertFill className="ri-instance-line mr-3 text-lg" />
+                <span className="text-sm select-none">Notices</span>
+              </Link>
+            </li>
+          )}
         </ul>
       </div>
       <div className="fixed top-0 left-0 w-full h-full bg-black/50 z-40 md:hidden sidebar-overlay"></div>
