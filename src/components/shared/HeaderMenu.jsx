@@ -68,7 +68,7 @@ const HeaderLogo = () => {
               {subCategoryItems?.map((item, i) => (
                 <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
                   {" "}
-                  <li className="py-2 px-3">{item.subCategoryName}</li>
+                  <li className="py-2 px-3 hover:bg-[#ffae00] z-50">{item.subCategoryName}</li>
                 </Link>
               ))}
             </ul>
@@ -90,7 +90,7 @@ const HeaderLogo = () => {
               {subCategoryItems?.map((item, i) => (
                 <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
                   {" "}
-                  <li className="py-2 px-3 z-10">{item.subCategoryName}</li>
+                  <li className="py-2 px-3 z-50 hover:bg-[#ffae00]">{item.subCategoryName}</li>
                 </Link>
               ))}
             </ul>
@@ -112,7 +112,7 @@ const HeaderLogo = () => {
               {subCategoryItems?.map((item, i) => (
                 <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
                   {" "}
-                  <li className="py-2 px-3">{item.subCategoryName}</li>
+                  <li className="py-2 px-3 z-50 hover:bg-[#ffae00]">{item.subCategoryName}</li>
                 </Link>
               ))}
             </ul>
@@ -134,7 +134,7 @@ const HeaderLogo = () => {
               {subCategoryItems?.map((item, i) => (
                 <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
                   {" "}
-                  <li className="py-2 px-3">{item.subCategoryName}</li>
+                  <li className="py-2 px-3 z-50 hover:bg-[#ffae00]">{item.subCategoryName}</li>
                 </Link>
               ))}
             </ul>
@@ -156,7 +156,7 @@ const HeaderLogo = () => {
               {subCategoryItems?.map((item, i) => (
                 <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
                   {" "}
-                  <li className="py-2 px-3">{item.subCategoryName}</li>
+                  <li className="py-2 px-3 z-50 hover:bg-[#ffae00]">{item.subCategoryName}</li>
                 </Link>
               ))}
             </ul>
@@ -179,7 +179,7 @@ const HeaderLogo = () => {
                 {subCategoryItems?.map((item, i) => (
                   <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
                     {" "}
-                    <li className="py-2 px-3">{item.subCategoryName}</li>
+                    <li className="py-2 px-3 z-50 hover:bg-[#ffae00]">{item.subCategoryName}</li>
                   </Link>
                 ))}
               </ul>
@@ -201,7 +201,7 @@ const HeaderLogo = () => {
               {subCategoryItems?.map((item, i) => (
                 <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
                   {" "}
-                  <li className="py-2 px-3">{item.subCategoryName}</li>
+                  <li className="py-2 px-3 z-50 hover:bg-[#ffae00]">{item.subCategoryName}</li>
                 </Link>
               ))}
             </ul>
@@ -223,7 +223,7 @@ const HeaderLogo = () => {
               {subCategoryItems?.map((item, i) => (
                 <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
                   {" "}
-                  <li className="py-2 px-3">{item.subCategoryName}</li>
+                  <li className="py-2 px-3 z-50 hover:bg-[#ffae00]">{item.subCategoryName}</li>
                 </Link>
               ))}
             </ul>
@@ -245,7 +245,7 @@ const HeaderLogo = () => {
               {subCategoryItems?.map((item, i) => (
                 <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
                   {" "}
-                  <li className="py-2 px-3">{item.subCategoryName}</li>
+                  <li className="py-2 px-3 z-50 hover:bg-[#ffae00]">{item.subCategoryName}</li>
                 </Link>
               ))}
             </ul>
@@ -267,7 +267,7 @@ const HeaderLogo = () => {
               {subCategoryItems?.map((item, i) => (
                 <Link to={`/sub-category/${item.subCategoryName}`} key={i}>
                   {" "}
-                  <li className="py-2 px-3">{item.subCategoryName}</li>
+                  <li className="py-2 px-3 z-50 hover:bg-[#ffae00]">{item.subCategoryName}</li>
                 </Link>
               ))}
             </ul>
