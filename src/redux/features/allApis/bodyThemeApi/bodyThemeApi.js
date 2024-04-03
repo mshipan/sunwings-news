@@ -133,6 +133,19 @@ const bodyThemeApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["bodyTheme"],
     }),
+    updateCategoryTitle: builder.mutation({
+      query: ({
+        id,
+        categoryBg,
+        categoryTitleFontColor,
+        categoryTitleFontSize,
+      }) => ({
+        url: `/body-theme/${id}`,
+        method: "PUT",
+        body: { categoryBg, categoryTitleFontColor, categoryTitleFontSize },
+      }),
+      invalidatesTags: ["bodyTheme"],
+    }),
   }),
 });
 export const {
@@ -149,4 +162,5 @@ export const {
   useUpdateSinglePostLatestNewsCardMutation,
   useUpdateSinglePostPopularNewsCardMutation,
   useUpdateMoreNewsMutation,
+  useUpdateCategoryTitleMutation
 } = bodyThemeApi;
