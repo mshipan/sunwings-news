@@ -5,15 +5,27 @@ import { useContext } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
 import { useGetAllCommentsQuery } from "../../../redux/features/allApis/commentApi/commentApi";
 import { useGetCategoriesQuery } from "../../../redux/features/allApis/categoryApi/categoryApi";
+import { AiOutlineSend } from "react-icons/ai";
+import {
+  useAddIsOpenedMutation,
+  useAddNoticeMutation,
+  useGetGetNoticeQuery,
+} from "../../../redux/features/allApis/noticeApi/noticeApi";
+import toast from "react-hot-toast";
+import { FcAdvertising } from "react-icons/fc";
+import { useGetUserByUidQuery } from "../../../redux/features/allApis/usersApi/usersApi";
 
 const TopCards = () => {
   const { user } = useContext(AuthContext);
+  const [addNotice] = useAddNoticeMutation();
+  const { data: lastNotice, isLoading: noticeLoading } = useGetGetNoticeQuery();
   const { data: allPosts, isLoading: postLoading } = useGetPostsQuery({});
+  const [addIsOpened] = useAddIsOpenedMutation();
   const { data: allComments, isLoading: commentLoading } =
     useGetAllCommentsQuery();
-
   const { data: allCategories, isLoading: categoryLoading } =
     useGetCategoriesQuery({});
+  const { data: loggedUser } = useGetUserByUidQuery(user.uid);
 
   const authorName = user?.displayName;
   const userSpecificPosts = allPosts?.filter(
@@ -21,6 +33,41 @@ const TopCards = () => {
   );
 
   const yourValue = 1;
+
+  const handleModalClicked = () => {
+    document.getElementById("my_modal_3").showModal();
+    // handle open
+    addIsOpened(user?.email)
+      .then((result) => console.log(result))
+      .catch((error) => console.log(error.message));
+  };
+
+  const handleSubmitNotice = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const subject = form.subject.value;
+    const details = form.details.value;
+    const createdAt = new Date();
+    const isOpened = [];
+    const notice = { subject, details, createdAt, isOpened };
+    if (notice) {
+      try {
+        const result = await addNotice(notice);
+        if (result.data.insertedId) {
+          toast.success("Notice sent successfully");
+          form.subject.value = "";
+          form.details.value = "";
+          document.getElementById("my_modal_3").close();
+        }
+      } catch (error) {
+        toast.error(error.message);
+      }
+    }
+  };
+
+  if (noticeLoading || postLoading || commentLoading || categoryLoading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mb-10">
@@ -69,7 +116,7 @@ const TopCards = () => {
       </div>
 
       <div
-        onClick={() => document.getElementById("my_modal_3").showModal()}
+        onClick={handleModalClicked}
         className="relative flex flex-row items-center justify-between border border-orange-600 p-4 cursor-pointer"
       >
         <div
@@ -96,8 +143,44 @@ const TopCards = () => {
               </button>
             </form>
             {/* modal contents */}
-            <div>
-              <h3 className="font-bold text-lg">Hello!</h3>
+            <div className="px-3 py-4">
+              {loggedUser?.role === "administrator" ? (
+                <form onSubmit={handleSubmitNotice}>
+                  <label className="input input-bordered flex items-center gap-2">
+                    <FcAdvertising />
+                    <input
+                      type="text"
+                      name="subject"
+                      className="grow"
+                      placeholder="Subject"
+                      required
+                    />
+                  </label>
+
+                  <textarea
+                    name="details"
+                    className="textarea textarea-bordered w-full my-2"
+                    placeholder="Details"
+                  ></textarea>
+                  <div className="items-end">
+                    <button
+                      type="submit"
+                      className="btn btn-info text-white font-normal w-full flex flex-row"
+                    >
+                      <span>Send</span>
+                      <AiOutlineSend size={20} />
+                    </button>
+                  </div>
+                </form>
+              ) : (
+                <>
+                  <h1 className="text-center text-lg font-bold text-success">
+                    {lastNotice[0]?.subject}
+                  </h1>
+                  <hr />
+                  <p className="text-center py-4">{lastNotice[0]?.details}</p>
+                </>
+              )}
             </div>
           </div>
         </dialog>

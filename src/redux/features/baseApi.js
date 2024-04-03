@@ -20,6 +20,7 @@ const baseApi = createApi({
     "footer",
     "bodyTheme",
     "comments",
+    "notice",
   ],
   endpoints: () => ({}),
 });

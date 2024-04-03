@@ -21,7 +21,7 @@ const FeaturedNews = () => {
   }
 
   const popularNews = posts?.filter((post) => post.isPopular === true);
-
+  
   return (
     <div className="mt-8 flex flex-col">
       <h1 className="font-serif text-xl mb-4">Featured News</h1>
