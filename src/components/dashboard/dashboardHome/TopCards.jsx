@@ -14,6 +14,10 @@ import {
 import toast from "react-hot-toast";
 import { FcAdvertising } from "react-icons/fc";
 import { useGetUserByUidQuery } from "../../../redux/features/allApis/usersApi/usersApi";
+import { GrTextWrap } from "react-icons/gr";
+import { MdCircleNotifications } from "react-icons/md";
+import { FaRegCommentDots } from "react-icons/fa6";
+import { TbCategoryPlus } from "react-icons/tb";
 
 const TopCards = () => {
   const { user } = useContext(AuthContext);
@@ -53,7 +57,7 @@ const TopCards = () => {
     }
   };
 
-// handle notice submit
+  // handle notice submit
   const handleSubmitNotice = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -83,7 +87,7 @@ const TopCards = () => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mb-10">
-      <div className="flex flex-row items-center justify-between border border-orange-600 p-4 ">
+      <div className="flex flex-row items-center justify-between border p-4 border-l-[12px] border-l-orange-500 hover:bg-gray-100 shadow-md">
         <div>
           <h1 className="text-2xl font-sans font-bold">
             {postLoading ? (
@@ -100,10 +104,10 @@ const TopCards = () => {
             </p>
           </Link>
         </div>
-        <IoMdListBox className="text-4xl" />
+        <IoMdListBox className="text-3xl text-gray-700" />
       </div>
 
-      <div className="flex flex-row items-center justify-between border border-orange-600 p-4 ">
+      <div className="flex flex-row items-center justify-between border p-4 border-l-[12px] border-l-orange-500 hover:bg-gray-100 shadow-md">
         <div>
           <h1 className="text-2xl font-sans font-bold">
             {postLoading ? (
@@ -116,29 +120,29 @@ const TopCards = () => {
           </h1>
           <p className="text-base">My All Posts</p>
         </div>
-        <IoMdListBox className="text-4xl" />
+        <IoMdListBox className="text-3xl text-gray-700" />
       </div>
 
-      <div className="flex flex-row items-center justify-between border border-orange-600 p-4 ">
+      <div className="flex flex-row items-center justify-between border p-4 border-l-[12px] border-l-orange-500 hover:bg-gray-100 shadow-md">
         <div>
           <h1 className="text-2xl">0</h1>
           <p className="text-base">My All Ads</p>
         </div>
-        <IoMdListBox className="text-4xl" />
+        <GrTextWrap className="text-2xl text-gray-700" />
       </div>
 
       <div
         onClick={handleModalClicked}
-        className="relative flex flex-row items-center justify-between border border-orange-600 p-4 cursor-pointer"
+        className="relative flex flex-row items-center justify-between border border-l-orange-500 p-4 cursor-pointer border-l-[12px] hover:bg-gray-100 shadow-md"
       >
-        {yourValue == 1 && loggedUser?.role!== 'administrator' &&(
+        {yourValue == 1 && loggedUser?.role !== "administrator" && (
           <div
             className={`absolute -top-2 -right-2 size-5 bg-red-600 rounded-full ${
               yourValue > 0 ? "animate-ping" : ""
             }`}
           >
             <p className="text-center text-white">
-              {yourValue == 1 ? "1" : ""}
+              {yourValue == 1 ? "!!!" : ""}
             </p>
           </div>
         )}
@@ -150,7 +154,7 @@ const TopCards = () => {
               : "Admin Notice"}
           </p>
         </div>
-        <IoMdListBox className="text-4xl" />
+        <MdCircleNotifications className="text-3xl text-gray-700" />
 
         <dialog id="my_modal_3" className="modal">
           <div className="modal-box bg-white">
@@ -204,7 +208,7 @@ const TopCards = () => {
         </dialog>
       </div>
 
-      <div className="flex flex-row items-center justify-between border border-orange-600 p-4 ">
+      <div className="flex flex-row items-center justify-between border p-4 border-l-[12px] border-l-orange-500 hover:bg-gray-100 shadow-md">
         <div>
           <h1 className="text-2xl font-sans font-bold">
             {commentLoading ? (
@@ -217,10 +221,10 @@ const TopCards = () => {
           </h1>
           <p className="text-base">All Comments</p>
         </div>
-        <IoMdListBox className="text-4xl" />
+        <FaRegCommentDots className="text-3xl text-gray-700" />
       </div>
 
-      <div className="flex flex-row items-center justify-between border border-orange-600 p-4 ">
+      <div className="flex flex-row items-center justify-between border p-4 border-l-[12px] border-l-orange-500 hover:bg-gray-100 shadow-md">
         <div>
           <h1 className="text-2xl font-sans font-bold">
             {categoryLoading ? (
@@ -233,7 +237,7 @@ const TopCards = () => {
           </h1>
           <p className="text-base">All Categories</p>
         </div>
-        <IoMdListBox className="text-4xl" />
+        <TbCategoryPlus className="text-3xl text-gray-700" />
       </div>
     </div>
   );

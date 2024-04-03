@@ -25,16 +25,21 @@ const noticeApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["notice"],
     }),
-    //   get is opened value
-    getIsOpened: builder.query({
-      query: (email) => `/notice/isOpened/${email}`,
+
+    // notice delete by id
+    deleteNotice: builder.mutation({
+      query: (id) => ({
+        url: `/notice/${id}`,
+        method: "DELETE",
+      }),
       invalidatesTags: ["notice"],
     }),
   }),
 });
+
 export const {
   useAddNoticeMutation,
   useGetGetNoticeQuery,
   useAddIsOpenedMutation,
-  useGetIsOpenedQuery,
+  useDeleteNoticeMutation,
 } = noticeApi;

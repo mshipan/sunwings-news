@@ -28,6 +28,7 @@ import CommentPage from "../pages/dashboard/CommentPage/CommentPage";
 import SinglePostStyles from "../pages/dashboard/themeSettings/singlePostStyles/SinglePostStyles";
 import DashboardHome from "../pages/dashboard/dashboardHome/DashboardHome";
 import MyAllPosts from "../pages/dashboard/Posts/MyAllPosts";
+import Notices from "../pages/dashboard/Notices/Notices";
 
 const router = createBrowserRouter([
   {
@@ -140,6 +141,10 @@ const router = createBrowserRouter([
       {
         path: "comments",
         element: <CommentPage />,
+      },
+      {
+        path: "notices",
+        element: <Notices />,
       },
     ],
   },
