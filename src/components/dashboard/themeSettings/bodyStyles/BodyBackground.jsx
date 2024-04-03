@@ -14,12 +14,24 @@ const BodyBackground = ({
   TextFontColorLabel,
   ImageSizeLabel,
   ImageSize,
+  Border,
+  BorderLabel,
+  BorderColor,
+  BorderColorLabel,
+  BorderWidth,
+  BorderWidthLabel,
+  BorderStyle,
+  BorderStyleLabel,
   loading,
 }) => {
   const [bgColor, setBgColor] = useState("");
   const [textColorValue, setTextColorValue] = useState("");
   const [fontSizeValue, setFontSizeValue] = useState("");
   const [imageSizeValue, setImageSizeValue] = useState("");
+  const [borderValue, setBorderValue] = useState("");
+  const [borderColorValue, setBorderColorValue] = useState("");
+  const [borderWidthValue, setBorderWidthValue] = useState("");
+  const [borderStyleValue, setBorderStyleValue] = useState("");
   const {
     register,
     handleSubmit,
@@ -42,8 +54,30 @@ const BodyBackground = ({
 
       // Set default Image size
       setImageSizeValue(bodyThemes[0]?.[ImageSize] || "");
+
+      // Set default Border
+      setBorderValue(bodyThemes[0]?.[Border] || "");
+
+      // Set default Border Color
+      setBorderColorValue(bodyThemes[0]?.[BorderColor] || "");
+
+      // Set default Border Width
+      setBorderWidthValue(bodyThemes[0]?.[BorderWidth] || "");
+
+      // Set default Border Style
+      setBorderStyleValue(bodyThemes[0]?.[BorderStyle] || "");
     }
-  }, [bodyThemes, BgColor, TextFontColor, TextFontSize, ImageSize]);
+  }, [
+    bodyThemes,
+    BgColor,
+    TextFontColor,
+    TextFontSize,
+    ImageSize,
+    Border,
+    BorderColor,
+    BorderWidth,
+    BorderStyle,
+  ]);
 
   const handleBgColorChange = (color) => {
     setValue(BgColor, color);
@@ -65,9 +99,29 @@ const BodyBackground = ({
     setImageSizeValue(e.target.value);
   };
 
+  const handleBorderChange = (e) => {
+    setValue(Border, e.target.value);
+    setBorderValue(e.target.value);
+  };
+
+  const handleBorderColorChange = (color) => {
+    setValue(BorderColor, color);
+    setBorderColorValue(color);
+  };
+
+  const handleBorderWidthChange = (e) => {
+    setValue(BorderWidth, e.target.value);
+    setBorderWidthValue(e.target.value);
+  };
+
+  const handleBorderStyleChange = (e) => {
+    setValue(BorderWidth, e.target.value);
+    setBorderStyleValue(e.target.value);
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
-      <div className="flex flex-col gap-1 w-full md:w-full lg:w-full xl:w-5/6">
+      <div className="flex flex-col gap-1 w-full ">
         <label htmlFor="" className="flex flex-col items-start ">
           <span className="text-xl leading-3">{labelH1}:</span>
           <span className="text-sm text-orange-600 italic ">{subLabel}</span>
@@ -94,9 +148,29 @@ const BodyBackground = ({
               <span className="font-semibold">Image Size</span> is Required **
             </p>
           )}
+          {errors.Border && (
+            <p className="text-red-600 text-sm italic">
+              <span className="font-semibold">Border</span> is Required **
+            </p>
+          )}
+          {errors.BorderColor && (
+            <p className="text-red-600 text-sm italic">
+              <span className="font-semibold">Border Color</span> is Required **
+            </p>
+          )}
+          {errors.BorderWidth && (
+            <p className="text-red-600 text-sm italic">
+              <span className="font-semibold">Border Width</span> is Required **
+            </p>
+          )}
+          {errors.BorderStyle && (
+            <p className="text-red-600 text-sm italic">
+              <span className="font-semibold">Border Style</span> is Required **
+            </p>
+          )}
         </div>
 
-        <div className="flex flex-col md:flex-col lg:flex-col xl:flex-row items-start md:items-start lg:items-start xl:items-end 2xl:items-end gap-3 w-full md:w-full lg:w-full xl:w-2/3">
+        <div className="flex flex-col md:flex-col lg:flex-col xl:flex-row items-start md:items-start lg:items-start xl:items-end 2xl:items-end gap-3 w-full ">
           {BgColor && (
             <div className="flex flex-row md:flex-row lg:flex-row xl:flex-row items-end gap-3 w-full md:w-full lg:w-4/12 xl:w-56">
               <div className="form-control w-full">
@@ -181,6 +255,100 @@ const BodyBackground = ({
                   className="px-2 py-1 bg-white border border-orange-600 w-full"
                 />
               </div>
+            </div>
+          )}
+
+          {Border && (
+            <div className="flex flex-row md:flex-row lg:flex-row xl:flex-row items-end gap-3 ">
+              <div className="form-control w-full">
+                <label htmlFor={Border} className="text-lg">
+                  {BorderLabel}:
+                </label>
+                <input
+                  type="checkbox"
+                  name={Border}
+                  {...register(Border, { required: true })}
+                  defaultValue={borderValue}
+                  onChange={handleBorderChange}
+                  placeholder="Only Number"
+                  className=" toggle toggle-success size-8 w-16"
+                  checked
+                />
+              </div>
+            </div>
+          )}
+
+          {BorderWidth && (
+            <div className="flex flex-row md:flex-row lg:flex-row xl:flex-row items-end gap-3 w-full md:w-full lg:w-4/12 xl:w-56">
+              <div className="form-control w-full">
+                <label htmlFor={BorderWidth} className="text-lg">
+                  {BorderWidthLabel}:
+                </label>
+                <input
+                  type="number"
+                  name={BorderWidth}
+                  {...register(BorderWidth, { required: true })}
+                  defaultValue={borderWidthValue}
+                  onChange={handleBorderWidthChange}
+                  placeholder="Only Number"
+                  className="px-2 py-1 bg-white border border-orange-600 w-full"
+                />
+              </div>
+            </div>
+          )}
+          {BorderStyle && (
+            <div className="flex flex-row md:flex-row lg:flex-row xl:flex-row items-end gap-3 w-full md:w-full lg:w-4/12 xl:w-56">
+              <div className="form-control w-full">
+                <label htmlFor={BorderStyle} className="text-lg">
+                  {BorderStyleLabel}:
+                </label>
+                <select
+                  name={BorderStyle}
+                  {...register(BorderStyle, { required: true })}
+                  defaultValue={borderStyleValue}
+                  onChange={handleBorderStyleChange}
+                  className="px-2 py-1 bg-white border border-orange-600 w-full"
+                >
+                  <option value="">Select One.</option>
+                  <option value="dashed">Dashed</option>
+                  <option value="dotted">Dotted</option>
+                  <option value="double">Double</option>
+                  <option value="solid">Solid</option>
+                  <option value="groove">Groove</option>
+                  <option value="hidden">hidden</option>
+                  <option value="inherit">Inherit</option>
+                  <option value="initial">Initial</option>
+                  <option value="inset">Inset</option>
+                  <option value="none">None</option>
+                  <option value="outset">Outset</option>
+                  <option value="ridge">Ridge</option>
+                  <option value="unset">Unset</option>
+                </select>
+              </div>
+            </div>
+          )}
+
+          {BorderColor && (
+            <div className="flex flex-row md:flex-row lg:flex-row xl:flex-row items-end gap-3 w-full md:w-full lg:w-4/12 xl:w-56">
+              <div className="form-control w-full">
+                <label htmlFor={BorderColor} className="text-lg">
+                  {BorderColorLabel}:
+                </label>
+                <input
+                  type="text"
+                  name={BorderColor}
+                  {...register(BorderColor, { required: true })}
+                  defaultValue={borderColorValue}
+                  placeholder="Ex. #ffff"
+                  className="px-2 py-1 bg-white border border-orange-600 w-full"
+                />
+              </div>
+              <input
+                type="color"
+                {...register("takenTextColor")}
+                onChange={(e) => handleBorderColorChange(e.target.value)}
+                className="h-8"
+              />
             </div>
           )}
 
