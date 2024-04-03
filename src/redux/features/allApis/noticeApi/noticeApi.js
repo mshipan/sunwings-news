@@ -1,6 +1,12 @@
 import baseApi from "../../baseApi";
 const noticeApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    // get notice
+    getGetNotice: builder.query({
+      query: () => "/notice",
+      providesTags: ["notice"],
+    }),
+
     // add notice
     addNotice: builder.mutation({
       query: (data) => ({
@@ -10,11 +16,25 @@ const noticeApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["notice"],
     }),
-    // get notice
-    getNotice: builder.query({
-      query: () => "/notice",
-      providesTags: ["notice"],
+
+    // patch is opened value
+    addIsOpened: builder.mutation({
+      query: (email) => ({
+        url: `/notice/isOpened/${email}`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["notice"],
+    }),
+    //   get is opened value
+    getIsOpened: builder.query({
+      query: (email) => `/notice/isOpened/${email}`,
+      invalidatesTags: ["notice"],
     }),
   }),
 });
-export const { useAddNoticeMutation } = noticeApi;
+export const {
+  useAddNoticeMutation,
+  useGetGetNoticeQuery,
+  useAddIsOpenedMutation,
+  useGetIsOpenedQuery,
+} = noticeApi;
