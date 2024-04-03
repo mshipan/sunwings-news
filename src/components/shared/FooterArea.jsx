@@ -43,34 +43,38 @@ const FooterArea = () => {
           </span>
         </div>
         {/* <!-- Social network icons container --> */}
-        <div className="flex justify-center text-gray-300">
-          <Link
-            to={singleFacebook?.link}
-            className="me-6 h-4 w-4 "
-            style={{ ...dynamicIconColorStyle }}
-          >
-            <FaFacebookF />
+        <div className="flex justify-center items-center text-gray-300">
+          <Link to={singleFacebook?.link} className="me-4">
+            <div
+              className="border rounded-full size-8 flex items-center justify-center"
+              style={{ ...dynamicIconColorStyle }}
+            >
+              <FaFacebookF />
+            </div>
           </Link>
-          <Link
-            to={singleTwitter?.link}
-            className="me-6 h-4 w-4 "
-            style={{ ...dynamicIconColorStyle }}
-          >
-            <FaTwitter />
+          <Link to={singleTwitter?.link} className="me-4">
+            <div
+              className="border rounded-full size-8 flex items-center justify-center"
+              style={{ ...dynamicIconColorStyle }}
+            >
+              <FaTwitter />
+            </div>
           </Link>
-          <Link
-            to={singleYoutube?.channelLink}
-            className="me-6 h-4 w-4 "
-            style={{ ...dynamicIconColorStyle }}
-          >
-            <FaYoutube />
+          <Link to={singleYoutube?.channelLink} className="me-4">
+            <div
+              className="border rounded-full size-8 flex items-center justify-center"
+              style={{ ...dynamicIconColorStyle }}
+            >
+              <FaYoutube />
+            </div>
           </Link>
-          <Link
-            to={singleInstagram?.link}
-            className="me-6 h-4 w-4 "
-            style={{ ...dynamicIconColorStyle }}
-          >
-            <FaInstagram />
+          <Link to={singleInstagram?.link} className="me-4">
+            <div
+              className="border rounded-full size-8 flex items-center justify-center"
+              style={{ ...dynamicIconColorStyle }}
+            >
+              <FaInstagram />
+            </div>
           </Link>
         </div>
       </div>
