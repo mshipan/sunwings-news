@@ -52,7 +52,7 @@ const TopCards = () => {
       console.log(error.message);
     }
   };
-  
+
 // handle notice submit
   const handleSubmitNotice = async (e) => {
     e.preventDefault();
@@ -144,7 +144,11 @@ const TopCards = () => {
         )}
 
         <div>
-          <p className="text-lg font-semibold">Admin Notice</p>
+          <p className="text-lg font-semibold">
+            {loggedUser?.role === "administrator"
+              ? "Create A Notice"
+              : "Admin Notice"}
+          </p>
         </div>
         <IoMdListBox className="text-4xl" />
 
@@ -160,12 +164,12 @@ const TopCards = () => {
             <div className="px-3 py-4">
               {loggedUser?.role === "administrator" ? (
                 <form onSubmit={handleSubmitNotice}>
-                  <label className="input input-bordered flex items-center gap-2">
+                  <label className="input input-bordered flex items-center gap-2 bg-white border-orange-600">
                     <FcAdvertising />
                     <input
                       type="text"
                       name="subject"
-                      className="grow"
+                      className="grow bg-white"
                       placeholder="Subject"
                       required
                     />
@@ -173,7 +177,7 @@ const TopCards = () => {
 
                   <textarea
                     name="details"
-                    className="textarea textarea-bordered w-full my-2"
+                    className="textarea textarea-bordered w-full my-2 bg-white border-orange-600"
                     placeholder="Details"
                   ></textarea>
                   <div className="items-end">
