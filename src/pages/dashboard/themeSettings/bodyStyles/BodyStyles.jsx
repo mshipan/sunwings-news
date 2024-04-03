@@ -82,6 +82,7 @@ const BodyStyles = () => {
         id: id,
         newscardTitleFontSize: data.newscardTitleFontSize,
         newscardTitleFontColor: data.newscardTitleFontColor,
+        newsCardBg: data.newsCardBg,
         marqueBg: singleTheme.marqueBg,
         marqueTitleFontColor: singleTheme.marqueTitleFontColor,
         marqueTitleFontSize: singleTheme.marqueTitleFontSize,
@@ -296,10 +297,20 @@ const BodyStyles = () => {
             onSubmit={handleNewsCardSubmit}
             labelH1="NewCard"
             subLabel="Please Set Font Size & Pick a Color for News Card."
+            BgColor="newsCardBg"
+            Bglabel="BgColor"
             TextFontSize="newscardTitleFontSize"
             TextFontSizeLabel="Font Size"
             TextFontColor="newscardTitleFontColor"
             TextFontColorLabel="Font Color"
+            Border="isNewsCardBorderd"
+            BorderLabel="Border"
+            BorderWidth="newsCardBorderWidth"
+            BorderWidthLabel="Border Width"
+            BorderStyle="newsCardBorderStyle"
+            BorderStyleLabel="Border Style"
+            BorderColor="newsCardBorderColor"
+            BorderColorLabel="Border Color"
             loading={loadingNews}
           />
           <BodyBackground
