@@ -1,4 +1,3 @@
-import { CiVideoOn } from "react-icons/ci";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 
@@ -14,6 +13,7 @@ import { Autoplay, FreeMode, Navigation, Pagination } from "swiper/modules";
 import { FaCirclePlay } from "react-icons/fa6";
 import { useState } from "react";
 import { useGetAllVideoQuery } from "../../redux/features/allApis/videoGalleryApi/videoGalleryApi";
+import { MdLiveTv } from "react-icons/md";
 
 const VideoNews = () => {
   const [clickedVideo, setClickedVideo] = useState(null);
@@ -65,11 +65,11 @@ const VideoNews = () => {
           <div className="text-white font-semibold mb-4">
             <div className="flex items-center gap-2">
               <div className="relative h-6 w-6 flex items-center justify-center">
-                <div className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gray-400 opacity-75"></div>
+                <div className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-600 opacity-75"></div>
 
-                <CiVideoOn className="text-lg" />
+                <MdLiveTv className="text-lg text-red-600" />
               </div>
-              <span>ভিডিও লিড</span>
+              <span> লাইভ টিভি</span>
             </div>
           </div>
 

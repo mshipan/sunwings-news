@@ -1,9 +1,27 @@
 import { useGetPostsQuery } from "../../../redux/features/allApis/postApi/postApi";
 
 const FeaturedNews = () => {
+  const perPage = 6;
   const { data: posts, isLoading: loading } = useGetPostsQuery({});
 
+  if (loading) {
+    return (
+      <div className="py-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+        {[...Array(perPage)].map((_, i) => (
+          <div key={i} className="flex flex-col gap-2">
+            <div className="skeleton w-full md:w-56 h-80 md:h-36 rounded-2xl"></div>
+            <div className="py-4 flex flex-col gap-3">
+              <div className="skeleton h-5 w-96 md:w-36 rounded-2xl"></div>
+              <div className="skeleton h-5 w-48 md:w-28 rounded-2xl"></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
   const popularNews = posts?.filter((post) => post.isPopular === true);
+  
   return (
     <div className="mt-8 flex flex-col">
       <h1 className="font-serif text-xl mb-4">Featured News</h1>
@@ -13,10 +31,14 @@ const FeaturedNews = () => {
             key={pNews?._id}
             className="bg-gray-300 flex flex-col items-start rounded-t-2xl"
           >
-            {loading ? (
-              <p className="font-normal text-black">
-                <span className="loading loading-spinner loading-sm"></span>
-              </p>
+            {loading || !pNews ? (
+              <div className="flex flex-col gap-2">
+                <div className="skeleton w-full md:w-56 h-80 md:h-36 rounded-2xl"></div>
+                <div className="py-4 flex flex-col gap-3">
+                  <div className="skeleton h-5 w-96 md:w-36 rounded-2xl"></div>
+                  <div className="skeleton h-5 w-48 md:w-28 rounded-2xl"></div>
+                </div>
+              </div>
             ) : (
               <img
                 src={pNews?.postThumbnail}

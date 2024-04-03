@@ -12,11 +12,28 @@ import { VscFileMedia } from "react-icons/vsc";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useGetUserByUidQuery } from "../../redux/features/allApis/usersApi/usersApi";
+import { useGetAllLogoQuery } from "../../redux/features/allApis/logoApi/logoApi";
 
 const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
   const { user } = useContext(AuthContext);
   const { data: loggedUser } = useGetUserByUidQuery(user.uid);
-  console.log(loggedUser);
+  const { data: allLogos } = useGetAllLogoQuery();
+
+  const filteredLogoDesktop = allLogos?.filter(
+    (lo) => lo.position === "desktop_logo"
+  );
+
+  const filteredLogoMobile = allLogos?.filter(
+    (lo) => lo.position === "mobile_logo"
+  );
+
+  const selectedDesktopLogo = filteredLogoDesktop
+    ? filteredLogoDesktop.find((logo) => logo.isSelected === true)
+    : null;
+
+  const selectedMobileLogo = filteredLogoMobile
+    ? filteredLogoMobile.find((logo) => logo.isSelected === true)
+    : null;
 
   const [collapsed, setCollapsed] = useState({
     post: true,
@@ -42,13 +59,37 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
     <div className={sidebarOpen ? "hidden md:block" : "block"}>
       <div className="fixed left-0 top-0 w-64 h-full bg-gray-900 p-4 z-50 transition-transform">
         <div className="flex items-center justify-between pb-4">
-          <Link to="/" className="flex items-center">
-            <img
-              src="https://placehold.co/32x32"
-              alt=""
-              className="w-8 h-8 rounded object-cover"
-            />
-            <span className="text-lg font-bold text-white ml-3">Logo</span>
+          <Link to="/" className="flex items-center w-full">
+            <div className="hidden md:block w-full">
+              {selectedDesktopLogo ? (
+                <img
+                  src={selectedDesktopLogo?.logo}
+                  alt=""
+                  className="w-full h-12 rounded "
+                />
+              ) : (
+                <img
+                  src="https://placehold.co/32x32"
+                  alt=""
+                  className="w-full h-12 rounded object-cover"
+                />
+              )}
+            </div>
+            <div className="block md:hidden">
+              {selectedMobileLogo ? (
+                <img
+                  src={selectedMobileLogo?.logo}
+                  alt=""
+                  className="w-full h-12 rounded object-cover"
+                />
+              ) : (
+                <img
+                  src="https://placehold.co/32x32"
+                  alt=""
+                  className="w-full h-12 rounded object-cover"
+                />
+              )}
+            </div>
           </Link>
 
           <button

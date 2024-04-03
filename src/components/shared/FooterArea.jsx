@@ -2,14 +2,12 @@ import { Link } from "react-router-dom";
 import footerLogo from "../../assets/logo1.png";
 import { FaFacebookF, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 import { useGetFooterQuery } from "../../redux/features/allApis/footerApi/footerApi";
-import { useGetAllLogoQuery } from "../../redux/features/allApis/logoApi/logoApi";
 import { useGetAllFacebookQuery } from "../../redux/features/allApis/socialMediaApi/facebookApi";
 import { useGetAllInstagramQuery } from "../../redux/features/allApis/socialMediaApi/instagramApi";
 import { useGetAllYoutubeQuery } from "../../redux/features/allApis/socialMediaApi/youtubeApi";
 import { useGetAllTwitterQuery } from "../../redux/features/allApis/socialMediaApi/twitterApi";
 
 const FooterArea = () => {
-  const { data: allLogos } = useGetAllLogoQuery();
   const { data: allFooters } = useGetFooterQuery();
   const { data: allFacebook } = useGetAllFacebookQuery();
   const { data: allInstagram } = useGetAllInstagramQuery();
@@ -22,9 +20,6 @@ const FooterArea = () => {
   const singleYoutube = allYoutube?.[0];
   const singleTwitter = allTwitter?.[0];
 
-  const selectedLogo = allLogos
-    ? allLogos.find((logo) => logo.isSelected === true)
-    : null;
   const dynamicBgColorStyle = singleFooter
     ? { backgroundColor: singleFooter.bgColor }
     : { backgroundColor: "#454444" };
@@ -84,9 +79,9 @@ const FooterArea = () => {
         <div className="grid-cols-1 justify-center items-start grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {/* <!-- TW Elements section --> */}
           <div className="flex flex-col gap-6 justify-center items-center">
-            {selectedLogo ? (
+            {singleFooter ? (
               <img
-                src={selectedLogo?.logo}
+                src={singleFooter?.footerLogo}
                 alt="footer logo"
                 className="w-56"
               />

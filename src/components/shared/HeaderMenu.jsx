@@ -22,8 +22,12 @@ const HeaderLogo = () => {
   const { data: allLogos } = useGetAllLogoQuery();
   const navigate = useNavigate();
 
-  const selectedLogo = allLogos
-    ? allLogos.find((logo) => logo.isSelected === true)
+  const mobileLogos = allLogos
+    ? allLogos.filter((logo) => logo.position === "mobile_logo")
+    : [];
+
+  const selectedMobileLogo = mobileLogos
+    ? mobileLogos.find((logo) => logo.isSelected === true)
     : null;
 
   const handleNavItems = (value) => {
@@ -292,7 +296,7 @@ const HeaderLogo = () => {
           </div>
           <button
             onClick={() => setSearchBarOpen(true)}
-            className="btn btn-ghost btn-circle text-white hidden md:block"
+            className="btn btn-ghost md:flex items-center justify-center btn-circle text-white hidden "
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -313,7 +317,7 @@ const HeaderLogo = () => {
           <div
             className={`form-control absolute w-72 transition-all duration-500 ease-in-out ${
               searchBarOpen
-                ? "right-1 top-[100px] md:right-2 md:top-0 z-50"
+                ? "right-1 top-1 md:right-2 md:top-0 z-50"
                 : "-right-96 hidden"
             }`}
           >
@@ -339,7 +343,7 @@ const HeaderLogo = () => {
         </div>
 
         <div className="flex md:hidden items-center justify-between bg-black py-1 px-1">
-          <img src={selectedLogo?.logo} alt="logo" className="w-36 " />
+          <img src={selectedMobileLogo?.logo} alt="logo" className="w-36 " />
           <div className="flex flex-row gap-1 justify-center items-center">
             <button
               onClick={() => setSearchBarOpen(!searchBarOpen)}
@@ -373,9 +377,9 @@ const HeaderLogo = () => {
             )}
           </div>
         </div>
-        <div className="flex py-2">
-          <div className="bg-orange-500 text-white w-1/4 md:w-2/12 flex justify-center items-center">
-            <h3 className="text-xs md:">সংবাদ শিরোনাম :</h3>
+        <div className="flex py-2 mb-4">
+          <div className="bg-[#ff5900] text-white w-1/4 md:w-2/12 flex justify-center items-center">
+            <h3 className="text-xs md:text-base">সংবাদ শিরোনাম :</h3>
           </div>
 
           <div
@@ -399,7 +403,11 @@ const HeaderLogo = () => {
         >
           <div className="p-1">
             <div>
-              <img src={selectedLogo?.logo} alt="logo" className="w-36 " />
+              <img
+                src={selectedMobileLogo?.logo}
+                alt="logo"
+                className="w-36 "
+              />
             </div>
           </div>
           <ul className="flex flex-col">{navItems}</ul>
