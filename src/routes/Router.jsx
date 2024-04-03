@@ -27,6 +27,7 @@ import SearchedNewspage from "../pages/homePage/SearchedNewspage";
 import CommentPage from "../pages/dashboard/CommentPage/CommentPage";
 import SinglePostStyles from "../pages/dashboard/themeSettings/singlePostStyles/SinglePostStyles";
 import DashboardHome from "../pages/dashboard/dashboardHome/DashboardHome";
+import MyAllPosts from "../pages/dashboard/Posts/MyAllPosts";
 
 const router = createBrowserRouter([
   {
@@ -78,6 +79,10 @@ const router = createBrowserRouter([
       {
         path: "add-new-post",
         element: <AddNewPost />,
+      },
+      {
+        path: "my-all-posts",
+        element: <MyAllPosts />,
       },
       {
         path: "edit-post/:id",
