@@ -103,7 +103,7 @@ const BodyBackground = ({
     setValue(Border, e.target.value);
     setBorderValue(e.target.value);
   };
-
+  console.log(borderValue);
   const handleBorderColorChange = (color) => {
     setValue(BorderColor, color);
     setBorderColorValue(color);
@@ -115,7 +115,7 @@ const BodyBackground = ({
   };
 
   const handleBorderStyleChange = (e) => {
-    setValue(BorderWidth, e.target.value);
+    setValue(BorderStyle, e.target.value);
     setBorderStyleValue(e.target.value);
   };
 
@@ -199,7 +199,7 @@ const BodyBackground = ({
             </div>
           )}
           {TextFontSize && (
-            <div className="flex flex-row md:flex-row lg:flex-row xl:flex-row items-end gap-3 w-full md:w-full lg:w-4/12 xl:w-56">
+            <div className="flex flex-row md:flex-row lg:flex-row xl:flex-row items-end gap-3 w-full md:w-full lg:w-4/12 xl:w-32">
               <div className="form-control w-full">
                 <label htmlFor={TextFontSize} className="text-lg">
                   {TextFontSizeLabel}:
@@ -259,27 +259,28 @@ const BodyBackground = ({
           )}
 
           {Border && (
-            <div className="flex flex-row md:flex-row lg:flex-row xl:flex-row items-end gap-3 ">
+            <div className="flex flex-row md:flex-row lg:flex-row xl:flex-row items-end gap-3 w-full md:w-full lg:w-4/12 xl:w-56">
               <div className="form-control w-full">
                 <label htmlFor={Border} className="text-lg">
                   {BorderLabel}:
                 </label>
-                <input
-                  type="checkbox"
+                <select
                   name={Border}
                   {...register(Border, { required: true })}
                   defaultValue={borderValue}
                   onChange={handleBorderChange}
-                  placeholder="Only Number"
-                  className=" toggle toggle-success size-8 w-16"
-                  checked
-                />
+                  className="px-2 py-2 bg-white border border-orange-600 w-full"
+                >
+                  <option value="">Select One.</option>
+                  <option value="no">No Border</option>
+                  <option value="yes">Border</option>
+                </select>
               </div>
             </div>
           )}
 
           {BorderWidth && (
-            <div className="flex flex-row md:flex-row lg:flex-row xl:flex-row items-end gap-3 w-full md:w-full lg:w-4/12 xl:w-56">
+            <div className="flex flex-row md:flex-row lg:flex-row xl:flex-row items-end gap-3 w-full md:w-full lg:w-4/12 xl:w-44 2xl:w-48">
               <div className="form-control w-full">
                 <label htmlFor={BorderWidth} className="text-lg">
                   {BorderWidthLabel}:
@@ -297,7 +298,7 @@ const BodyBackground = ({
             </div>
           )}
           {BorderStyle && (
-            <div className="flex flex-row md:flex-row lg:flex-row xl:flex-row items-end gap-3 w-full md:w-full lg:w-4/12 xl:w-56">
+            <div className="flex flex-row md:flex-row lg:flex-row xl:flex-row items-end gap-3 w-full md:w-full lg:w-4/12 xl:w-44 2xl:w-48">
               <div className="form-control w-full">
                 <label htmlFor={BorderStyle} className="text-lg">
                   {BorderStyleLabel}:
@@ -307,7 +308,7 @@ const BodyBackground = ({
                   {...register(BorderStyle, { required: true })}
                   defaultValue={borderStyleValue}
                   onChange={handleBorderStyleChange}
-                  className="px-2 py-1 bg-white border border-orange-600 w-full"
+                  className="px-2 py-2 bg-white border border-orange-600 w-full"
                 >
                   <option value="">Select One.</option>
                   <option value="dashed">Dashed</option>
@@ -329,7 +330,7 @@ const BodyBackground = ({
           )}
 
           {BorderColor && (
-            <div className="flex flex-row md:flex-row lg:flex-row xl:flex-row items-end gap-3 w-full md:w-full lg:w-4/12 xl:w-56">
+            <div className="flex flex-row md:flex-row lg:flex-row xl:flex-row items-end gap-3 w-full md:w-full lg:w-4/12 xl:w-60">
               <div className="form-control w-full">
                 <label htmlFor={BorderColor} className="text-lg">
                   {BorderColorLabel}:
