@@ -75,6 +75,7 @@ const BodyStyles = () => {
   const handleNewsCardSubmit = async (data) => {
     delete data.sampleColor;
     delete data.takenTextColor;
+    console.log(data.isNewsCardBorderd);
     try {
       setLoadingNews(true);
 
@@ -83,6 +84,10 @@ const BodyStyles = () => {
         newscardTitleFontSize: data.newscardTitleFontSize,
         newscardTitleFontColor: data.newscardTitleFontColor,
         newsCardBg: data.newsCardBg,
+        isNewsCardBorderd: data.isNewsCardBorderd,
+        newsCardBorderWidth: data.newsCardBorderWidth,
+        newsCardBorderStyle: data.newsCardBorderStyle,
+        newsCardBorderColor: data.newsCardBorderColor,
         marqueBg: singleTheme.marqueBg,
         marqueTitleFontColor: singleTheme.marqueTitleFontColor,
         marqueTitleFontSize: singleTheme.marqueTitleFontSize,

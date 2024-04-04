@@ -23,10 +23,27 @@ const bodyThemeApi = baseApi.injectEndpoints({
       invalidatesTags: ["bodyTheme"],
     }),
     updateNewsCard: builder.mutation({
-      query: ({ id, newscardTitleFontSize, newscardTitleFontColor }) => ({
+      query: ({
+        id,
+        newsCardBg,
+        isNewsCardBorderd,
+        newsCardBorderWidth,
+        newsCardBorderStyle,
+        newsCardBorderColor,
+        newscardTitleFontSize,
+        newscardTitleFontColor,
+      }) => ({
         url: `/body-theme/${id}`,
         method: "PUT",
-        body: { newscardTitleFontSize, newscardTitleFontColor },
+        body: {
+          newsCardBg,
+          isNewsCardBorderd,
+          newsCardBorderWidth,
+          newsCardBorderStyle,
+          newsCardBorderColor,
+          newscardTitleFontSize,
+          newscardTitleFontColor,
+        },
       }),
       invalidatesTags: ["bodyTheme"],
     }),
@@ -162,5 +179,5 @@ export const {
   useUpdateSinglePostLatestNewsCardMutation,
   useUpdateSinglePostPopularNewsCardMutation,
   useUpdateMoreNewsMutation,
-  useUpdateCategoryTitleMutation
+  useUpdateCategoryTitleMutation,
 } = bodyThemeApi;

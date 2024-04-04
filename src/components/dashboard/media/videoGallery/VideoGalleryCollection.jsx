@@ -32,6 +32,29 @@ const VideoGalleryCollection = ({ data }) => {
     }
   };
 
+  const handleLiveTvVideoClick = async (adId, isChecked) => {
+    try {
+      // Deselect all other Live TV videos before selecting the clicked video
+      liveTvData.forEach(async (video) => {
+        if (video._id !== adId && video.isSelected) {
+          await updateVideoSelection({ id: video._id, isSelected: false });
+        }
+      });
+
+      // Update isSelected status for the clicked video
+      await updateVideoSelection({ id: adId, isSelected: isChecked });
+
+      if (isChecked) {
+        toast.success("Video selected successfully!");
+      } else {
+        toast.success("Video de-selected successfully!");
+      }
+    } catch (error) {
+      console.error("Error during Video selection:", error);
+      toast.error("Failed to select Video. Please try again later.");
+    }
+  };
+
   const handleDelete = async (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -65,6 +88,7 @@ const VideoGalleryCollection = ({ data }) => {
     });
   };
 
+  const liveTvData = data?.filter((video) => video.category === "liveTv");
   const newsData = data?.filter((video) => video.category === "news");
   const entertainmentData = data?.filter(
     (video) => video.category === "entertainment"
@@ -81,6 +105,13 @@ const VideoGalleryCollection = ({ data }) => {
         </h1>
 
         <div className="flex flex-col gap-10">
+          <VideoContent
+            categoryName="Live Tv"
+            data={liveTvData}
+            handleVideo={handleVideo}
+            handleVideoClick={handleLiveTvVideoClick}
+            handleDelete={handleDelete}
+          />
           <VideoContent
             categoryName="News"
             data={newsData}
@@ -115,14 +146,25 @@ const VideoGalleryCollection = ({ data }) => {
           </form>
           {/* modal content  */}
           <div>
-            <iframe
-              src={clickedVideo?.link.replace(
-                "https://youtu.be/",
-                "https://www.youtube.com/embed/"
-              )}
-              frameBorder="0"
-              className="w-full h-96"
-            ></iframe>
+            {clickedVideo?.category !== "liveTv" ? (
+              <iframe
+                src={clickedVideo?.link.replace(
+                  "https://youtu.be/",
+                  "https://www.youtube.com/embed/"
+                )}
+                frameBorder="0"
+                className="w-full h-96"
+              ></iframe>
+            ) : (
+              <iframe
+                src={clickedVideo?.liveLink.replace(
+                  "https://www.youtube.com/live/",
+                  "https://www.youtube.com/embed/"
+                )}
+                frameBorder="0"
+                className="w-full h-96"
+              ></iframe>
+            )}
           </div>
         </div>
       </dialog>

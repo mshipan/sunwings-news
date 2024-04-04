@@ -45,8 +45,21 @@ const NewsCard = ({ post }) => {
     color: isHovered ? "#0077cc" : singleTheme?.newscardTitleFontColor,
     transition: "color 0.3s", // Add transition for smooth color change
   };
+
+  const cardStyle = {
+    borderWidth: `${singleTheme?.newsCardBorderWidth}px`,
+    borderStyle: singleTheme?.newsCardBorderStyle,
+    borderColor: singleTheme?.newsCardBorderColor,
+    backgroundColor: singleTheme?.newsCardBg,
+  };
   return (
-    <div className="bg-slate-100">
+    <div
+      style={
+        singleTheme?.isNewsCardBorderd == "yes"
+          ? cardStyle
+          : { backgroundColor: singleTheme?.newsCardBg }
+      }
+    >
       <img
         src={post?.postThumbnail}
         alt=""
