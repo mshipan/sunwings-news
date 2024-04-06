@@ -41,7 +41,7 @@ const BannerJatioTopLeft = () => {
       if (image) {
         setLoading(true);
         const imageData = await imageUpload(image);
-        data.banner = imageData.data.display_url;
+        data.banner = imageData.data.url;
         data.createdAt = now;
         data.position = "jatio_category_top_left";
         data.link = adLink;

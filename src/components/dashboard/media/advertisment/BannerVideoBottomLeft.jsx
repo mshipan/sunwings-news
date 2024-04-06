@@ -41,7 +41,7 @@ const BannerVideoBottomLeft = () => {
       if (image) {
         setLoading(true);
         const imageData = await imageUpload(image);
-        data.banner = imageData.data.display_url;
+        data.banner = imageData.data.url;
         data.createdAt = now;
         data.position = "video_section_bottom_left";
         data.link = adLink;
