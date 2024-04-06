@@ -29,6 +29,7 @@ import SinglePostStyles from "../pages/dashboard/themeSettings/singlePostStyles/
 import DashboardHome from "../pages/dashboard/dashboardHome/DashboardHome";
 import MyAllPosts from "../pages/dashboard/Posts/MyAllPosts";
 import Notices from "../pages/dashboard/Notices/Notices";
+import NewsPrint from "../components/homePage/NewsPrint/NewsPrint";
 
 const router = createBrowserRouter([
   {
@@ -147,6 +148,10 @@ const router = createBrowserRouter([
         element: <Notices />,
       },
     ],
+  },
+  {
+    path: "/print-news",
+    element: <NewsPrint />,
   },
   {
     path: "/login",
