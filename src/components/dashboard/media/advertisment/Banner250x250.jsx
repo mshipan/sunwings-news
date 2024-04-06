@@ -41,7 +41,7 @@ const Banner250x250 = () => {
       if (image) {
         setLoading(true);
         const imageData = await imageUpload(image);
-        data.banner = imageData.data.display_url;
+        data.banner = imageData.data.url;
         data.createdAt = now;
         data.position = "beside_news_slider_top_right_corner";
         data.link = adLink;

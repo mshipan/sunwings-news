@@ -156,10 +156,39 @@ const bodyThemeApi = baseApi.injectEndpoints({
         categoryBg,
         categoryTitleFontColor,
         categoryTitleFontSize,
+        isCategoryBordered,
+        categoryBorderStyle,
+        categoryBorderColor,
+        categoryBorderWidth,
       }) => ({
         url: `/body-theme/${id}`,
         method: "PUT",
-        body: { categoryBg, categoryTitleFontColor, categoryTitleFontSize },
+        body: {
+          categoryBg,
+          categoryTitleFontColor,
+          categoryTitleFontSize,
+          isCategoryBordered,
+          categoryBorderStyle,
+          categoryBorderColor,
+          categoryBorderWidth,
+        },
+      }),
+      invalidatesTags: ["bodyTheme"],
+    }),
+    updateNewsHeadlineTitle: builder.mutation({
+      query: ({
+        id,
+        newsHeadlineTitleFontSize,
+        newsHeadlineTitleFontColor,
+        newsHeadlineBg,
+      }) => ({
+        url: `/body-theme/${id}`,
+        method: "PUT",
+        body: {
+          newsHeadlineTitleFontSize,
+          newsHeadlineTitleFontColor,
+          newsHeadlineBg,
+        },
       }),
       invalidatesTags: ["bodyTheme"],
     }),
@@ -180,4 +209,5 @@ export const {
   useUpdateSinglePostPopularNewsCardMutation,
   useUpdateMoreNewsMutation,
   useUpdateCategoryTitleMutation,
+  useUpdateNewsHeadlineTitleMutation,
 } = bodyThemeApi;

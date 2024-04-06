@@ -41,7 +41,7 @@ const Banner240x32 = () => {
       if (image) {
         setLoading(true);
         const imageData = await imageUpload(image);
-        data.banner = imageData.data.display_url;
+        data.banner = imageData.data.url;
         data.createdAt = now;
         data.position = "beside_top_logo";
         data.link = adLink;

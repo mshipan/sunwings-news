@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import HomeLogo1 from "../../assets/logo1.png";
 import { useGetAllAdvertisementQuery } from "../../redux/features/allApis/advertisementApi/advertisementApi";
 import { useGetAllLogoQuery } from "../../redux/features/allApis/logoApi/logoApi";
@@ -25,7 +26,7 @@ const LogoSection = () => {
   return (
     <div className="container mx-auto py-5">
       <div className="flex justify-between gap-3">
-        <div className="w-4/12 rounded hidden md:block">
+        <Link to="/" className="w-4/12 rounded hidden md:block">
           {selectedDesktopLogo ? (
             <img
               src={selectedDesktopLogo.logo}
@@ -35,7 +36,7 @@ const LogoSection = () => {
           ) : (
             <img src={HomeLogo1} alt="" className="w-full h-28" />
           )}
-        </div>
+        </Link>
         <div className="w-full md:w-8/12 rounded">
           <Advertisement selectedAd={adBesideTopLogo} />
         </div>
