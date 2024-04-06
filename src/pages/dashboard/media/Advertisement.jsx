@@ -13,10 +13,21 @@ import BannerVideoTopRight from "../../../components/dashboard/media/advertismen
 import BannerVideoBottomLeft from "../../../components/dashboard/media/advertisment/BannerVideoBottomLeft";
 import BannerVideoBottomRight from "../../../components/dashboard/media/advertisment/BannerVideoBottomRight";
 import { Helmet } from "react-helmet-async";
+import Modal from "../../../components/shared/Modal/Modal";
+import PaymentForm from "../../../components/dashboard/media/advertisment/PaymentForm";
 
 const Advertisment = () => {
+  let [isOpen, setIsOpen] = useState(false);
   const [selectedPosition, setSelectedPosition] = useState("");
   const { data: allAdvert } = useGetAllAdvertisementQuery();
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  function openModal() {
+    setIsOpen(true);
+  }
 
   const handleChange = (event) => {
     setSelectedPosition(event.target.value);
@@ -114,6 +125,20 @@ const Advertisment = () => {
               Video Section Bottom Right
             </option>
           </select>
+        </div>
+        <div>
+          <div className="fixed flex items-center justify-center">
+            <button
+              type="button"
+              onClick={openModal}
+              className="rounded-md px-4 py-2 text-sm font-medium text-white "
+            >
+              Pay
+            </button>
+          </div>
+          <Modal isOpen={isOpen} closeModal={closeModal}>
+            <PaymentForm closeModal={closeModal}/>
+          </Modal>
         </div>
 
         {selectedPosition === "beside_top_logo" && (

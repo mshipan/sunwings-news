@@ -21,6 +21,7 @@ const baseApi = createApi({
     "bodyTheme",
     "comments",
     "notice",
+    "payments",
   ],
   endpoints: () => ({}),
 });
