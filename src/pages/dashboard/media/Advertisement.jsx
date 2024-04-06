@@ -137,7 +137,7 @@ const Advertisment = () => {
             </button>
           </div>
           <Modal isOpen={isOpen} closeModal={closeModal}>
-            <PaymentForm closeModal={closeModal}/>
+            <PaymentForm closeModal={closeModal} />
           </Modal>
         </div>
 
