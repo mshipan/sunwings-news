@@ -8,6 +8,7 @@ import {
   useUpdateMenuMutation,
   useUpdateMoreNewsMutation,
   useUpdateNewsCardMutation,
+  useUpdateNewsHeadlineTitleMutation,
 } from "../../../../redux/features/allApis/bodyThemeApi/bodyThemeApi";
 import { useState } from "react";
 import Swal from "sweetalert2";
@@ -18,6 +19,7 @@ const BodyStyles = () => {
   const [loadingNews, setLoadingNews] = useState(false);
   const [loadingMarque, setLoadingMarque] = useState(false);
   const [loadingMenu, setLoadingMenu] = useState(false);
+  const [loadingNewsHeadline, setLoadingNewsHeadline] = useState(false);
   const [loadingMoreNews, setLoadingMoreNews] = useState(false);
   const [loadingCategoryTitle, setLoadingCategoryTitle] = useState(false);
   const { reset } = useForm();
@@ -26,6 +28,7 @@ const BodyStyles = () => {
   const [updateNewsCard] = useUpdateNewsCardMutation();
   const [updateMarque] = useUpdateMarqueMutation();
   const [updateMenu] = useUpdateMenuMutation();
+  const [updateNewsHeadline] = useUpdateNewsHeadlineTitleMutation();
   const [updateMoreNews] = useUpdateMoreNewsMutation();
   const [updateCategoryTitle] = useUpdateCategoryTitleMutation();
   const id = bodyThemes?.[0]._id;
@@ -198,6 +201,49 @@ const BodyStyles = () => {
       });
     }
   };
+  const handleNewHeadlineSubmit = async (data) => {
+    delete data.sampleColor;
+    delete data.takenTextColor;
+    try {
+      setLoadingNewsHeadline(true);
+
+      const result = await updateNewsHeadline({
+        id: id,
+        newscardTitleFontSize: singleTheme.newscardTitleFontSize,
+        newscardTitleFontColor: singleTheme.newscardTitleFontColor,
+        marqueBg: singleTheme.marqueBg,
+        marqueTitleFontColor: singleTheme.marqueTitleFontColor,
+        marqueTitleFontSize: singleTheme.marqueTitleFontSize,
+        menuBg: singleTheme.menuBg,
+        menuTitleFontColor: singleTheme.menuTitleFontColor,
+        menuTitleFontSize: singleTheme.menuTitleFontSize,
+        moreNewsTitleFontColor: singleTheme.moreNewsTitleFontColor,
+        moreNewsTitleFontSize: singleTheme.moreNewsTitleFontSize,
+        newsHeadlineTitleFontSize: data.newsHeadlineTitleFontSize,
+        newsHeadlineTitleFontColor: data.newsHeadlineTitleFontColor,
+        newsHeadlineBg: data.newsHeadlineBg,
+      });
+      if (result.data.modifiedCount > 0) {
+        setLoadingNewsHeadline(false);
+        reset();
+        Swal.fire({
+          title: "News Headline content Updated Successfully!",
+          text: "Press OK to continue",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+      }
+    } catch (error) {
+      setLoadingNewsHeadline(false);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: `Error Updating News Headline content: ${error}`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  };
   const handleCategorySubmit = async (data) => {
     delete data.sampleColor;
     delete data.takenTextColor;
@@ -217,6 +263,10 @@ const BodyStyles = () => {
         categoryTitleFontSize: data.categoryTitleFontSize,
         categoryTitleFontColor: data.categoryTitleFontColor,
         categoryBg: data.categoryBg,
+        isCategoryBordered: data.isCategoryBordered,
+        categoryBorderStyle: data.categoryBorderStyle,
+        categoryBorderColor: data.categoryBorderColor,
+        categoryBorderWidth: data.categoryBorderWidth,
         moreNewsTitleFontColor: singleTheme.moreNewsTitleFontColor,
         moreNewsTitleFontSize: singleTheme.moreNewsTitleFontSize,
       });
@@ -224,7 +274,7 @@ const BodyStyles = () => {
         setLoadingCategoryTitle(false);
         reset();
         Swal.fire({
-          title: "Menu content Updated Successfully!",
+          title: "Category content Updated Successfully!",
           text: "Press OK to continue",
           icon: "success",
           confirmButtonText: "OK",
@@ -235,7 +285,7 @@ const BodyStyles = () => {
       Swal.fire({
         position: "center",
         icon: "error",
-        title: `Error Updating Menu content: ${error}`,
+        title: `Error Updating Category content: ${error}`,
         showConfirmButton: false,
         timer: 1500,
       });
@@ -343,6 +393,18 @@ const BodyStyles = () => {
             loading={loadingMenu}
           />
           <BodyBackground
+            onSubmit={handleNewHeadlineSubmit}
+            labelH1="News Headline / সংবাদ শিরোনাম"
+            subLabel="Please Set Font Size & Pick Colors for Font Color and BgColor for News Headline."
+            TextFontSize="newsHeadlineTitleFontSize"
+            TextFontSizeLabel="Font Size"
+            TextFontColor="newsHeadlineTitleFontColor"
+            TextFontColorLabel="Font Color"
+            BgColor="newsHeadlineBg"
+            Bglabel="BgColor"
+            loading={loadingNewsHeadline}
+          />
+          <BodyBackground
             onSubmit={handleCategorySubmit}
             labelH1="Category Title"
             subLabel="Please Set Font Size & Pick Colors for Font Color and BgColor for CAtegory Title."
@@ -352,6 +414,14 @@ const BodyStyles = () => {
             TextFontColorLabel="Font Color"
             BgColor="categoryBg"
             Bglabel="BgColor"
+            Border="isCategoryBordered"
+            BorderLabel="Border"
+            BorderStyle="categoryBorderStyle"
+            BorderStyleLabel="Border Style"
+            BorderColor="categoryBorderColor"
+            BorderColorLabel="Border Color"
+            BorderWidth="categoryBorderWidth"
+            BorderWidthLabel="Border Width"
             loading={loadingCategoryTitle}
           />
           <BodyBackground
