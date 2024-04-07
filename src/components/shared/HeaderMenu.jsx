@@ -363,7 +363,9 @@ const HeaderLogo = () => {
         </div>
 
         <div className="flex md:hidden items-center justify-between bg-black py-1 px-1">
-          <img src={selectedMobileLogo?.logo} alt="logo" className="w-36 " />
+          <Link to="/">
+            <img src={selectedMobileLogo?.logo} alt="logo" className="w-36 " />
+          </Link>
           <div className="flex flex-row gap-1 justify-center items-center">
             <button
               onClick={() => setSearchBarOpen(!searchBarOpen)}
