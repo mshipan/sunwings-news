@@ -1,59 +1,87 @@
 import { useRef } from "react";
 import { useGetFooterQuery } from "../../../redux/features/allApis/footerApi/footerApi";
+import Loader from "../../shared/Loader/Loader";
+import { useReactToPrint } from "react-to-print";
+import "./printStyles.css";
+import { useParams } from "react-router-dom";
+import { useGetPostByIdQuery } from "../../../redux/features/allApis/postApi/postApi";
+import { useGetAllLogoQuery } from "../../../redux/features/allApis/logoApi/logoApi";
 
 const NewsPrint = () => {
+  const { id } = useParams();
+  const { data: singlePost, isLoading: singlePostLoading } =
+    useGetPostByIdQuery({ id });
   const { data: allFooters, isLoading } = useGetFooterQuery();
-  const printableAreaRef = useRef(null);
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
+  const presentTime = new Date().toLocaleString("bn-BD", {
+    timeZone: "Asia/Dhaka",
+  }); // Get current time in Bangla
+  const publishDate = new Date(singlePost?.publishDate);
+  const banglaPublishDate = publishDate.toLocaleString("bn-BD", {
+    timeZone: "Asia/Dhaka",
+  });
+  const footerInfo = allFooters[0];
+  const renderContent = singlePost?.quill;
 
-  if (isLoading) {
-    return <div>Loading</div>;
+  const { data: allLogos } = useGetAllLogoQuery();
+
+  const desktopLogos = allLogos
+    ? allLogos.filter((logo) => logo.position === "desktop_logo")
+    : [];
+
+  const selectedDesktopLogo = desktopLogos
+    ? desktopLogos.find((logo) => logo.isSelected === true)
+    : null;
+
+  if (isLoading && singlePostLoading) {
+    return <Loader />;
   }
 
-  const footerInfo = allFooters[0];
-
-  const handlePrint = () => {
-    const printableContent = document.getElementById("printableArea").innerHTML;
-    const originalContent = document.body.innerHTML;
-
-    document.body.innerHTML = printableContent;
-
-    window.print();
-
-    document.body.innerHTML = originalContent;
-  };
-
   return (
-    <div>
-      <button onClick={handlePrint}>Print</button>
+    <div className="px-40 py-20 bg-white">
+      <button
+        className="fixed top-4 right-4 px-5 py-2 bg-green-600 text-white"
+        onClick={handlePrint}
+      >
+        Print
+      </button>
       <div
-        ref={printableAreaRef}
-        className="flex flex-col justify-center items-center w-1/2 mx-auto border-2  border-green-700"
+        ref={componentRef}
+        className="printable-content flex flex-col justify-center bg-white mx-auto border-2 px-6 py-2 border-green-700"
         id="printableArea"
       >
         <img
-          className=""
-          src="http://ruposidesh.com/wp-content/uploads/2023/06/Untitled-1ww.jpg"
+          className="h-36 my-2 px-14"
+          src={selectedDesktopLogo?.logo}
           alt=""
         />
-        <div className="bg-[#106634] text-white text-center w-full py-[5px] text-[18px]">
-          <span>প্রিন্ট এর তারিখঃ এপ্রিল ৪, ২০২৪, ৩:৫২ পি.এম </span>||
-          <span> প্রকাশের তারিখঃ এপ্রিল ৪, ২০২৪, ৫:৩০ এ.এম</span>
+        <div
+          className="text-white text-center w-full py-[5px] text-[18px]"
+          style={{
+            backgroundColor: "#106634",
+            color: "white",
+            "@media print": { backgroundColor: "#106634 !important" },
+          }}
+        >
+          <span>প্রিন্ট এর তারিখঃ {presentTime} </span>||
+          <span> প্রকাশের তারিখঃ {banglaPublishDate}</span>
         </div>
+
         <h1 className="text-center font-bold text-[34px] my-[30px] px-[4px]">
-          শাহজাদপুরে একসাথে ৪ কন্যার জন্ম দিয়েছেন রিক্সা চালকের স্ত্রী!
+          {singlePost?.postTitle}
         </h1>
-        <div>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus,
-          earum. Quis praesentium, quasi atque delectus neque repudiandae esse
-          nisi aliquam modi provident laboriosam. Dignissimos, id quibusdam esse
-          quod perspiciatis voluptatum? Lorem ipsum dolor sit amet consectetur,
-          adipisicing elit. Minus, earum. Quis praesentium, quasi atque delectus
-          neque repudiandae esse nisi aliquam modi provident laboriosam.
-          Dignissimos, id quibusdam esse quod perspiciatis voluptatum?
+
+        {/* Use columns for Quill content */}
+        <div className="columns-2">
+          <div dangerouslySetInnerHTML={{ __html: renderContent }}></div>
         </div>
+
         <img
-          className="w-[300px]"
-          src="http://ruposidesh.com/wp-content/uploads/2023/03/282182418_1011643292808564_4897351549083796763_n.png"
+          className="w-[300px] mx-auto mt-4"
+          src={selectedDesktopLogo?.logo}
           alt=""
         />
         <div className="bg-white text-center text-black text-[18px] m-[10px] font-semibold">
