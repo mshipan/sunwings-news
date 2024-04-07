@@ -7,7 +7,6 @@ import { useGetAllFacebookQuery } from "../../redux/features/allApis/socialMedia
 import { useGetAllTwitterQuery } from "../../redux/features/allApis/socialMediaApi/twitterApi";
 import { FacebookShareButton, TwitterShareButton } from "react-share";
 import { Link } from "react-router-dom";
-import demoGif from "../../assets/demo.gif";
 
 const Aside = ({ setDate }) => {
   const { data: allAds } = useGetAllAdvertisementQuery();
