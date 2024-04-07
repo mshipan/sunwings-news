@@ -150,7 +150,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/print-news",
+    path: "/print-news/:id",
     element: <NewsPrint />,
   },
   {
