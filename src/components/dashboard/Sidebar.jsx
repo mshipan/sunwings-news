@@ -175,6 +175,65 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
               </ul>
             </li>
           )}
+          {loggedUser &&
+            (loggedUser.role === "administrator" || "moderator") && (
+              <li className="mb-1 group">
+                <div
+                  className="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md    sidebar-dropdown-toggle"
+                  onClick={() => toggleCollapse("media")}
+                >
+                  <VscFileMedia className="ri-instance-line mr-3 text-lg" />
+                  <span className="text-sm select-none">Media</span>
+                  <MdOutlineKeyboardArrowRight className=" ml-auto " />
+                </div>
+                <ul
+                  className={`pl-7 mt-2 ${
+                    collapsed.media ? "hidden" : "block"
+                  }`}
+                >
+                  <li className="mb-4">
+                    <Link
+                      to="/dashboard/create-ad"
+                      className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
+                    >
+                      Create An Ad
+                    </Link>
+                  </li>
+                  <li className="mb-4">
+                    <Link
+                      to="/dashboard/manage-ads"
+                      className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
+                    >
+                      Manage All Ads
+                    </Link>
+                  </li>
+                  <li className="mb-4">
+                    <Link
+                      to="/dashboard/advertisement"
+                      className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
+                    >
+                      Advertisement
+                    </Link>
+                  </li>
+                  <li className="mb-4">
+                    <Link
+                      to="/dashboard/photo-gallery"
+                      className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
+                    >
+                      Photo Gallery
+                    </Link>
+                  </li>
+                  <li className="mb-4">
+                    <Link
+                      to="/dashboard/video-gallery"
+                      className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
+                    >
+                      Video Gallery
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+            )}
           {loggedUser && loggedUser.role === "administrator" && (
             <li className="mb-1 group">
               <div

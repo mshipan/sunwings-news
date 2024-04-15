@@ -30,6 +30,8 @@ import DashboardHome from "../pages/dashboard/dashboardHome/DashboardHome";
 import MyAllPosts from "../pages/dashboard/Posts/MyAllPosts";
 import Notices from "../pages/dashboard/Notices/Notices";
 import NewsPrint from "../components/homePage/NewsPrint/NewsPrint";
+import CreateAnAd from "../pages/dashboard/media/CreateAnAd";
+import ManageAds from "../pages/dashboard/media/ManageAds";
 import AdminRoute from "./AdminRoute";
 import AdminEditorRoute from "./AdminEditorRoute";
 
@@ -111,6 +113,14 @@ const router = createBrowserRouter([
             <CustomizeLogo />
           </AdminRoute>
         ),
+      },
+      {
+        path: "create-ad",
+        element: <CreateAnAd />,
+      },
+      {
+        path: "manage-ads",
+        element: <ManageAds />,
       },
       {
         path: "advertisement",
