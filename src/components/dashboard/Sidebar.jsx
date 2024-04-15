@@ -193,6 +193,22 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
                 >
                   <li className="mb-4">
                     <Link
+                      to="/dashboard/create-ad"
+                      className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
+                    >
+                      Create An Ad
+                    </Link>
+                  </li>
+                  <li className="mb-4">
+                    <Link
+                      to="/dashboard/manage-ads"
+                      className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
+                    >
+                      Manage All Ads
+                    </Link>
+                  </li>
+                  <li className="mb-4">
+                    <Link
                       to="/dashboard/advertisement"
                       className="text-gray-300 text-sm flex items-center hover:text-gray-100 before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3 select-none"
                     >

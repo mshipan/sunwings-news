@@ -50,6 +50,7 @@ const PaymentForm = ({ closeModal }) => {
             <span className="text-red-600">Please select method</span>
           )}
         </div>
+
         <div className="form-control">
           <label
             htmlFor="name"
@@ -69,6 +70,7 @@ const PaymentForm = ({ closeModal }) => {
             <span className="text-red-600">Name field is required</span>
           )}
         </div>
+
         <div className="form-control">
           <label
             htmlFor="email"
@@ -93,6 +95,7 @@ const PaymentForm = ({ closeModal }) => {
             <span className="text-red-600">Enter valid email address</span>
           )}
         </div>
+
         <div className="form-control">
           <label
             htmlFor="phone"
@@ -116,6 +119,7 @@ const PaymentForm = ({ closeModal }) => {
             <span className="text-red-600">{errors.phone.message}</span>
           )}
         </div>
+
         <div className="form-control">
           <label
             htmlFor="price"
@@ -136,6 +140,7 @@ const PaymentForm = ({ closeModal }) => {
             <span className="text-red-600">Price is required</span>
           )}
         </div>
+
         <div className="form-control">
           <label
             htmlFor="transactionId"
@@ -153,6 +158,7 @@ const PaymentForm = ({ closeModal }) => {
             <span className="text-red-600">Transaction id is required</span>
           )}
         </div>
+
         <button
           type="submit"
           className="btn btn-info mt-2 w-full text-white text-lg"

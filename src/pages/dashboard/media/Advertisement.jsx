@@ -18,7 +18,7 @@ import PaymentForm from "../../../components/dashboard/media/advertisment/Paymen
 
 const Advertisment = () => {
   let [isOpen, setIsOpen] = useState(false);
-  const [selectedPosition, setSelectedPosition] = useState("");
+
   const { data: allAdvert } = useGetAllAdvertisementQuery();
 
   function closeModal() {
@@ -28,10 +28,6 @@ const Advertisment = () => {
   function openModal() {
     setIsOpen(true);
   }
-
-  const handleChange = (event) => {
-    setSelectedPosition(event.target.value);
-  };
 
   const filteredAdBesideTopLogo = allAdvert?.filter(
     (ad) => ad.position === "beside_top_logo"
@@ -86,47 +82,6 @@ const Advertisment = () => {
 
       <div className="flex flex-col gap-5">
         <div>
-          <h1 className="text-black text-2xl mb-2">Advertisement Position:</h1>
-          <select
-            name=""
-            id=""
-            onChange={handleChange}
-            value={selectedPosition}
-            className="bg-white border border-gray-500 px-3 py-2 text-black w-full md:w-1/2"
-          >
-            <option value="">Select Position...</option>
-            <option value="beside_top_logo"> Beside Top Logo</option>
-            <option value="beside_news_slider_top_right_corner">
-              Beside News Slider Top Right Corner
-            </option>
-            <option value="jatio_category_top_left">
-              Jatio Category Top Left
-            </option>
-            <option value="jatio_category_top_right">
-              Jatio Category Top Right
-            </option>
-            <option value="center_home_page">Center of Home Page</option>
-            <option value="binodon_category_top_left">
-              Binodon Category Top Left
-            </option>
-            <option value="binodon_category_top_right">
-              Binodon Category Top Right
-            </option>
-            <option value="video_section_top_left">
-              Video Section Top Left
-            </option>
-            <option value="video_section_top_right">
-              Video Section Top Right
-            </option>
-            <option value="video_section_bottom_left">
-              Video Section Bottom Left
-            </option>
-            <option value="video_section_bottom_right">
-              Video Section Bottom Right
-            </option>
-          </select>
-        </div>
-        <div>
           <div className="fixed flex items-center justify-center">
             <button
               type="button"
@@ -137,23 +92,9 @@ const Advertisment = () => {
             </button>
           </div>
           <Modal isOpen={isOpen} closeModal={closeModal}>
-            <PaymentForm closeModal={closeModal}/>
+            <PaymentForm closeModal={closeModal} />
           </Modal>
         </div>
-
-        {selectedPosition === "beside_top_logo" && (
-          <div className="flex flex-col gap-4">
-            <Banner240x32 />{" "}
-            <h1 className="text-black text-2xl mb-5">
-              Ad 240 X 32 Collections
-            </h1>
-            {filteredAdBesideTopLogo.length ? (
-              <AdvertisementCollection data={filteredAdBesideTopLogo} />
-            ) : (
-              <p className="text-xl text-black">No data available</p>
-            )}
-          </div>
-        )}
 
         {selectedPosition === "beside_news_slider_top_right_corner" && (
           <div className="flex flex-col gap-4">

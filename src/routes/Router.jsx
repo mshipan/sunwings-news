@@ -30,6 +30,8 @@ import DashboardHome from "../pages/dashboard/dashboardHome/DashboardHome";
 import MyAllPosts from "../pages/dashboard/Posts/MyAllPosts";
 import Notices from "../pages/dashboard/Notices/Notices";
 import NewsPrint from "../components/homePage/NewsPrint/NewsPrint";
+import CreateAnAd from "../pages/dashboard/media/CreateAnAd";
+import ManageAds from "../pages/dashboard/media/ManageAds";
 
 const router = createBrowserRouter([
   {
@@ -97,6 +99,14 @@ const router = createBrowserRouter([
       {
         path: "logo",
         element: <CustomizeLogo />,
+      },
+      {
+        path: "create-ad",
+        element: <CreateAnAd />,
+      },
+      {
+        path: "manage-ads",
+        element: <ManageAds />,
       },
       {
         path: "advertisement",
