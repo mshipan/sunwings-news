@@ -1,7 +1,7 @@
 import { MdDelete } from "react-icons/md";
 import { useDeleteNoticeMutation } from "../../../redux/features/allApis/noticeApi/noticeApi";
-import toast from "react-hot-toast";
 import moment from "moment";
+import Swal from "sweetalert2";
 const NoticeCard = ({ notice }) => {
   const [deleteNotice] = useDeleteNoticeMutation();
 
@@ -32,15 +32,37 @@ const NoticeCard = ({ notice }) => {
   };
 
   // handle notice delete
-  const handleNoticeDelete = async (id) => {
-    try {
-      const result = await deleteNotice(id);
-      if (result.data.deletedCount > 0) {
-        toast.success("Notice has been deleted");
+  const handleNoticeDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteNotice(id)
+          .then((result) => {
+            if (result.data.deletedCount > 0) {
+              Swal.fire({
+                title: "Deleted!",
+                text: "This notice has been deleted.",
+                icon: "success",
+              });
+            }
+          })
+          .catch((error) => {
+            Swal.fire({
+              title: "Failed to delete notice",
+              text: error,
+              icon: "error",
+              confirmButtonText: "OK",
+            });
+          });
       }
-    } catch (error) {
-      toast.error(error.message);
-    }
+    });
   };
   return (
     <div className="bg-white shadow-lg p-4 rounded-lg relative">

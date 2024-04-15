@@ -49,11 +49,13 @@ const TopCards = () => {
   const handleModalClicked = async () => {
     document.getElementById("my_modal_3").showModal();
     // handle open
-    try {
-      const result = await addIsOpened(user?.email);
-      console.log(result.data);
-    } catch (error) {
-      console.log(error.message);
+    if (loggedUser?.role !== "administrator") {
+      try {
+        const result = await addIsOpened(user?.email);
+        console.log(result.data);
+      } catch (error) {
+        console.log(error.message);
+      }
     }
   };
 
@@ -160,7 +162,10 @@ const TopCards = () => {
           <div className="modal-box bg-white">
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}
-              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+              <button
+                className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                onClick={() => document.getElementById("my_modal_3").close()}
+              >
                 ✕
               </button>
             </form>

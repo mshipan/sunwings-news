@@ -30,6 +30,10 @@ import DashboardHome from "../pages/dashboard/dashboardHome/DashboardHome";
 import MyAllPosts from "../pages/dashboard/Posts/MyAllPosts";
 import Notices from "../pages/dashboard/Notices/Notices";
 import NewsPrint from "../components/homePage/NewsPrint/NewsPrint";
+import CreateAnAd from "../pages/dashboard/media/CreateAnAd";
+import ManageAds from "../pages/dashboard/media/ManageAds";
+import AdminRoute from "./AdminRoute";
+import AdminEditorRoute from "./AdminEditorRoute";
 
 const router = createBrowserRouter([
   {
@@ -76,11 +80,19 @@ const router = createBrowserRouter([
       },
       {
         path: "all-posts",
-        element: <AllPosts />,
+        element: (
+          <AdminEditorRoute>
+            <AllPosts />
+          </AdminEditorRoute>
+        ),
       },
       {
         path: "add-new-post",
-        element: <AddNewPost />,
+        element: (
+          <AdminEditorRoute>
+            <AddNewPost />
+          </AdminEditorRoute>
+        ),
       },
       {
         path: "my-all-posts",
@@ -96,7 +108,19 @@ const router = createBrowserRouter([
       },
       {
         path: "logo",
-        element: <CustomizeLogo />,
+        element: (
+          <AdminRoute>
+            <CustomizeLogo />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "create-ad",
+        element: <CreateAnAd />,
+      },
+      {
+        path: "manage-ads",
+        element: <ManageAds />,
       },
       {
         path: "advertisement",
@@ -112,19 +136,35 @@ const router = createBrowserRouter([
       },
       {
         path: "social-profiles",
-        element: <SocialProfiles />,
+        element: (
+          <AdminRoute>
+            <SocialProfiles />
+          </AdminRoute>
+        ),
       },
       {
         path: "body-styles",
-        element: <BodyStyles />,
+        element: (
+          <AdminRoute>
+            <BodyStyles />
+          </AdminRoute>
+        ),
       },
       {
         path: "single-post-styles",
-        element: <SinglePostStyles />,
+        element: (
+          <AdminRoute>
+            <SinglePostStyles />
+          </AdminRoute>
+        ),
       },
       {
         path: "footer-customize",
-        element: <CustomizeFooter />,
+        element: (
+          <AdminRoute>
+            <CustomizeFooter />
+          </AdminRoute>
+        ),
       },
 
       {
@@ -137,15 +177,27 @@ const router = createBrowserRouter([
       },
       {
         path: "all-users",
-        element: <AllUsers />,
+        element: (
+          <AdminRoute>
+            <AllUsers />
+          </AdminRoute>
+        ),
       },
       {
         path: "comments",
-        element: <CommentPage />,
+        element: (
+          <AdminRoute>
+            <CommentPage />
+          </AdminRoute>
+        ),
       },
       {
         path: "notices",
-        element: <Notices />,
+        element: (
+          <AdminRoute>
+            <Notices />
+          </AdminRoute>
+        ),
       },
     ],
   },
