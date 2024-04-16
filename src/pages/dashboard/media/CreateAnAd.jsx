@@ -210,6 +210,7 @@ const CreateAnAd = () => {
         data.createdAt = now;
         data.position = selectedPosition;
         data.link = adLink;
+        data.duration = selectedDuration;
         const response = await uploadAdvertisement(data);
 
         if (response.data.insertedId) {
