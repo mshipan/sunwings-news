@@ -12,7 +12,6 @@ import Home from "../pages/homePage/Home";
 import AllUsers from "../pages/dashboard/Users/AllUsers/AllUsers";
 import SinglePage from "../pages/homePage/SinglePage";
 import CustomizeLogo from "../pages/dashboard/media/CustomizeLogo";
-import Advertisment from "../pages/dashboard/media/Advertisement";
 import SocialProfiles from "../pages/dashboard/themeSettings/socialProfiles/SocialProfiles";
 import SubCategoryNews from "../pages/homePage/SubCategoryNews";
 import UpdatePost from "../pages/dashboard/Posts/UpdatePost";
@@ -34,11 +33,13 @@ import CreateAnAd from "../pages/dashboard/media/CreateAnAd";
 import ManageAds from "../pages/dashboard/media/ManageAds";
 import AdminRoute from "./AdminRoute";
 import AdminEditorRoute from "./AdminEditorRoute";
+import ErrorPage from "../pages/errorPage/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
@@ -121,10 +122,6 @@ const router = createBrowserRouter([
       {
         path: "manage-ads",
         element: <ManageAds />,
-      },
-      {
-        path: "advertisement",
-        element: <Advertisment />,
       },
       {
         path: "photo-gallery",
