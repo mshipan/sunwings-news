@@ -131,7 +131,7 @@ const FooterArea = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/" className="hover:underline ">
+                <Link to="/footer-gallery" className="hover:underline ">
                   ফটোগ্যালারী
                 </Link>
               </li>
