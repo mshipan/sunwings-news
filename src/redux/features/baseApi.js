@@ -22,6 +22,7 @@ const baseApi = createApi({
     "comments",
     "notice",
     "payments",
+    "emailTag",
   ],
   endpoints: () => ({}),
 });
