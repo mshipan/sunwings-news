@@ -7,17 +7,17 @@ import Carousel, { Modal, ModalGateway } from "react-images";
 
 const FooterGallery = () => {
   const { data: images, isLoading } = useGetAllPhotoQuery();
-  const [lightboxIsOpen, setLightboxIsOpen] = useState(false);
+  const [lightBoxIsOpen, setLightBoxIsOpen] = useState(false);
   const [currentImage, setCurrentImage] = useState(0);
 
-  const openLightbox = (index) => {
+  const openLightBox = (index) => {
     setCurrentImage(index);
-    setLightboxIsOpen(true);
+    setLightBoxIsOpen(true);
   };
 
-  const closeLightbox = () => {
+  const closeLightBox = () => {
     setCurrentImage(0);
-    setLightboxIsOpen(false);
+    setLightBoxIsOpen(false);
   };
 
   if (isLoading) {
@@ -50,7 +50,7 @@ const FooterGallery = () => {
             <div
               key={index}
               className="relative cursor-pointer"
-              onClick={() => openLightbox(index)}
+              onClick={() => openLightBox(index)}
             >
               <img
                 src={image.photo}
@@ -67,8 +67,8 @@ const FooterGallery = () => {
         </Masonry>
       </ResponsiveMasonry>
       <ModalGateway>
-        {lightboxIsOpen ? (
-          <Modal onClose={closeLightbox}>
+        {lightBoxIsOpen ? (
+          <Modal onClose={closeLightBox}>
             <div
               style={{
                 display: "flex",

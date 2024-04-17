@@ -61,7 +61,9 @@ const HeaderLogo = () => {
         <Link to={"/category/জাতীয়"}>
           <div className="flex items-center py-3 px-4 hover:bg-[#ffae00]  dropdown-toggle">
             <span className=" select-none mr-2">জাতীয়</span>
-            <IoIosArrowDown className="ml-auto" />
+            {activeCategory === "জাতীয়" && subCategoryItems.length !== 0 && (
+              <IoIosArrowDown className="ml-auto" />
+            )}
           </div>
           {activeCategory === "জাতীয়" && subCategoryItems.length > 0 && (
             <ul className="absolute w-40 top-full left-0 bg-gray-800  rounded-sm py-1 px-2 z-50">
@@ -85,7 +87,9 @@ const HeaderLogo = () => {
         <Link to={"/category/রাজনীতি"}>
           <div className="flex items-center py-3 px-4  hover:bg-[#ffae00]  dropdown-toggle">
             <span className=" select-none mr-2">রাজনীতি</span>
-            <IoIosArrowDown className="ml-auto" />
+            {activeCategory === "রাজনীতি" && subCategoryItems.length !== 0 && (
+              <IoIosArrowDown className="ml-auto" />
+            )}
           </div>
           {activeCategory === "রাজনীতি" && subCategoryItems.length > 0 && (
             <ul className="absolute top-full left-0 bg-gray-800  rounded-sm py-1 px-2 z-50">
@@ -109,7 +113,10 @@ const HeaderLogo = () => {
         <Link to={"/category/আন্তর্জাতিক"}>
           <div className="flex items-center py-3 px-4  hover:bg-[#ffae00]  dropdown-toggle">
             <span className=" select-none mr-2">আন্তর্জাতিক</span>
-            <IoIosArrowDown className="ml-auto" />
+            {activeCategory === "আন্তর্জাতিক" &&
+              subCategoryItems.length !== 0 && (
+                <IoIosArrowDown className="ml-auto" />
+              )}
           </div>
           {activeCategory === "আন্তর্জাতিক" && subCategoryItems.length > 0 && (
             <ul className="absolute top-full left-0 bg-gray-800  rounded-sm py-1 px-2 z-50">
@@ -133,7 +140,9 @@ const HeaderLogo = () => {
         <Link to={"/category/খেলাধুলা"}>
           <div className="flex items-center py-3 px-4  hover:bg-[#ffae00]  dropdown-toggle">
             <span className=" select-none mr-2">খেলাধুলা</span>
-            <IoIosArrowDown className="ml-auto" />
+            {activeCategory === "খেলাধুলা" && subCategoryItems.length !== 0 && (
+              <IoIosArrowDown className="ml-auto" />
+            )}
           </div>
           {activeCategory === "খেলাধুলা" && subCategoryItems.length > 0 && (
             <ul className="absolute top-full left-0 bg-gray-800  rounded-sm py-1 px-2 z-50">
@@ -157,7 +166,9 @@ const HeaderLogo = () => {
         <Link to={"/category/বিনোদন"}>
           <div className="flex items-center py-3 px-4  hover:bg-[#ffae00]  dropdown-toggle">
             <span className=" select-none mr-2">বিনোদন</span>
-            <IoIosArrowDown className="ml-auto" />
+            {activeCategory === "বিনোদন" && subCategoryItems.length !== 0 && (
+              <IoIosArrowDown className="ml-auto" />
+            )}
           </div>
           {activeCategory === "বিনোদন" && subCategoryItems.length > 0 && (
             <ul className="absolute top-full left-0 bg-gray-800  rounded-sm py-1 px-2 z-50">
@@ -181,7 +192,10 @@ const HeaderLogo = () => {
         <Link to={"/category/তথ্যপ্রযুক্তি"}>
           <div className="flex items-center py-3 px-4  hover:bg-[#ffae00]  dropdown-toggle">
             <span className=" select-none mr-2">তথ্যপ্রযুক্তি</span>
-            <IoIosArrowDown className="ml-auto" />
+            {activeCategory === "তথ্যপ্রযুক্তি" &&
+              subCategoryItems.length !== 0 && (
+                <IoIosArrowDown className="ml-auto" />
+              )}
           </div>
           {activeCategory === "তথ্যপ্রযুক্তি" &&
             subCategoryItems.length > 0 && (
@@ -206,7 +220,9 @@ const HeaderLogo = () => {
         <Link to="/category/সারাদেশ">
           <div className="flex items-center py-3 px-4  hover:bg-[#ffae00]  dropdown-toggle">
             <span className=" select-none mr-2">সারাদেশ</span>
-            <IoIosArrowDown className="ml-auto" />
+            {activeCategory === "সারাদেশ" && subCategoryItems.length !== 0 && (
+              <IoIosArrowDown className="ml-auto" />
+            )}
           </div>
           {activeCategory === "সারাদেশ" && subCategoryItems.length > 0 && (
             <ul className="absolute top-full left-0 bg-gray-800  rounded-sm py-1 px-2 z-50">
@@ -230,7 +246,10 @@ const HeaderLogo = () => {
         <Link to={"/category/ক্যাম্পাস"}>
           <div className="flex items-center py-3 px-4  hover:bg-[#ffae00]  dropdown-toggle">
             <span className=" select-none mr-2">ক্যাম্পাস</span>
-            <IoIosArrowDown className="ml-auto" />
+            {activeCategory === "ক্যাম্পাস" &&
+              subCategoryItems.length !== 0 && (
+                <IoIosArrowDown className="ml-auto" />
+              )}
           </div>
           {activeCategory === "ক্যাম্পাস" && subCategoryItems.length > 0 && (
             <ul className="absolute top-full left-0 bg-gray-800  rounded-sm py-1 px-2 z-50">
@@ -254,7 +273,9 @@ const HeaderLogo = () => {
         <Link to={"/category/গণমাধ্যম"}>
           <div className="flex items-center py-3 px-4  hover:bg-[#ffae00]  dropdown-toggle">
             <span className=" select-none mr-2">গণমাধ্যম</span>
-            <IoIosArrowDown className="ml-auto" />
+            {activeCategory === "গণমাধ্যম" && subCategoryItems.length !== 0 && (
+              <IoIosArrowDown className="ml-auto" />
+            )}
           </div>
           {activeCategory === "গণমাধ্যম" && subCategoryItems.length > 0 && (
             <ul className="absolute top-full left-0 bg-gray-800  rounded-sm py-1 px-2 z-50">
@@ -278,7 +299,9 @@ const HeaderLogo = () => {
         <Link to={"/category/আরো"}>
           <div className="flex items-center py-3 px-4  hover:bg-[#ffae00] dropdown-toggle">
             <span className=" select-none mr-2">আরো</span>
-            <IoIosArrowDown className="ml-auto" />
+            {activeCategory === "আরো" && subCategoryItems.length !== 0 && (
+              <IoIosArrowDown className="ml-auto" />
+            )}
           </div>
           {activeCategory === "আরো" && subCategoryItems.length > 0 && (
             <ul className="absolute top-full left-0 bg-gray-800  rounded-sm py-1 px-2 z-50">
