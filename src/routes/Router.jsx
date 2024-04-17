@@ -35,6 +35,8 @@ import AdminRoute from "./AdminRoute";
 import AdminEditorRoute from "./AdminEditorRoute";
 import ErrorPage from "../pages/errorPage/ErrorPage";
 import Support from "../pages/dashboard/support/Support";
+import SetupTutorial from "../pages/dashboard/setupTutorial/SetupTutorial";
+import Documentation from "../pages/dashboard/documentation/Documentation";
 
 const router = createBrowserRouter([
   {
@@ -200,6 +202,14 @@ const router = createBrowserRouter([
       {
         path: "support",
         element: <Support />,
+      },
+      {
+        path: "setup-tutorial",
+        element: <SetupTutorial />,
+      },
+      {
+        path: "documentation",
+        element: <Documentation />,
       },
     ],
   },
