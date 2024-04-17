@@ -67,32 +67,34 @@ const SinglePage = () => {
         >
           {singlePost?.postTitle}
         </h3>
-        <div className="flex flex-row gap-2 items-center">
-          <img
-            src={singlePost?.authorImage}
-            className="rounded-full"
-            style={{
-              width: `${singleTheme?.singlePostAuthorImageSize}px`,
-              height: `${singleTheme?.singlePostAuthorImageSize}px`,
-            }}
-          />
+        <div className="flex flex-row justify-between gap-2 items-center">
+          <div className="flex flex-row gap-2">
+            <img
+              src={singlePost?.authorImage}
+              className="rounded-full"
+              style={{
+                width: `${singleTheme?.singlePostAuthorImageSize}px`,
+                height: `${singleTheme?.singlePostAuthorImageSize}px`,
+              }}
+            />
+            <p
+              style={{
+                fontSize: singleTheme?.singlePostAuthorFontSize,
+                color: singleTheme?.singlePostAuthorFontColor,
+              }}
+            >
+              {singlePost?.author}
+            </p>
+          </div>
           <p
             style={{
-              fontSize: singleTheme?.singlePostAuthorFontSize,
-              color: singleTheme?.singlePostAuthorFontColor,
+              fontSize: `${singlePost?.singlePostPublishDateFontSize}px`,
+              color: singlePost?.singlePostPublishDateFontColor,
             }}
           >
-            {singlePost?.author}
+            {moment(singlePost?.publishDate).format("MMMM Do YYYY, h:mm a ")}
           </p>
         </div>
-        <p
-          style={{
-            fontSize: `${singlePost?.singlePostPublishDateFontSize}px`,
-            color: singlePost?.singlePostPublishDateFontColor,
-          }}
-        >
-          {moment(singlePost?.publishDate).format("MMMM Do YYYY, h:mm a ")}
-        </p>
 
         <p dangerouslySetInnerHTML={{ __html: styledRenderContent }}></p>
         <div className="flex flex-col md:flex-row items-center justify-between">
@@ -122,15 +124,26 @@ const SinglePage = () => {
               <LinkedinIcon size={32} round={true} />
             </LinkedinShareButton>
           </div>
+          {singlePost?.updateAuthor && (
+            <p className="text-xl">
+              নিউজটি আপডেট করেছেন : {singlePost?.updateAuthor}
+            </p>
+          )}
+          <div onClick={handlePrintButton} className="inline-block">
+            <div className="my-2 flex flex-row gap-2 items-center justify-center bg-blue-700 text-white text-xl px-4 py-2">
+              <span>প্রিন্ট করুন : </span>
+              <FaPrint />
+            </div>
+          </div>
+          <CommentSection
+            newsId={singlePost?._id}
+            newsTitle={singlePost?.postTitle}
+          />
         </div>
-        <CommentSection
-          newsId={singlePost?._id}
-          newsTitle={singlePost?.postTitle}
-        />
-      </div>
-      <div className="md:w-1/6 order-3">
-        <CategoryTitle title={"আলোচিত সংবাদ"} />
-        <SinglePageRight />
+        <div className="md:w-1/6 order-3">
+          <CategoryTitle title={"আলোচিত সংবাদ"} />
+          <SinglePageRight />
+        </div>
       </div>
     </div>
   );
