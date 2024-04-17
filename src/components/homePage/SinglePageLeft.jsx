@@ -3,11 +3,11 @@ import { useGetPostsQuery } from "../../redux/features/allApis/postApi/postApi";
 import { useGetBodyThemeQuery } from "../../redux/features/allApis/bodyThemeApi/bodyThemeApi";
 
 const SinglePageLeft = () => {
-  const { data: posts, isLoading } = useGetPostsQuery("");
-  const slicedPosts = posts?.slice(0, 4);
+  const { data, isLoading } = useGetPostsQuery("");
   const { data: bodyThemes } = useGetBodyThemeQuery();
   const singleTheme = bodyThemes?.[0];
-  // console.log(slicedPosts);
+  const posts = data?.filter((post) => post?.status === "published");
+  const slicedPosts = posts?.slice(0, 4);
   if (isLoading) {
     return <div>Loading...</div>;
   }

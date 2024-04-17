@@ -34,6 +34,7 @@ import ManageAds from "../pages/dashboard/media/ManageAds";
 import AdminRoute from "./AdminRoute";
 import AdminEditorRoute from "./AdminEditorRoute";
 import ErrorPage from "../pages/errorPage/ErrorPage";
+import FooterGallery from "../pages/homePage/FooterGallery";
 import Support from "../pages/dashboard/support/Support";
 import SetupTutorial from "../pages/dashboard/setupTutorial/SetupTutorial";
 import Documentation from "../pages/dashboard/documentation/Documentation";
@@ -216,6 +217,10 @@ const router = createBrowserRouter([
   {
     path: "/print-news/:id",
     element: <NewsPrint />,
+  },
+  {
+    path: "/footer-gallery",
+    element: <FooterGallery />,
   },
   {
     path: "/login",
