@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { FaUserTie } from "react-icons/fa";
 import { IoIosCloseCircleOutline } from "react-icons/io";
+import { IoDocumentTextOutline } from "react-icons/io5";
 import { LiaCommentSolid } from "react-icons/lia";
 import {
   MdCompost,
@@ -10,6 +11,8 @@ import {
 import { TiHomeOutline } from "react-icons/ti";
 import { GoAlertFill } from "react-icons/go";
 import { VscFileMedia } from "react-icons/vsc";
+import { BiSupport } from "react-icons/bi";
+import { PiVideoFill } from "react-icons/pi";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useGetUserByUidQuery } from "../../redux/features/allApis/usersApi/usersApi";
@@ -351,6 +354,45 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
               >
                 <GoAlertFill className="ri-instance-line mr-3 text-lg" />
                 <span className="text-sm select-none">Notices</span>
+              </Link>
+            </li>
+          )}
+          {(loggedUser?.role === "administrator" ||
+            loggedUser?.role === "journalist" ||
+            loggedUser?.role === "editor") && (
+            <li className="mb-1 group">
+              <Link
+                to="/dashboard/support"
+                className="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md    sidebar-dropdown-toggle"
+              >
+                <BiSupport className="ri-instance-line mr-3 text-lg" />
+                <span className="text-sm select-none">Support</span>
+              </Link>
+            </li>
+          )}
+          {(loggedUser?.role === "administrator" ||
+            loggedUser?.role === "journalist" ||
+            loggedUser?.role === "editor") && (
+            <li className="mb-1 group">
+              <Link
+                to="/dashboard/setup-tutorial"
+                className="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md    sidebar-dropdown-toggle"
+              >
+                <PiVideoFill className="ri-instance-line mr-3 text-lg" />
+                <span className="text-sm select-none">Setup Tutorial</span>
+              </Link>
+            </li>
+          )}
+          {(loggedUser?.role === "administrator" ||
+            loggedUser?.role === "journalist" ||
+            loggedUser?.role === "editor") && (
+            <li className="mb-1 group">
+              <Link
+                to="/dashboard/documentation"
+                className="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 hover:text-gray-100 rounded-md    sidebar-dropdown-toggle"
+              >
+                <IoDocumentTextOutline className="ri-instance-line mr-3 text-lg" />
+                <span className="text-sm select-none">Documentation</span>
               </Link>
             </li>
           )}
