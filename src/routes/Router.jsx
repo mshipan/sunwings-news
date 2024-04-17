@@ -27,6 +27,7 @@ import CommentPage from "../pages/dashboard/CommentPage/CommentPage";
 import SinglePostStyles from "../pages/dashboard/themeSettings/singlePostStyles/SinglePostStyles";
 import DashboardHome from "../pages/dashboard/dashboardHome/DashboardHome";
 import MyAllPosts from "../pages/dashboard/Posts/MyAllPosts";
+import AboutUs from "../pages/aboutUs/AboutUs";
 import Notices from "../pages/dashboard/Notices/Notices";
 import NewsPrint from "../components/homePage/NewsPrint/NewsPrint";
 import CreateAnAd from "../pages/dashboard/media/CreateAnAd";
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
       {
         path: "/searched-page",
         element: <SearchedNewspage />,
+      },
+      {
+        path: "/about-us",
+        element: <AboutUs />,
       },
     ],
   },

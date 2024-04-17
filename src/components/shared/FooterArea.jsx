@@ -116,7 +116,7 @@ const FooterArea = () => {
             </h1>
             <ul className="flex flex-col gap-2">
               <li>
-                <Link to="/" className="hover:underline">
+                <Link to="/about-us" className="hover:underline">
                   আমাদের সম্পর্কে
                 </Link>
               </li>
