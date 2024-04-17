@@ -97,53 +97,52 @@ const SinglePage = () => {
         </div>
 
         <p dangerouslySetInnerHTML={{ __html: styledRenderContent }}></p>
-        <div className="flex flex-col md:flex-row items-center justify-between">
-          <div onClick={handlePrintButton} className="inline-block">
-            <div className="my-2 flex flex-row gap-2 items-center justify-center bg-blue-700 text-white text-xl px-4 py-2">
-              <span>প্রিন্ট করুন : </span>
-              <FaPrint />
+        <div className="flex flex-col items-center justify-between w-full">
+          <div className="flex flex-row items-center justify-between w-full">
+            <div onClick={handlePrintButton} className="inline-block">
+              <div className="my-2 flex flex-row gap-2 items-center justify-center bg-blue-700 text-white text-xl px-4 py-2">
+                <span>প্রিন্ট করুন : </span>
+                <FaPrint />
+              </div>
+            </div>
+
+            <div className="flex flex-row items-center gap-2">
+              <div>
+                <p className="text-lg text-black">Share To: </p>
+              </div>
+              <FacebookShareButton
+                url={`${import.meta.env.VITE_SITE_URL}/posts/${id}`}
+              >
+                <FacebookIcon size={32} round={true} />
+              </FacebookShareButton>
+              <TwitterShareButton
+                url={`${import.meta.env.VITE_SITE_URL}/posts/${id}`}
+              >
+                <TwitterIcon size={32} round={true} />
+              </TwitterShareButton>
+              <LinkedinShareButton
+                url={`${import.meta.env.VITE_SITE_URL}/posts/${id}`}
+              >
+                <LinkedinIcon size={32} round={true} />
+              </LinkedinShareButton>
             </div>
           </div>
-          <div className="flex flex-row items-center gap-2">
-            <div>
-              <p className="text-lg text-black">Share To: </p>
-            </div>
-            <FacebookShareButton
-              url={`${import.meta.env.VITE_SITE_URL}/posts/${id}`}
-            >
-              <FacebookIcon size={32} round={true} />
-            </FacebookShareButton>
-            <TwitterShareButton
-              url={`${import.meta.env.VITE_SITE_URL}/posts/${id}`}
-            >
-              <TwitterIcon size={32} round={true} />
-            </TwitterShareButton>
-            <LinkedinShareButton
-              url={`${import.meta.env.VITE_SITE_URL}/posts/${id}`}
-            >
-              <LinkedinIcon size={32} round={true} />
-            </LinkedinShareButton>
-          </div>
+
           {singlePost?.updateAuthor && (
             <p className="text-xl">
               নিউজটি আপডেট করেছেন : {singlePost?.updateAuthor}
             </p>
           )}
-          <div onClick={handlePrintButton} className="inline-block">
-            <div className="my-2 flex flex-row gap-2 items-center justify-center bg-blue-700 text-white text-xl px-4 py-2">
-              <span>প্রিন্ট করুন : </span>
-              <FaPrint />
-            </div>
-          </div>
+
           <CommentSection
             newsId={singlePost?._id}
             newsTitle={singlePost?.postTitle}
           />
         </div>
-        <div className="md:w-1/6 order-3">
-          <CategoryTitle title={"আলোচিত সংবাদ"} />
-          <SinglePageRight />
-        </div>
+      </div>
+      <div className="md:w-1/6 order-3">
+        <CategoryTitle title={"আলোচিত সংবাদ"} />
+        <SinglePageRight />
       </div>
     </div>
   );

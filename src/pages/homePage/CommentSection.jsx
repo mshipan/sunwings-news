@@ -81,7 +81,7 @@ const CommentSection = ({ newsId, newsTitle }) => {
 
   //
   return (
-    <div>
+    <div className="w-full">
       <p className="py-4 text-xl">কমেন্ট বক্স </p>
       <hr />
       <div className="flex flex-row justify-between items-center py-4">
