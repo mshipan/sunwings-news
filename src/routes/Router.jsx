@@ -34,6 +34,7 @@ import ManageAds from "../pages/dashboard/media/ManageAds";
 import AdminRoute from "./AdminRoute";
 import AdminEditorRoute from "./AdminEditorRoute";
 import ErrorPage from "../pages/errorPage/ErrorPage";
+import Support from "../pages/dashboard/support/Support";
 
 const router = createBrowserRouter([
   {
@@ -195,6 +196,10 @@ const router = createBrowserRouter([
             <Notices />
           </AdminRoute>
         ),
+      },
+      {
+        path: "support",
+        element: <Support />,
       },
     ],
   },
