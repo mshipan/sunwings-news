@@ -86,7 +86,6 @@ const AllPosts = () => {
   };
 
   const handleStatus = () => {
-    console.log(selectedId);
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",

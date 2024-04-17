@@ -41,7 +41,7 @@ const BannerBinodonTopRight = () => {
       if (image) {
         setLoading(true);
         const imageData = await imageUpload(image);
-        data.banner = imageData.data.display_url;
+        data.banner = imageData.data.url;
         data.createdAt = now;
         data.position = "binodon_category_top_right";
         data.link = adLink;

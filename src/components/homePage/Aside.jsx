@@ -24,7 +24,7 @@ const Aside = ({ setDate }) => {
     setDate(date);
   };
 
-  const adBesideTopLogo = allAds
+  const adBesideNewsSwiper = allAds
     ? allAds.find(
         (ad) =>
           ad.isSelected === true &&
@@ -35,10 +35,10 @@ const Aside = ({ setDate }) => {
   return (
     <div className="flex-none xl:w-72 text-white">
       <div className="grid grid-cols-2 md:grid-cols-1 lg:max-xl:grid-cols-4 md:max-lg:grid-cols-4 content-between gap-4">
-        {adBesideTopLogo ? (
-          <Link to={adBesideTopLogo?.link ? adBesideTopLogo?.link : null}>
+        {adBesideNewsSwiper ? (
+          <Link to={adBesideNewsSwiper?.link ? adBesideNewsSwiper?.link : null}>
             <img
-              src={adBesideTopLogo?.banner}
+              src={adBesideNewsSwiper?.banner}
               alt="Advertisement"
               className="w-full"
             />

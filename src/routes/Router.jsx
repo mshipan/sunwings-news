@@ -12,7 +12,6 @@ import Home from "../pages/homePage/Home";
 import AllUsers from "../pages/dashboard/Users/AllUsers/AllUsers";
 import SinglePage from "../pages/homePage/SinglePage";
 import CustomizeLogo from "../pages/dashboard/media/CustomizeLogo";
-import Advertisment from "../pages/dashboard/media/Advertisement";
 import SocialProfiles from "../pages/dashboard/themeSettings/socialProfiles/SocialProfiles";
 import SubCategoryNews from "../pages/homePage/SubCategoryNews";
 import UpdatePost from "../pages/dashboard/Posts/UpdatePost";
@@ -29,11 +28,22 @@ import SinglePostStyles from "../pages/dashboard/themeSettings/singlePostStyles/
 import DashboardHome from "../pages/dashboard/dashboardHome/DashboardHome";
 import MyAllPosts from "../pages/dashboard/Posts/MyAllPosts";
 import AboutUs from "../pages/aboutUs/AboutUs";
+import Notices from "../pages/dashboard/Notices/Notices";
+import NewsPrint from "../components/homePage/NewsPrint/NewsPrint";
+import CreateAnAd from "../pages/dashboard/media/CreateAnAd";
+import ManageAds from "../pages/dashboard/media/ManageAds";
+import AdminRoute from "./AdminRoute";
+import AdminEditorRoute from "./AdminEditorRoute";
+import ErrorPage from "../pages/errorPage/ErrorPage";
+import Support from "../pages/dashboard/support/Support";
+import SetupTutorial from "../pages/dashboard/setupTutorial/SetupTutorial";
+import Documentation from "../pages/dashboard/documentation/Documentation";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
@@ -79,11 +89,19 @@ const router = createBrowserRouter([
       },
       {
         path: "all-posts",
-        element: <AllPosts />,
+        element: (
+          <AdminEditorRoute>
+            <AllPosts />
+          </AdminEditorRoute>
+        ),
       },
       {
         path: "add-new-post",
-        element: <AddNewPost />,
+        element: (
+          <AdminEditorRoute>
+            <AddNewPost />
+          </AdminEditorRoute>
+        ),
       },
       {
         path: "my-all-posts",
@@ -99,11 +117,19 @@ const router = createBrowserRouter([
       },
       {
         path: "logo",
-        element: <CustomizeLogo />,
+        element: (
+          <AdminRoute>
+            <CustomizeLogo />
+          </AdminRoute>
+        ),
       },
       {
-        path: "advertisement",
-        element: <Advertisment />,
+        path: "create-ad",
+        element: <CreateAnAd />,
+      },
+      {
+        path: "manage-ads",
+        element: <ManageAds />,
       },
       {
         path: "photo-gallery",
@@ -115,19 +141,35 @@ const router = createBrowserRouter([
       },
       {
         path: "social-profiles",
-        element: <SocialProfiles />,
+        element: (
+          <AdminRoute>
+            <SocialProfiles />
+          </AdminRoute>
+        ),
       },
       {
         path: "body-styles",
-        element: <BodyStyles />,
+        element: (
+          <AdminRoute>
+            <BodyStyles />
+          </AdminRoute>
+        ),
       },
       {
         path: "single-post-styles",
-        element: <SinglePostStyles />,
+        element: (
+          <AdminRoute>
+            <SinglePostStyles />
+          </AdminRoute>
+        ),
       },
       {
         path: "footer-customize",
-        element: <CustomizeFooter />,
+        element: (
+          <AdminRoute>
+            <CustomizeFooter />
+          </AdminRoute>
+        ),
       },
 
       {
@@ -140,13 +182,45 @@ const router = createBrowserRouter([
       },
       {
         path: "all-users",
-        element: <AllUsers />,
+        element: (
+          <AdminRoute>
+            <AllUsers />
+          </AdminRoute>
+        ),
       },
       {
         path: "comments",
-        element: <CommentPage />,
+        element: (
+          <AdminRoute>
+            <CommentPage />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "notices",
+        element: (
+          <AdminRoute>
+            <Notices />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "support",
+        element: <Support />,
+      },
+      {
+        path: "setup-tutorial",
+        element: <SetupTutorial />,
+      },
+      {
+        path: "documentation",
+        element: <Documentation />,
       },
     ],
+  },
+  {
+    path: "/print-news/:id",
+    element: <NewsPrint />,
   },
   {
     path: "/login",

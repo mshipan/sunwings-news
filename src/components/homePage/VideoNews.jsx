@@ -18,7 +18,7 @@ import { MdLiveTv } from "react-icons/md";
 const VideoNews = () => {
   const [clickedVideo, setClickedVideo] = useState(null);
   const { data: allVideos } = useGetAllVideoQuery();
-  const firstVideo = allVideos?.[0];
+
   const handleVideo = async (vid) => {
     setClickedVideo(vid);
     document.getElementById("my_modal_3").showModal();
@@ -51,6 +51,9 @@ const VideoNews = () => {
     },
   };
 
+  const liveTv = allVideos?.filter((video) => video.category === "liveTv");
+  const showLiveTv = liveTv?.filter((video) => video.isSelected === true);
+
   const newsData = allVideos?.filter((video) => video.category === "news");
   const entertainmentData = allVideos?.filter(
     (video) => video.category === "entertainment"
@@ -73,20 +76,28 @@ const VideoNews = () => {
             </div>
           </div>
 
-          <div className="relative">
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-8">
-              <FaCirclePlay
-                onClick={() => handleVideo(firstVideo)}
-                className="text-5xl text-orange-600 border-2 border-white rounded-full bg-white cursor-pointer"
+          {showLiveTv?.[0] ? (
+            <div className="relative">
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-8">
+                <FaCirclePlay
+                  onClick={() => handleVideo(showLiveTv?.[0])}
+                  className="text-5xl text-orange-600 border-2 border-white rounded-full bg-white cursor-pointer"
+                />
+              </div>
+
+              <img
+                src={showLiveTv?.[0]?.thumbnail}
+                alt="Gallery Image"
+                className="w-full"
               />
             </div>
-
-            <img
-              src={firstVideo?.thumbnail}
-              alt="Gallery Image"
-              className="w-full"
-            />
-          </div>
+          ) : (
+            <div className="flex items-center justify-center h-full w-full">
+              <p className="text-lg font-mono italic">
+                *** No Live TV / video Streaming Now ***
+              </p>
+            </div>
+          )}
         </div>
         <div className="p-6 w-full md:w-full lg:w-1/2">
           <Tabs>
@@ -103,121 +114,154 @@ const VideoNews = () => {
             </TabList>
 
             <TabPanel className="mt-5">
-              <div className="max-w-3xl">
-                <Swiper
-                  breakpoints={breakpoints}
-                  spaceBetween={30}
-                  autoplay={{
-                    delay: 2500,
-                    disableOnInteraction: false,
-                  }}
-                  freeMode={true}
-                  pagination={{
-                    clickable: true,
-                  }}
-                  navigation={true}
-                  loop={true}
-                  modules={[Autoplay, FreeMode, Navigation, Pagination]}
-                  className="mySwiper h-72 lg:h-60 xl:h-80 2xl:h-96"
-                >
-                  {newsData?.map((vid) => (
-                    <SwiperSlide key={vid?._id}>
-                      <div key={vid?._id} className="relative">
-                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-8">
-                          <FaCirclePlay
-                            onClick={() => handleVideo(vid)}
-                            className="text-5xl text-orange-600 border-2 border-white rounded-full bg-white cursor-pointer"
-                          />
-                        </div>
+              {newsData?.filter((video) => video.isSelected)?.length > 0 ? (
+                <div className="max-w-3xl">
+                  <Swiper
+                    breakpoints={breakpoints}
+                    spaceBetween={30}
+                    autoplay={{
+                      delay: 2500,
+                      disableOnInteraction: false,
+                    }}
+                    freeMode={true}
+                    pagination={{
+                      clickable: true,
+                    }}
+                    navigation={true}
+                    loop={true}
+                    modules={[Autoplay, FreeMode, Navigation, Pagination]}
+                    className="mySwiper h-72 lg:h-60 xl:h-80 2xl:h-96"
+                  >
+                    {newsData
+                      ?.filter((video) => video.isSelected)
+                      ?.map((vid) => (
+                        <SwiperSlide key={vid?._id}>
+                          <div key={vid?._id} className="relative">
+                            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-8">
+                              <FaCirclePlay
+                                onClick={() => handleVideo(vid)}
+                                className="text-5xl text-orange-600 border-2 border-white rounded-full bg-white cursor-pointer"
+                              />
+                            </div>
 
-                        <img
-                          src={vid?.thumbnail}
-                          alt="Gallery Image"
-                          className="w-full"
-                        />
-                      </div>
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-              </div>
+                            <img
+                              src={vid?.thumbnail}
+                              alt="Gallery Image"
+                              className="w-full"
+                            />
+                          </div>
+                        </SwiperSlide>
+                      ))}
+                  </Swiper>
+                </div>
+              ) : (
+                <div className="flex items-center justify-center h-72 lg:h-60 xl:h-80 2xl:h-96">
+                  <p className="text-lg font-mono italic">
+                    *** No data available ***
+                  </p>
+                </div>
+              )}
             </TabPanel>
-            <TabPanel>
-              <div className="max-w-3xl">
-                <Swiper
-                  breakpoints={breakpoints}
-                  spaceBetween={30}
-                  autoplay={{
-                    delay: 2500,
-                    disableOnInteraction: false,
-                  }}
-                  freeMode={true}
-                  pagination={{
-                    clickable: true,
-                  }}
-                  navigation={true}
-                  loop={true}
-                  modules={[Autoplay, FreeMode, Navigation, Pagination]}
-                  className="mySwiper h-72 lg:h-60 xl:h-80 2xl:h-96"
-                >
-                  {entertainmentData?.map((vid) => (
-                    <SwiperSlide key={vid?._id}>
-                      <div key={vid?._id} className="relative">
-                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-8">
-                          <FaCirclePlay
-                            onClick={() => handleVideo(vid)}
-                            className="text-5xl text-orange-600 border-2 border-white rounded-full bg-white cursor-pointer"
-                          />
-                        </div>
 
-                        <img
-                          src={vid?.thumbnail}
-                          alt="Gallery Image"
-                          className="w-full"
-                        />
-                      </div>
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-              </div>
+            <TabPanel className="mt-5">
+              {entertainmentData?.filter((video) => video.isSelected)?.length >
+              0 ? (
+                <div className="max-w-3xl">
+                  <Swiper
+                    breakpoints={breakpoints}
+                    spaceBetween={30}
+                    autoplay={{
+                      delay: 2500,
+                      disableOnInteraction: false,
+                    }}
+                    freeMode={true}
+                    pagination={{
+                      clickable: true,
+                    }}
+                    navigation={true}
+                    loop={true}
+                    modules={[Autoplay, FreeMode, Navigation, Pagination]}
+                    className="mySwiper h-72 lg:h-60 xl:h-80 2xl:h-96"
+                  >
+                    {entertainmentData
+                      ?.filter((video) => video.isSelected)
+                      ?.map((vid) => (
+                        <SwiperSlide key={vid?._id}>
+                          <div key={vid?._id} className="relative">
+                            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-8">
+                              <FaCirclePlay
+                                onClick={() => handleVideo(vid)}
+                                className="text-5xl text-orange-600 border-2 border-white rounded-full bg-white cursor-pointer"
+                              />
+                            </div>
+
+                            <img
+                              src={vid?.thumbnail}
+                              alt="Gallery Image"
+                              className="w-full"
+                            />
+                          </div>
+                        </SwiperSlide>
+                      ))}
+                  </Swiper>
+                </div>
+              ) : (
+                <div className="flex items-center justify-center h-72 lg:h-60 xl:h-80 2xl:h-96">
+                  <p className="text-lg font-mono italic">
+                    *** No data available ***
+                  </p>
+                </div>
+              )}
             </TabPanel>
-            <TabPanel>
-              <div className="max-w-3xl">
-                <Swiper
-                  breakpoints={breakpoints}
-                  spaceBetween={30}
-                  autoplay={{
-                    delay: 2500,
-                    disableOnInteraction: false,
-                  }}
-                  freeMode={true}
-                  pagination={{
-                    clickable: true,
-                  }}
-                  navigation={true}
-                  loop={true}
-                  modules={[Autoplay, FreeMode, Navigation, Pagination]}
-                  className="mySwiper h-72 lg:h-60 xl:h-80 2xl:h-96"
-                >
-                  {talkShowData?.map((vid) => (
-                    <SwiperSlide key={vid?._id}>
-                      <div key={vid?._id} className="relative">
-                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-8">
-                          <FaCirclePlay
-                            onClick={() => handleVideo(vid)}
-                            className="text-5xl text-orange-600 border-2 border-white rounded-full bg-white cursor-pointer"
-                          />
-                        </div>
 
-                        <img
-                          src={vid?.thumbnail}
-                          alt="Gallery Image"
-                          className="w-full"
-                        />
-                      </div>
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-              </div>
+            <TabPanel className="mt-5">
+              {talkShowData?.filter((video) => video.isSelected)?.length > 0 ? (
+                <div className="max-w-3xl">
+                  <Swiper
+                    breakpoints={breakpoints}
+                    spaceBetween={30}
+                    autoplay={{
+                      delay: 2500,
+                      disableOnInteraction: false,
+                    }}
+                    freeMode={true}
+                    pagination={{
+                      clickable: true,
+                    }}
+                    navigation={true}
+                    loop={true}
+                    modules={[Autoplay, FreeMode, Navigation, Pagination]}
+                    className="mySwiper h-72 lg:h-60 xl:h-80 2xl:h-96"
+                  >
+                    {talkShowData
+                      ?.filter((video) => video.isSelected)
+                      ?.map((vid) => (
+                        <SwiperSlide key={vid?._id}>
+                          <div key={vid?._id} className="relative">
+                            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-8">
+                              <FaCirclePlay
+                                onClick={() => handleVideo(vid)}
+                                className="text-5xl text-orange-600 border-2 border-white rounded-full bg-white cursor-pointer"
+                              />
+                            </div>
+
+                            <img
+                              src={vid?.thumbnail}
+                              alt="Gallery Image"
+                              className="w-full"
+                            />
+                          </div>
+                        </SwiperSlide>
+                      ))}
+                  </Swiper>
+                </div>
+              ) : (
+                <div className="flex items-center justify-center h-72 lg:h-60 xl:h-80 2xl:h-96">
+                  <p className="text-lg font-mono italic">
+                    *** No data available ***
+                  </p>
+                </div>
+              )}
             </TabPanel>
           </Tabs>
         </div>
@@ -233,14 +277,25 @@ const VideoNews = () => {
           </form>
           {/* modal content  */}
           <div>
-            <iframe
-              src={clickedVideo?.link.replace(
-                "https://youtu.be/",
-                "https://www.youtube.com/embed/"
-              )}
-              frameBorder="0"
-              className="w-full h-96"
-            ></iframe>
+            {clickedVideo?.category !== "liveTv" ? (
+              <iframe
+                src={clickedVideo?.link.replace(
+                  "https://youtu.be/",
+                  "https://www.youtube.com/embed/"
+                )}
+                frameBorder="0"
+                className="w-full h-96"
+              ></iframe>
+            ) : (
+              <iframe
+                src={clickedVideo?.liveLink.replace(
+                  "https://www.youtube.com/live/",
+                  "https://www.youtube.com/embed/"
+                )}
+                frameBorder="0"
+                className="w-full h-96"
+              ></iframe>
+            )}
           </div>
         </div>
       </dialog>
